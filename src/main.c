@@ -1,5 +1,5 @@
 #include "include/file.h"
-
+#include "include/token.h"
 int main(int argc, char **argv)
 {
     char *filename;
@@ -17,4 +17,6 @@ int main(int argc, char **argv)
         return 1;
     puts(file->contents);
     free(file);
+    tkn_t token = tkn_make(pos_make(1, 1, filename), TokenTypeIdentifier, "x");
+    tkn_dump(&token); 
 }
