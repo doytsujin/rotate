@@ -7,7 +7,8 @@ int main(int argc, char **argv)
     if (argc > 1)
     {
         filename = argv[1];
-    } else 
+    }
+    else
     {
         filename = "test.vr";
     }

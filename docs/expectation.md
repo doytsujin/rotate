@@ -73,7 +73,9 @@ fn example() -> s {
     return "Hello World";
 }
 ```
+
 example of a function that returned a string
+
 ---
 ## Imports 
  ```c
