@@ -3,7 +3,7 @@ project(rotate VERSION 0.1.0)
 
 include(CTest)
 enable_testing()
-include_directories(src)
+include_directories(src src/include)
 add_executable(rotate src/main.c)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})

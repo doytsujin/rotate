@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     if (!file)
     {
         perror("fopen");
-        return 1;
+        return EXIT_FAILURE;
     }
 
     // Calculate the file length
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     if (fread(buffer, sizeof(char), length, file) != length)
     {
         perror("fread");
-        return 1;
+        return EXIT_FAILURE;
     }
     buffer[length] = 0;
     // Close the file
@@ -39,5 +39,5 @@ int main(int argc, char **argv)
     puts(buffer);
     // Free the buffer
     free(buffer);
-    return 0;
+    return EXIT_SUCCESS;
 }
