@@ -6,6 +6,7 @@
 
 typedef struct
 {
+    const char *name;
     size_t length;
     char contents[];
 } file_t;
