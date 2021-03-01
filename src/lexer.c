@@ -78,12 +78,62 @@ static void lexer_single(lexer_t *lexer)
     case ';':
         lexer_tkn(lexer, TknTypeSemiColon, 1);
         break;
+    case '\n':
+        lexer_tkn(lexer, TknTypeNewline, 1);
+        break;
+    case '+':
+        lexer_tkn(lexer, TknTypePLUS, 1);
+        break;
+    case '-':
+        lexer_tkn(lexer, TknTypeMINUS, 1);
+        break;
+    case '*':
+        lexer_tkn(lexer, TknTypeMULTY, 1);
+        break;
+    case '/':
+        lexer_tkn(lexer, TknTypeDIV, 1);
+        break;
+    case '(':
+        lexer_tkn(lexer, TknTypeLeftParen, 1);
+        break;
+    case ')':
+        lexer_tkn(lexer, TknTypeRightParen, 1);
+        break;
+    case '{':
+        lexer_tkn(lexer, TknTypeLeftCurly, 1);
+        break;
+    case '}':
+        lexer_tkn(lexer, TknTypeRightCurly, 1);
+        break;
+    case '[':
+        lexer_tkn(lexer, TknTypeLeftSQRBrackets, 1);
+        break;
+    case ']':
+        lexer_tkn(lexer, TknTypeRightSQRBrackets, 1);
+        break;
+    case 'r':
+        if (match("return"))
+        {
+            rewind(6);
+            lexer_tkn(lexer, TknTypeReturn, 6);
+        }
+        break;
     case 'f':
     {
         if (match("fn"))
         {
             rewind(2);
             lexer_tkn(lexer, TknTypeFunction, 2);
+        }
+        else if (match("for"))
+        {
+            rewind(3);
+            lexer_tkn(lexer, TknTypeFor, 3);
+        }
+        else if (match("foreach"))
+        {
+            rewind(7);
+            lexer_tkn(lexer, TknTypeForEach, 7);
         }
         break;
     }
@@ -94,7 +144,28 @@ static void lexer_single(lexer_t *lexer)
             rewind(6);
             lexer_tkn(lexer, TknTypeImport, 6);
         }
+        else if (match("if"))
+        {
+            rewind(2);
+            lexer_tkn(lexer, TknTypeIf, 2);
+        }
         break;
+    }
+    case 'e':
+    {
+        if (match("else"))
+        {
+            rewind(4);
+            lexer_tkn(lexer, TknTypeElse, 4);
+        }
+    }
+    case 'w':
+    {
+        if (match("while"))
+        {
+            rewind(5);
+            lexer_tkn(lexer, TknTypeWhile, 5);
+        }
     }
     default:
         next();
