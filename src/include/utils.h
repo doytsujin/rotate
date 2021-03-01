@@ -3,6 +3,6 @@
 
 #include <stddef.h>
 
-char *util_strndup(const char *start, size_t length);
+char *utils_strndup(const char *start, size_t length);
 
 #endif

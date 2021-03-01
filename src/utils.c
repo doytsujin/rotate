@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *util_strndup(const char *start, size_t length)
+char *utils_strndup(const char *start, size_t length)
 {
     char *buffer = malloc(length + 1);
     memcpy(buffer, start, length);

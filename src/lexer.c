@@ -1,5 +1,6 @@
 #include "include/lexer.h"
 #include "include/utils.h"
+#include "include/vec.h"
 #include <ctype.h>
 #include <stdbool.h>
 
@@ -158,6 +159,7 @@ static void lexer_single(lexer_t *lexer)
             rewind(4);
             lexer_tkn(lexer, TknTypeElse, 4);
         }
+        break;
     }
     case 'w':
     {
@@ -166,6 +168,7 @@ static void lexer_single(lexer_t *lexer)
             rewind(5);
             lexer_tkn(lexer, TknTypeWhile, 5);
         }
+        break;
     }
     default:
         next();
@@ -178,5 +181,5 @@ void tokens_free(vec(tkn_t) tkns)
     {
         free(tkn_ptr->value);
     }
-    vec_free(tkns);
+    free_vec(tkns);
 }
