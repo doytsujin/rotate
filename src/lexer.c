@@ -66,7 +66,7 @@ static void lexer_tkn(lexer_t *lexer, tkn_type_t type, size_t length)
     vec_push(lexer->output, token);
 }
 
-static void lexer_single(lexer_t *lexer)
+static int lexer_single(lexer_t *lexer)
 {
     switch (current())
     {
@@ -171,8 +171,9 @@ static void lexer_single(lexer_t *lexer)
         break;
     }
     default:
-        next();
+      return -1;
     }
+    return 1;
 }
 
 void tokens_free(vec(tkn_t) tkns)
@@ -182,4 +183,17 @@ void tokens_free(vec(tkn_t) tkns)
         free(tkn_ptr->value);
     }
     free_vec(tkns);
+}
+
+
+vec(tkn_t) lexer_lex(lexer_t* lexer) {
+    lexer->index = 0;
+    lexer->line = 1;
+    lexer->col = 1;
+    while (lexer->index < lexer->input->length) { 
+        if (lexer_single(lexer) < 0) {
+          break;
+        }
+    }
+    return lexer->output;
 }
