@@ -1,5 +1,5 @@
 c:
-	gcc -g -o a -Wall -Wextra  *.c -gnu99
+	gcc -g -o a -Wall -Wextra  *.c 
 r:
 	./a
 
