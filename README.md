@@ -1,7 +1,9 @@
 # Rotate Programming language
 
  Work in progress 
-
+ 
+ NOT WORKING AT THE MOMENT
+ 
  to see current plan check docs/expectation.md
 
 
