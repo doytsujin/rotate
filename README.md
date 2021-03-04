@@ -2,9 +2,9 @@
 
  Work in progress 
  
- NOT WORKING AT THE MOMENT
+ ## UNUSABLE -  NOT WORKING AT THE MOMENT
  
- to see current plan check docs/expectation.md
+ to see current plan check (no promises) docs/expectation.md
 
 
 
