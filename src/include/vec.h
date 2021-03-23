@@ -1,4 +1,4 @@
-// vector.h: A C macro dynamic-array library.
+// vec.h: A C macro dynamic-array library.
 // Copyright (C) 2021 Ethan Uppal
 //
 // This program is free software: you can redistribute it and/or modify

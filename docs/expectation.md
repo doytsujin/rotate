@@ -5,7 +5,7 @@
 1. High performance (native support)
 1. Low learning curve
 1. Cross-platform support (Linux , Windows, Mac(later))
-1. [vr] file extension
+1. [.vr] file extension
 1. can use C headers or have JNI support (later)
 1. safety (later)
 1. convert to Ts/Js/Wasm (later)
@@ -27,6 +27,7 @@ log("Hello World");
 
 ```rust
 // single line comment
+
 /* multi line comment */
 
 /// Documentaion comment
@@ -36,17 +37,14 @@ log("Hello World");
 
 ## Variables
 
-```go
+```c
 // immutable string
-NAME: s = "a string";
-name2: !s = "mutable string";
-// 32bit int
-number1 :i32 = 23;
-unumber1 :ui32 = 23;
-// 32bit float
-number2 :f32 = 23.0;
-// 32bit double
-number3 :d32 = 23.123;
+str NAME = "a string";
+str name2 = "mutable string";
+char char1 = 'c';
+int number1 = 23;
+float number2 = 23.0;
+double number3 = 23.123;
 ```
 
 more data types to be implemented
@@ -55,8 +53,8 @@ more data types to be implemented
 
 ## Arrays
 
-```go
-array := [1, variable, "string"];
+```rust
+int[] array2 = [1, 2, 3];
 ```
 
 start at zero
@@ -74,7 +72,7 @@ fn main() {
 doesnt return unless specified
 
 ```rust
-fn example() -> s {
+fn example() -> str {
     return "Hello World";
 }
 ```
@@ -100,8 +98,8 @@ import stdio;
 ## Strings
 
 ```dart
- name:s = "Hello World";
- name2:s = "$name, World";
+string name = "Hello World";
+string name2 = "$name, World";
 ```
 
 ## Operators and Logic
@@ -132,7 +130,7 @@ match x {
         // do
         break;
     | 2 :
-        //do
+        // do
         break;
     | 3 :
         // do
