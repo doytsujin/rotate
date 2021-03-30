@@ -1,5 +1,5 @@
 c:
-	gcc *.c -g -o a -Wall -Wextra -pedantic -std=c99
+	gcc *.c -g -o a -Wall -Wextra -pedantic 
 r:
 	./a
 
