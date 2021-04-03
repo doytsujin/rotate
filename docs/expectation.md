@@ -6,10 +6,7 @@
 1. Low learning curve
 1. Cross-platform support (Linux , Windows, Mac(later))
 1. [.vr] file extension
-1. can use C headers or have JNI support (later)
-1. safety (later)
-1. convert to Ts/Js/Wasm (later)
-1. Multi-Threading (later)
+
 
 ---
 
