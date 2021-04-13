@@ -1,15 +1,10 @@
 # ROTATE PROGRAMMING LANGUAGE
 
-## Specs
+## Expectations
 
-1. High performance (native support)
 1. Low learning curve
-1. Cross-platform support (Linux , Windows, Mac(later))
 1. [.vr] file extension
-1. can use C headers or have JNI support (later)
-1. safety (later)
-1. convert to Ts/Js/Wasm (later)
-1. Multi-Threading (later)
+
 
 ---
 
@@ -97,9 +92,9 @@ import stdio;
 
 ## Strings
 
-```dart
-string name = "Hello World";
-string name2 = "$name, World";
+```py
+str name = "Hello";
+str name2 = "$name, World";
 ```
 
 ## Operators and Logic
@@ -126,15 +121,10 @@ if x == 2 {
 
 ```fs
 match x {
-    | 1 :
-        // do
-        break;
-    | 2 :
-        // do
-        break;
-    | 3 :
-        // do
-        break;
+    | 1 : // do
+    | 2 : // do
+    | 3 : // do
+    | _ : // do default
 }
 ```
 
@@ -144,18 +134,13 @@ match x {
 
 for and while same as C with another foreach loop
 
-```dart
+```d
 foreach(i, 0..10) {
     log("$i");
 }
 ```
 
 ---
-
-## Structs
-
-> same as C
-
----
-
-## OOP (later)
+## Might consider later
+### Structs
+### OOP 
