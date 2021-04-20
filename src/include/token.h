@@ -18,13 +18,13 @@ typedef struct
 // An enum describng all the different types of tokens
 typedef enum
 {
-	TknTypeIdentifier,  //not
+	TknTypeIdentifier,
 	TknTypeAssign,
-	TknTypeInteger, // not
+	TknTypeInteger, 
 	TknTypeNewline,
 	TknTypeSemiColon,
 	TknTypeColon,
-	TknTypeString, // not
+	TknTypeString, 
 	TknTypeFunction,
 	TknTypePLUS,
 	TknTypeMINUS,
@@ -36,8 +36,8 @@ typedef enum
 	TknTypeRightCurly,
 	TknTypeLeftSQRBrackets,
 	TknTypeRightSQRBrackets,
-	TknTypeReal, //not
-	TknTypeChar,  // not
+	TknTypeReal, 
+	TknTypeChar, 
 	TknTypeReturn, 
 	TknTypeImport,
 	TknTypeIf,
@@ -67,4 +67,4 @@ const char *tkn_type_describe(tkn_type_t type);
 void tkn_dump(tkn_t *tkn);
 
 // end of header
-#endif /*TOKEN_H*/
+#endif /* TOKEN_H */

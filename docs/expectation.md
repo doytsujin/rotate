@@ -13,7 +13,7 @@
 ## Hello World
 
 ```rust
-log("Hello World");
+print "Hello World";
 ```
 
 ---
@@ -33,7 +33,7 @@ log("Hello World");
 ## Variables
 
 ```c
-// immutable string
+// immutable string because it is all caps
 str NAME = "a string";
 str name2 = "mutable string";
 char char1 = 'c';
@@ -71,6 +71,13 @@ fn example() -> str {
     return "Hello World";
 }
 ```
+```rust
+fn IntegerReturn() -> int {
+    int x = 10;
+    return x;
+}
+
+```
 
 example of a function that returned a string
 
@@ -78,12 +85,12 @@ example of a function that returned a string
 
 ## Imports
 
-```c
+```rust
 // for files
 import "file.vr";
 ```
 
-```c
+```rust
 // for std libs
 import stdio;
 ```
@@ -119,7 +126,7 @@ if x == 2 {
 
 ## Switch statments
 
-```fs
+```fsharp
 match x {
     | 1 : // do
     | 2 : // do

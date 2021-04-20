@@ -1,1 +1,3 @@
-x = 5 ;
+fn main() {
+	print "Hello World";
+}

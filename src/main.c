@@ -1,6 +1,6 @@
 #include "include/file.h"
-#include "include/token.h"
 #include "include/lexer.h"
+#include "include/token.h"
 
 int main(int argc, char **argv)
 {

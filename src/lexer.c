@@ -61,7 +61,9 @@ static bool lexer_match(lexer_t *lexer, const char *str)
 
 static void lexer_tkn(lexer_t *lexer, tkn_type_t type, size_t length)
 {
-    const tkn_t token = tkn_make(pos_make(lexer->line, lexer->col, lexer->input->name), utils_strndup(lexer->input->contents + lexer->index, length), type);
+    const tkn_t token =
+        tkn_make(pos_make(lexer->line, lexer->col, lexer->input->name),
+                 utils_strndup(lexer->input->contents + lexer->index, length), type);
     lexer->index += length;
     vec_push(lexer->output, token);
 }
@@ -119,8 +121,7 @@ static int lexer_single(lexer_t *lexer)
             lexer_tkn(lexer, TknTypeReturn, 6);
         }
         break;
-    case 'f':
-    {
+    case 'f': {
         if (match("fn"))
         {
             rewind(2);
@@ -138,8 +139,7 @@ static int lexer_single(lexer_t *lexer)
         }
         break;
     }
-    case 'i':
-    {
+    case 'i': {
         if (match("import"))
         {
             rewind(6);
@@ -152,8 +152,7 @@ static int lexer_single(lexer_t *lexer)
         }
         break;
     }
-    case 'e':
-    {
+    case 'e': {
         if (match("else"))
         {
             rewind(4);
@@ -161,8 +160,7 @@ static int lexer_single(lexer_t *lexer)
         }
         break;
     }
-    case 'w':
-    {
+    case 'w': {
         if (match("while"))
         {
             rewind(5);
@@ -171,7 +169,7 @@ static int lexer_single(lexer_t *lexer)
         break;
     }
     default:
-      return -1;
+        return -1;
     }
     return 1;
 }
@@ -185,14 +183,16 @@ void tokens_free(vec(tkn_t) tkns)
     free_vec(tkns);
 }
 
-
-vec(tkn_t) lexer_lex(lexer_t* lexer) {
+vec(tkn_t) lexer_lex(lexer_t *lexer)
+{
     lexer->index = 0;
     lexer->line = 1;
     lexer->col = 1;
-    while (lexer->index < lexer->input->length) { 
-        if (lexer_single(lexer) < 0) {
-          break;
+    while (lexer->index < lexer->input->length)
+    {
+        if (lexer_single(lexer) < 0)
+        {
+            break;
         }
     }
     return lexer->output;

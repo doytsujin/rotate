@@ -6,6 +6,7 @@ file_t *file_read(const char *name)
     if (!file)
     {
         perror("fopen");
+        free(file);
         return NULL;
     }
 
@@ -21,6 +22,8 @@ file_t *file_read(const char *name)
     if (fread(buffer->contents, sizeof(char), length, file) != length)
     {
         perror("fread");
+        fclose(file);
+        free(buffer);
         return NULL;
     }
     buffer->contents[length] = 0;
