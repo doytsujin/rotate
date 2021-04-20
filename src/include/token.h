@@ -15,7 +15,7 @@ typedef struct
 	const char *file;
 } pos_t;
 
-// An enum describng all the different types of tokens
+// An enum describing all the different types of tokens
 typedef enum
 {
 	TknTypeIdentifier,
@@ -28,8 +28,8 @@ typedef enum
 	TknTypeFunction,
 	TknTypePLUS,
 	TknTypeMINUS,
-	TknTypeMULTY,
-	TknTypeDIV,
+    TknTypeMULTI,
+    TknTypeDIV,
 	TknTypeLeftParen,
 	TknTypeRightParen,
 	TknTypeLeftCurly,

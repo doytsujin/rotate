@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 #define current() (lexer->input->contents[lexer->index])
-#define peek() (lexer->input.contents[lexer->index + 1])
+#define peek() (lexer->input->contents[lexer->index + 1])
 #define is_eof() (lexer->index >= lexer->input->length)
 #define next() lexer->index++
 #define match(str) lexer_match(lexer, str)
@@ -70,7 +70,17 @@ static void lexer_tkn(lexer_t *lexer, tkn_type_t type, size_t length)
 
 static int lexer_single(lexer_t *lexer)
 {
-    switch (current())
+    const char lex_char = current();
+    if (isdigit(lex_char)) {
+        size_t i = 1;
+        while (isdigit(peek())) {
+            lexer_advance(lexer);
+            i++;
+        }
+        lexer_tkn(lexer, TknTypeInteger, i);
+        return 1;
+    }
+    switch (lex_char)
     {
     case '=':
         lexer_tkn(lexer, TknTypeAssign, 1);
@@ -91,7 +101,7 @@ static int lexer_single(lexer_t *lexer)
         lexer_tkn(lexer, TknTypeMINUS, 1);
         break;
     case '*':
-        lexer_tkn(lexer, TknTypeMULTY, 1);
+        lexer_tkn(lexer, TknTypeMULTI, 1);
         break;
     case '/':
         lexer_tkn(lexer, TknTypeDIV, 1);
@@ -168,6 +178,7 @@ static int lexer_single(lexer_t *lexer)
         }
         break;
     }
+    
     default:
         return -1;
     }

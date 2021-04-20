@@ -26,7 +26,7 @@ const char *tkn_type_describe(tkn_type_t type)
         return "plus";
     case TknTypeMINUS:
         return "minus";
-    case TknTypeMULTY:
+    case TknTypeMULTI:
         return "multiply";
     case TknTypeDIV:
         return "divide";
