@@ -83,8 +83,4 @@ static inline void *_new_vec(_vector_header *header)
 
 #define vec_len(vec) seq_len(vec)
 
-<<<<<<< HEAD
 #endif /* VECTOR_H */
-=======
-#endif /* vector_h */
->>>>>>> 18f2f14e67747b09eb2602a3181e980e60111601

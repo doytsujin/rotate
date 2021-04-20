@@ -4,7 +4,9 @@
 #include "token.h"
 #include "vec.h"
 #include "file.h"
+
 // Defines a vector type of tokens
+
 decl_vec(tkn_t);
 
 typedef struct
@@ -19,4 +21,4 @@ void lexer_destroy(lexer_t *lexer);
 void tokens_free(vec(tkn_t) tkns);
 vec(tkn_t) lexer_lex(lexer_t *lexer);
 
-#endif
+#endif /* LEXER_H */ 
