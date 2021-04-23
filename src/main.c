@@ -2,7 +2,7 @@
 #include "include/lexer.h"
 #include "include/token.h"
 
-int main(int argc, char **argv)
+int main(void)
 {
     file_t *file = file_read("test.vr");
     if (!file)

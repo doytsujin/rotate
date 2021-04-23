@@ -2,15 +2,17 @@
 #include "include/utils.h"
 #include "include/vec.h"
 #include <ctype.h>
-#include <stdbool.h>
+#include <string.h>
 
 #define current() (lexer->input->contents[lexer->index])
 #define peek() (lexer->input->contents[lexer->index + 1])
 #define is_eof() (lexer->index >= lexer->input->length)
 #define next() lexer->index++
-#define match(str) lexer_match(lexer, str)
 #define rewind(n) lexer->index -= (n)
+#define keyword_match(str)                                                                         \
+    (strncmp(lexer->input->contents + lexer->index, str, sizeof(str) - 1) == 0)
 
+// lexer initialization
 void lexer_init(lexer_t *lexer, file_t *input)
 {
     lexer->output = new_vec(tkn_t);
@@ -20,11 +22,13 @@ void lexer_init(lexer_t *lexer, file_t *input)
     lexer->col = 1;
 }
 
+// free from memory
 void lexer_destroy(lexer_t *lexer)
 {
-    // nothing for now
+    free_vec(lexer->output);
 }
 
+// go to next
 static inline void lexer_advance(lexer_t *lexer)
 {
     if (current() == '\n')
@@ -33,8 +37,10 @@ static inline void lexer_advance(lexer_t *lexer)
         lexer->line++;
     }
     next();
+    lexer->col++;
 }
 
+// skip whitespace
 static void lexer_skip_white(lexer_t *lexer)
 {
     while (!is_eof() && isspace(current()))
@@ -42,38 +48,67 @@ static void lexer_skip_white(lexer_t *lexer)
         lexer_advance(lexer);
     }
 }
-// Scans ahead to see if we match this string, returning true if we do
-static bool lexer_match(lexer_t *lexer, const char *str)
-{
-    size_t counter = 0;
-    while (!is_eof() && current() == *str++)
-    {
-        next();
-        counter++;
-    }
-    if (*str != 0)
-    {
-        lexer->index -= counter;
-        return false;
-    }
-    return true;
-}
 
+// Scans ahead to see if we match this string, returning true if we do
 static void lexer_tkn(lexer_t *lexer, tkn_type_t type, size_t length)
 {
     const tkn_t token =
         tkn_make(pos_make(lexer->line, lexer->col, lexer->input->name),
                  utils_strndup(lexer->input->contents + lexer->index, length), type);
-    lexer->index += length;
+    for (size_t i = 0; i < length; i++)
+    {
+        lexer_advance(lexer);
+    }
     vec_push(lexer->output, token);
 }
 
+int lexer_multichar(lexer_t *lexer)
+{
+    // Only called when first char is start of identifier
+    // So we can safely advance
+    lexer_advance(lexer);
+
+    // Length of identifier/keyword
+    size_t length = 1; // already matched 1 char
+    while (!is_eof() && (isalnum(current()) || current() == '_'))
+    {
+        lexer_advance(lexer);
+    }
+    rewind(length);
+    tkn_type_t type = TknTypeIdentifier;
+
+    if (keyword_match("for"))
+        type = TknTypeFor;
+    else if (keyword_match("while"))
+        type = TknTypeWhile;
+    else if (keyword_match("fn"))
+        type = TknTypeFunction;
+    else if (keyword_match("foreach"))
+        type = TknTypeForEach;
+    else if (keyword_match("return"))
+        type = TknTypeReturn;
+    else if (keyword_match("if"))
+        type = TknTypeIf;
+    else if (keyword_match("import"))
+        type = TknTypeImport;
+    else if (keyword_match("else"))
+        type = TknTypeElse;
+    else if (keyword_match("for"))
+        type = TknTypeFor;
+
+    return 1;
+}
+
+// lexer for single characater
 static int lexer_single(lexer_t *lexer)
 {
+    lexer_skip_white(lexer);
     const char lex_char = current();
-    if (isdigit(lex_char)) {
+    if (isdigit(lex_char))
+    {
         size_t i = 1;
-        while (isdigit(peek())) {
+        while (isdigit(peek()))
+        {
             lexer_advance(lexer);
             i++;
         }
@@ -124,67 +159,20 @@ static int lexer_single(lexer_t *lexer)
     case ']':
         lexer_tkn(lexer, TknTypeRightSQRBrackets, 1);
         break;
-    case 'r':
-        if (match("return"))
-        {
-            rewind(6);
-            lexer_tkn(lexer, TknTypeReturn, 6);
-        }
-        break;
-    case 'f': {
-        if (match("fn"))
-        {
-            rewind(2);
-            lexer_tkn(lexer, TknTypeFunction, 2);
-        }
-        else if (match("for"))
-        {
-            rewind(3);
-            lexer_tkn(lexer, TknTypeFor, 3);
-        }
-        else if (match("foreach"))
-        {
-            rewind(7);
-            lexer_tkn(lexer, TknTypeForEach, 7);
-        }
-        break;
-    }
-    case 'i': {
-        if (match("import"))
-        {
-            rewind(6);
-            lexer_tkn(lexer, TknTypeImport, 6);
-        }
-        else if (match("if"))
-        {
-            rewind(2);
-            lexer_tkn(lexer, TknTypeIf, 2);
-        }
-        break;
-    }
-    case 'e': {
-        if (match("else"))
-        {
-            rewind(4);
-            lexer_tkn(lexer, TknTypeElse, 4);
-        }
-        break;
-    }
-    case 'w': {
-        if (match("while"))
-        {
-            rewind(5);
-            lexer_tkn(lexer, TknTypeWhile, 5);
-        }
-        break;
-    }
-    
     default:
-        return -1;
+        if (lex_char == '_' || isalpha(lex_char))
+        {
+            return lexer_multichar(lexer);
+        }
+        else
+        {
+            return -1;
+        }
     }
     return 1;
 }
 
+// free tokens
 void tokens_free(vec(tkn_t) tkns)
 {
     for_each(tkns, tkn_ptr)
@@ -194,6 +182,7 @@ void tokens_free(vec(tkn_t) tkns)
     free_vec(tkns);
 }
 
+// lex the lexer
 vec(tkn_t) lexer_lex(lexer_t *lexer)
 {
     lexer->index = 0;

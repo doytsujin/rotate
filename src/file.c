@@ -1,4 +1,5 @@
 #include "include/file.h"
+#include <stdio.h>
 
 file_t *file_read(const char *name)
 {
@@ -21,15 +22,15 @@ file_t *file_read(const char *name)
     buffer->name = name;
     if (fread(buffer->contents, sizeof(char), length, file) != length)
     {
-        perror("fread");
+        perror("fread err");
         fclose(file);
         free(buffer);
         return NULL;
     }
+
     buffer->contents[length] = 0;
 
     // Close the file
     fclose(file);
-
     return buffer;
 }
