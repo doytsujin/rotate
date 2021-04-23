@@ -1,8 +1,8 @@
 #include "include/lexer.h"
 #include "include/utils.h"
 #include "include/vec.h"
-#include <ctype.h>
 #include <string.h>
+#include <ctype.h>
 
 #define current() (lexer->input->contents[lexer->index])
 #define peek() (lexer->input->contents[lexer->index + 1])
@@ -64,54 +64,86 @@ static void lexer_tkn(lexer_t *lexer, tkn_type_t type, size_t length)
 
 int lexer_multichar(lexer_t *lexer)
 {
+    size_t save_index = lexer->index;
+    size_t save_line = lexer->line;
+    size_t save_col = lexer->col;
+    
     // Only called when first char is start of identifier
     // So we can safely advance
     lexer_advance(lexer);
-
     // Length of identifier/keyword
     size_t length = 1; // already matched 1 char
-    while (!is_eof() && (isalnum(current()) || current() == '_'))
+    do 
     {
         lexer_advance(lexer);
-    }
-    rewind(length);
+        length++;
+    } while (!is_eof() && (isalnum(current()) || current() == '_'));
+    lexer->index = save_index;
+    lexer->line = save_line;
+    lexer->col = save_col;
     tkn_type_t type = TknTypeIdentifier;
 
-    if (keyword_match("for"))
+     if (keyword_match("for"))
+    {
         type = TknTypeFor;
+    }
     else if (keyword_match("while"))
+    {
         type = TknTypeWhile;
+    }
     else if (keyword_match("fn"))
+    {
         type = TknTypeFunction;
+    }
     else if (keyword_match("foreach"))
+    {
         type = TknTypeForEach;
+    }
     else if (keyword_match("return"))
+    {
         type = TknTypeReturn;
+    }
     else if (keyword_match("if"))
+    {
         type = TknTypeIf;
+    }
     else if (keyword_match("import"))
+    {
         type = TknTypeImport;
+    }
     else if (keyword_match("else"))
+    {
         type = TknTypeElse;
+    }
     else if (keyword_match("for"))
+    {
         type = TknTypeFor;
-
+    }
+    lexer_tkn(lexer, type, length);
     return 1;
 }
 
 // lexer for single characater
 static int lexer_single(lexer_t *lexer)
 {
+    
     lexer_skip_white(lexer);
     const char lex_char = current();
     if (isdigit(lex_char))
     {
+        size_t save_index = lexer->index;
+        size_t save_line = lexer->line;
+        size_t save_col = lexer->col;
         size_t i = 1;
-        while (isdigit(peek()))
+        lexer_advance(lexer);
+        while (isdigit(current()))
         {
             lexer_advance(lexer);
             i++;
         }
+        lexer->index = save_index;
+        lexer->line = save_line;
+        lexer->col = save_col;
         lexer_tkn(lexer, TknTypeInteger, i);
         return 1;
     }
