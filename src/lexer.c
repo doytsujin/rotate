@@ -1,8 +1,8 @@
 #include "include/lexer.h"
 #include "include/utils.h"
 #include "include/vec.h"
-#include <string.h>
 #include <ctype.h>
+#include <string.h>
 
 #define current() (lexer->input->contents[lexer->index])
 #define peek() (lexer->input->contents[lexer->index + 1])
@@ -67,13 +67,13 @@ int lexer_multichar(lexer_t *lexer)
     size_t save_index = lexer->index;
     size_t save_line = lexer->line;
     size_t save_col = lexer->col;
-    
+
     // Only called when first char is start of identifier
     // So we can safely advance
     lexer_advance(lexer);
     // Length of identifier/keyword
     size_t length = 1; // already matched 1 char
-    do 
+    do
     {
         lexer_advance(lexer);
         length++;
@@ -83,7 +83,7 @@ int lexer_multichar(lexer_t *lexer)
     lexer->col = save_col;
     tkn_type_t type = TknTypeIdentifier;
 
-     if (keyword_match("for"))
+    if (keyword_match("for"))
     {
         type = TknTypeFor;
     }
@@ -119,6 +119,14 @@ int lexer_multichar(lexer_t *lexer)
     {
         type = TknTypeFor;
     }
+    else if (keyword_match("true"))
+    {
+        type = TknTypeTrue;
+    }
+    else if (keyword_match("false"))
+    {
+        type = TknTypeFalse;
+    }
     lexer_tkn(lexer, type, length);
     return 1;
 }
@@ -126,7 +134,7 @@ int lexer_multichar(lexer_t *lexer)
 // lexer for single characater
 static int lexer_single(lexer_t *lexer)
 {
-    
+
     lexer_skip_white(lexer);
     const char lex_char = current();
     if (isdigit(lex_char))
@@ -191,6 +199,27 @@ static int lexer_single(lexer_t *lexer)
     case ']':
         lexer_tkn(lexer, TknTypeRightSQRBrackets, 1);
         break;
+    case '>':
+        lexer_tkn(lexer, TknTypeGreater, 1);
+        break;
+    case '<':
+        lexer_tkn(lexer, TknTypeLess, 1);
+        break;
+    case '.':
+        lexer_tkn(lexer, TknTypeDot, 1);
+        break;
+    case '!':
+        lexer_tkn(lexer, TknTypeNot, 1);
+        break;
+    case '%':
+        lexer_tkn(lexer, TknTypeMod, 1);
+        break;
+    case '&':
+        lexer_tkn(lexer, TknTypeAnd, 1);
+        break;
+    case '|':
+        lexer_tkn(lexer, TknTypeOr, 1);
+        break;   
     default:
         if (lex_char == '_' || isalpha(lex_char))
         {

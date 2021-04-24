@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g -Wall -Wextra -pedantic
+CFLAGS=-g -Wall -Wextra -Wpedantic
 STRICT=-Werror
 BIN=a
 

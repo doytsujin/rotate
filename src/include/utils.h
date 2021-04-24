@@ -5,4 +5,5 @@
 
 char *utils_strndup(const char *start, size_t length);
 
-#endif
+#endif /* END OF UTILS_H */ 
+

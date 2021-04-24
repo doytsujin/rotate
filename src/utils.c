@@ -9,3 +9,4 @@ char *utils_strndup(const char *start, size_t length)
     buffer[length] = 0;
     return buffer;
 } 
+

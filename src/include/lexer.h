@@ -1,9 +1,9 @@
 #ifndef LEXER_H
 #define LEXER_H
 
+#include "file.h"
 #include "token.h"
 #include "vec.h"
-#include "file.h"
 
 // Defines a vector type of tokens
 
@@ -21,4 +21,4 @@ void lexer_destroy(lexer_t *lexer);
 void tokens_free(vec(tkn_t) tkns);
 vec(tkn_t) lexer_lex(lexer_t *lexer);
 
-#endif /* LEXER_H */ 
+#endif /* LEXER_H */

@@ -45,7 +45,16 @@ typedef enum
 	TknTypeFor,
 	TknTypeWhile,
 	TknTypeForEach,
-
+	TknTypeArrow,
+	TknTypeGreater, // >
+	TknTypeLess, // < 
+	TknTypeTrue,
+	TknTypeFalse,
+	TknTypeDot,
+	TknTypeNot, // "!"
+	TknTypeMod,
+	TknTypeAnd,
+	TknTypeOr,
 } tkn_type_t;
 
 // A struct describing a token

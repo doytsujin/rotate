@@ -60,6 +60,26 @@ const char *tkn_type_describe(tkn_type_t type)
         return "while";
     case TknTypeForEach:
         return "foreach";
+    case TknTypeArrow:
+        return "arrow";
+    case TknTypeGreater:
+        return "greater than";
+    case TknTypeLess:
+        return "less than";
+    case TknTypeTrue:
+        return "bool:true";
+    case TknTypeFalse:
+        return "bool:false";
+    case TknTypeDot:
+        return "dot";
+    case TknTypeNot:
+        return "not";
+    case TknTypeMod:
+        return "mod";
+    case TknTypeAnd:
+        return "and";
+    case TknTypeOr:
+        return "or";
     default:
         return "???";
     }
