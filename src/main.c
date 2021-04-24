@@ -17,7 +17,7 @@ int main(void)
         tkn_dump(tkn_ptr);
     }
 
-    lexer_destroy(&lexer);
+    //lexer_destroy(&lexer);
     tokens_free(tokens);
     free(file);
 }

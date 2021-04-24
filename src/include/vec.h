@@ -75,8 +75,8 @@ static inline void *_new_vec(_vector_header *header)
             (vec)->capacity *= _VEC_GROWTH_RATE;        \
             (vec) = realloc(vec, vec_total_size(vec));  \
         }                                               \
-        (vec)->elements[(vec)->length++] = __VA_ARGS__; \
-    } while (0);
+        (vec)->elements[(vec)->length++] = __VA_ARGS__;  \
+    } while (0)
 
 #define vec_start(vec) seq_start(vec)
 #define vec_end(vec) seq_end(vec)

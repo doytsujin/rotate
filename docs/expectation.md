@@ -4,16 +4,18 @@
 
 1. Low learning curve
 1. [.vr] file extension
-
+1. syntax close to C as possible (with some exceptions (rust, js, F#, D, Dart))
 
 ---
 
-## OVERVIEW
+# OVERVIEW
 
 ## Hello World
 
 ```rust
-print "Hello World";
+fn main() {
+    print "Hello World";
+}
 ```
 
 ---
@@ -25,34 +27,31 @@ print "Hello World";
 
 /* multi line comment */
 
-/// Documentaion comment
+/// Documentation comment
 ```
 
 ---
 
 ## Variables
 
-```c
+```rust
 // immutable string because it is all caps
-str NAME = "a string";
-str name2 = "mutable string";
-char char1 = 'c';
-int number1 = 23;
-float number2 = 23.0;
-double number3 = 23.123;
+let NAME: str = "a string";
+let mut name2: str = "mutable string";
+let mut char1: char = 'c';
+let mut number1: int = 23;
+let mut number2: float = 23.0;
+let mut number3: double = 23.123;
 ```
-
-more data types to be implemented
+(for now dynamic types, aiming for static types later)
 
 ---
 
 ## Arrays
 
 ```rust
-int[] array2 = [1, 2, 3];
+let array2: int = [1, 2, 3];
 ```
-
-start at zero
 
 ---
 
@@ -60,11 +59,11 @@ start at zero
 
 ```rust
 fn main() {
-    log("Hello World");
+    print "Hello World";
 }
 ```
 
-doesnt return unless specified
+doesn't return unless specified
 
 ```rust
 fn example() -> str {
@@ -73,10 +72,9 @@ fn example() -> str {
 ```
 ```rust
 fn IntegerReturn() -> int {
-    int x = 10;
+    let x: int = 10; 
     return x;
 }
-
 ```
 
 example of a function that returned a string
@@ -85,28 +83,38 @@ example of a function that returned a string
 
 ## Imports
 
-```rust
+```c
 // for files
-import "file.vr";
+import file;
 ```
 
-```rust
+```c
 // for std libs
-import stdio;
+import std.io;
 ```
+"std" lib name 
+"io" file name which is "io.vr"
+
+```c
+import lib.folder.file;
+```
+importing ^^ a lib
 
 ---
 
 ## Strings
 
-```py
-str name = "Hello";
-str name2 = "$name, World";
+```cs
+let name = "Hello";
+let name2 = $"{name}, World";
 ```
 
+---
 ## Operators and Logic
 
-> same as C
+> pretty much the same as C 
+
+
 
 ---
 
@@ -124,7 +132,7 @@ if x == 2 {
 
 ---
 
-## Switch statments
+## Switch statements
 
 ```fsharp
 match x {
@@ -141,13 +149,14 @@ match x {
 
 for and while same as C with another foreach loop
 
-```d
+```cs
 foreach(i, 0..10) {
-    log("$i");
+    log($"{i}");
 }
 ```
 
 ---
 ## Might consider later
-### Structs
+
+### Structures
 ### OOP 
