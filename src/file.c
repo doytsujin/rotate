@@ -22,7 +22,7 @@ file_t *file_read(const char *name)
     buffer->name = name;
     if (fread(buffer->contents, sizeof(char), length, file) != length)
     {
-        perror("fread err");
+        perror("ERR: fread err");
         fclose(file);
         free(buffer);
         return NULL;

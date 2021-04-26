@@ -55,6 +55,9 @@ typedef enum
 	TknTypeMod,
 	TknTypeAnd,
 	TknTypeOr,
+	TknTypePrint,
+    TknTypeDoubleQuotes,
+    TknTypeQuote,
 } tkn_type_t;
 
 // A struct describing a token

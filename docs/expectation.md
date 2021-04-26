@@ -38,10 +38,10 @@ fn main() {
 // immutable string because it is all caps
 let NAME: str = "a string";
 let mut name2: str = "mutable string";
-let mut char1: char = 'c';
-let mut number1: int = 23;
-let mut number2: float = 23.0;
-let mut number3: double = 23.123;
+let char1: char = 'c';
+let number1: int = 23;
+let number2: float = 23.0;
+let number3: double = 23.123;
 ```
 (for now dynamic types, aiming for static types later)
 
@@ -83,19 +83,19 @@ example of a function that returned a string
 
 ## Imports
 
-```c
+```java
 // for files
 import file;
 ```
 
-```c
+```java
 // for std libs
 import std.io;
 ```
 "std" lib name 
 "io" file name which is "io.vr"
 
-```c
+```java
 import lib.folder.file;
 ```
 importing ^^ a lib

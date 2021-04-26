@@ -80,6 +80,12 @@ const char *tkn_type_describe(tkn_type_t type)
         return "and";
     case TknTypeOr:
         return "or";
+    case TknTypePrint:
+        return "print";
+    case TknTypeDoubleQuotes:
+        return "double quotes";
+    case TknTypeQuote:
+        return "quote";
     default:
         return "???";
     }

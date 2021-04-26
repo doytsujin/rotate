@@ -84,49 +84,29 @@ int lexer_multichar(lexer_t *lexer)
     tkn_type_t type = TknTypeIdentifier;
 
     if (keyword_match("for"))
-    {
         type = TknTypeFor;
-    }
     else if (keyword_match("while"))
-    {
         type = TknTypeWhile;
-    }
     else if (keyword_match("fn"))
-    {
         type = TknTypeFunction;
-    }
     else if (keyword_match("foreach"))
-    {
         type = TknTypeForEach;
-    }
     else if (keyword_match("return"))
-    {
         type = TknTypeReturn;
-    }
     else if (keyword_match("if"))
-    {
         type = TknTypeIf;
-    }
     else if (keyword_match("import"))
-    {
         type = TknTypeImport;
-    }
     else if (keyword_match("else"))
-    {
         type = TknTypeElse;
-    }
     else if (keyword_match("for"))
-    {
         type = TknTypeFor;
-    }
     else if (keyword_match("true"))
-    {
         type = TknTypeTrue;
-    }
     else if (keyword_match("false"))
-    {
         type = TknTypeFalse;
-    }
+    else if (keyword_match("print"))
+        type = TknTypePrint;
     lexer_tkn(lexer, type, length);
     return 1;
 }
@@ -157,6 +137,12 @@ static int lexer_single(lexer_t *lexer)
     }
     switch (lex_char)
     {
+    case '\'':
+        lexer_tkn(lexer, TknTypeQuote, 1);
+        break;
+    case '"':
+        lexer_tkn(lexer, TknTypeDoubleQuotes, 1);
+        break;
     case '=':
         lexer_tkn(lexer, TknTypeAssign, 1);
         break;
@@ -214,12 +200,7 @@ static int lexer_single(lexer_t *lexer)
     case '%':
         lexer_tkn(lexer, TknTypeMod, 1);
         break;
-    case '&':
-        lexer_tkn(lexer, TknTypeAnd, 1);
-        break;
-    case '|':
-        lexer_tkn(lexer, TknTypeOr, 1);
-        break;   
+       
     default:
         if (lex_char == '_' || isalpha(lex_char))
         {
