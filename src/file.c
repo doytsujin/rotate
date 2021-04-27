@@ -3,17 +3,21 @@
 
 file_t *file_read(const char *name)
 {
-    FILE *file = fopen(name, "r");
+    FILE *file = fopen(name, "rb");
     if (!file)
     {
         perror("fopen");
-        free(file);
         return NULL;
     }
 
     // Calculate the file length
     fseek(file, 0, SEEK_END);
     const size_t length = ftell(file);
+    if (!ftell(file))
+    {
+        fclose(file);
+        return NULL;
+    }
     rewind(file);
 
     // Read the file into a buffer

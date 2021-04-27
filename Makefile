@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-g -Wall -Wextra -Wpedantic
-STRICT=-Werror
+STRICT=-Werror -fanalyzer
 BIN=a
 
 
@@ -15,7 +15,7 @@ clean:
 	-rm ./$(BIN)
 
 memcheck:
-	valgrind ./$(BIN) --leak-check=full --track-origins=yes
+	valgrind ./$(BIN) --leak-check=full --track-origins=yes -s
 
 lint:
 	cppcheck ./src/ --std=c11
