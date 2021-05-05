@@ -86,12 +86,18 @@ const char *tkn_type_describe(tkn_type_t type)
         return "double quotes";
     case TknTypeQuote:
         return "quote";
+    case TknTypeFloat:
+        return "float";
+    case TknTypeLet:
+        return "let";
     default:
         return "???";
     }
 }
+
 void tkn_dump(tkn_t *tkn)
 {
     fprintf(stderr, "Token '%s' at %s:%zu:%zu with text \"%s\"\n", tkn_type_describe(tkn->type),
             tkn->pos.file, tkn->pos.line, tkn->pos.col, tkn->value);
 }
+

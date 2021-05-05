@@ -6,7 +6,7 @@ file_t *file_read(const char *name)
     FILE *file = fopen(name, "rb");
     if (!file)
     {
-        perror("fopen");
+        perror("file open error");
         return NULL;
     }
 
@@ -38,3 +38,4 @@ file_t *file_read(const char *name)
     fclose(file);
     return buffer;
 }
+

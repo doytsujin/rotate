@@ -20,7 +20,9 @@ typedef enum
 {
 	TknTypeIdentifier,
 	TknTypeAssign,
-	TknTypeInteger, 
+	TknTypeLet,
+	TknTypeInteger,
+	TknTypeFloat, 
 	TknTypeNewline,
 	TknTypeSemiColon,
 	TknTypeColon,

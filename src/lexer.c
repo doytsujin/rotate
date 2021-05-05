@@ -2,6 +2,9 @@
 #include "include/utils.h"
 #include "include/vec.h"
 #include <ctype.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define current() (lexer->input->contents[lexer->index])
@@ -107,8 +110,10 @@ int lexer_multichar(lexer_t *lexer)
         type = TknTypeFalse;
     else if (keyword_match("print"))
         type = TknTypePrint;
+    else if (keyword_match("let"))
+        type = TknTypeLet;
     lexer_tkn(lexer, type, length);
-    return 1;
+    return EXIT_SUCCESS;
 }
 
 // lexer for single characater
@@ -119,30 +124,78 @@ static int lexer_single(lexer_t *lexer)
     const char lex_char = current();
     if (isdigit(lex_char))
     {
+
         size_t save_index = lexer->index;
         size_t save_line = lexer->line;
         size_t save_col = lexer->col;
         size_t i = 1;
         lexer_advance(lexer);
-        while (isdigit(current()))
+        bool reached_dot = false;
+        while (isdigit(current()) || current() == '.')
         {
+            if (current() == '.')
+            {
+                if (reached_dot)
+                    break;
+                reached_dot = true;
+            }
             lexer_advance(lexer);
             i++;
         }
         lexer->index = save_index;
         lexer->line = save_line;
         lexer->col = save_col;
-        lexer_tkn(lexer, TknTypeInteger, i);
-        return 1;
+        lexer_tkn(lexer, reached_dot ? TknTypeFloat : TknTypeInteger, i);
+        return EXIT_SUCCESS;
+    }
+    else if (lex_char == '"')
+    {
+        // string lexer
+        size_t save_index = lexer->index;
+        size_t save_line = lexer->line;
+        size_t save_col = lexer->col;
+        size_t length = 1;
+        lexer_advance(lexer);
+        while (!is_eof() && current() != '\"')
+        {
+            //printf("%c\n", current());
+            lexer_advance(lexer);
+            length++;
+        }
+        if (is_eof())
+            return EXIT_FAILURE;
+        length++;
+        lexer->index = save_index;
+        lexer->line = save_line;
+        lexer->col = save_col;
+        lexer_tkn(lexer, TknTypeString, length);
+        return EXIT_SUCCESS;
+    }
+    else if (lex_char == '\'')
+    {
+        // char lexer
+        size_t save_index = lexer->index;
+        size_t save_line = lexer->line;
+        size_t save_col = lexer->col;
+        size_t length = 1;
+        lexer_advance(lexer);
+        while (!is_eof() && current() != '\'')
+        {
+            // printf("%c\n", current());
+            lexer_advance(lexer);
+            length++;
+        }
+        if (is_eof())
+            return EXIT_FAILURE;
+        length++;
+        lexer->index = save_index;
+        lexer->line = save_line;
+        lexer->col = save_col;
+        lexer_tkn(lexer, TknTypeChar, length);
+        return EXIT_SUCCESS;
     }
     switch (lex_char)
     {
-    case '\'':
-        lexer_tkn(lexer, TknTypeQuote, 1);
-        break;
-    case '"':
-        lexer_tkn(lexer, TknTypeDoubleQuotes, 1);
-        break;
     case '=':
         lexer_tkn(lexer, TknTypeAssign, 1);
         break;
@@ -200,7 +253,7 @@ static int lexer_single(lexer_t *lexer)
     case '%':
         lexer_tkn(lexer, TknTypeMod, 1);
         break;
-       
+
     default:
         if (lex_char == '_' || isalpha(lex_char))
         {
@@ -208,10 +261,10 @@ static int lexer_single(lexer_t *lexer)
         }
         else
         {
-            return -1;
+            return EXIT_FAILURE;
         }
     }
-    return 1;
+    return EXIT_SUCCESS;
 }
 
 // free tokens
@@ -225,17 +278,19 @@ void tokens_free(vec(tkn_t) tkns)
 }
 
 // lex the lexer
-vec(tkn_t) lexer_lex(lexer_t *lexer)
+int lexer_lex(lexer_t *lexer)
 {
     lexer->index = 0;
     lexer->line = 1;
     lexer->col = 1;
-    while (lexer->index < lexer->input->length)
+    while (!is_eof())
     {
-        if (lexer_single(lexer) < 0)
+        if (lexer_single(lexer) != EXIT_SUCCESS)
         {
-            break;
+            printf("Lexing failed in %s at %zu:%zu\n", lexer->input->name, lexer->line, lexer->col);
+            return EXIT_FAILURE;
         }
+        lexer_skip_white(lexer);
     }
-    return lexer->output;
+    return EXIT_SUCCESS;
 }

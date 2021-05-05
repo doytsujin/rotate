@@ -20,6 +20,6 @@ void lexer_init(lexer_t *lexer, file_t *input);
 void lexer_destroy(lexer_t *lexer);
 int lexer_multichar(lexer_t *lexer);
 void tokens_free(vec(tkn_t) tkns);
-vec(tkn_t) lexer_lex(lexer_t *lexer);
+int lexer_lex(lexer_t *lexer);
 
 #endif /* LEXER_H */
