@@ -3,11 +3,11 @@
 #include "include/token.h"
 #include <stdlib.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
-    file_t *file = file_read("test.vr");
+    file_t *file = file_read(argc > 1 ? argv[1] : "test.vr");
     if (!file)
-        return EXIT_SUCCESS;
+        return EXIT_FAILURE;
 
     lexer_t lexer;
     lexer_init(&lexer, file);
