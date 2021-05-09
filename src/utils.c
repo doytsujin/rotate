@@ -1,6 +1,5 @@
 #include "include/utils.h"
-#include <stdlib.h>
-#include <string.h>
+
 
 char *utils_strndup(const char *start, size_t length)
 {

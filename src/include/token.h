@@ -1,6 +1,7 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
+#include <stdio.h>
 #include <stddef.h>
 
 // show position of tokens

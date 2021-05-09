@@ -1,11 +1,6 @@
 #include "include/lexer.h"
-#include "include/utils.h"
-#include "include/vec.h"
-#include <ctype.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
+
 
 #define current() (lexer->input->contents[lexer->index])
 #define peek() (lexer->input->contents[lexer->index + 1])
@@ -34,13 +29,15 @@ void lexer_destroy(lexer_t *lexer)
 // go to next
 static inline void lexer_advance(lexer_t *lexer)
 {
-    if (current() == '\n')
+    const char c = current();
+    next();
+    if (c != '\n')
+        lexer->col++;
+    else
     {
         lexer->col = 1;
         lexer->line++;
     }
-    next();
-    lexer->col++;
 }
 
 // skip whitespace
@@ -158,7 +155,7 @@ static int lexer_single(lexer_t *lexer)
         lexer_advance(lexer);
         while (!is_eof() && current() != '\"')
         {
-            //printf("%c\n", current());
+            // printf("%c\n", current());
             lexer_advance(lexer);
             length++;
         }
