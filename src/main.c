@@ -1,7 +1,4 @@
-#include "include/file.h"
 #include "include/lexer.h"
-#include "include/token.h"
-#include <stdlib.h>
 
 int main(int argc, char *argv[])
 {
