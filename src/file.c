@@ -1,7 +1,7 @@
-#include "include/file.h"
+#include "include/includes.h"
 
-
-file_t *file_read(const char *name)
+    file_t *
+    file_read(const char *name)
 {
     FILE *file = fopen(name, "rb");
     if (!file)
@@ -22,7 +22,7 @@ file_t *file_read(const char *name)
 
     // Read the file into a buffer
     file_t *buffer = malloc(sizeof(file_t) + length + 1);
-    buffer->length = length;
+    buffer->length = length ? length : 0;
     buffer->name = name;
     if (fread(buffer->contents, sizeof(char), length, file) != length)
     {

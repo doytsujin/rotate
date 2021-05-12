@@ -1,6 +1,4 @@
-#include "include/lexer.h"
-
-
+#include "include/includes.h"
 
 #define current() (lexer->input->contents[lexer->index])
 #define peek() (lexer->input->contents[lexer->index + 1])
@@ -32,7 +30,9 @@ static inline void lexer_advance(lexer_t *lexer)
     const char c = current();
     next();
     if (c != '\n')
+    {
         lexer->col++;
+    }
     else
     {
         lexer->col = 1;
@@ -249,6 +249,9 @@ static int lexer_single(lexer_t *lexer)
         break;
     case '%':
         lexer_tkn(lexer, TknTypeMod, 1);
+        break;
+    case ',':
+        lexer_tkn(lexer, TknTypeComma, 1);
         break;
 
     default:

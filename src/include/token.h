@@ -1,8 +1,7 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
-#include <stdio.h>
-#include <stddef.h>
+
 
 // show position of tokens
 #define pos_make(line, col, file) \
@@ -61,6 +60,7 @@ typedef enum
 	TknTypePrint,
     TknTypeDoubleQuotes,
     TknTypeQuote,
+	TknTypeComma
 } tkn_type_t;
 
 // A struct describing a token

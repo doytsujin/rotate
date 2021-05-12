@@ -1,5 +1,4 @@
-#include "include/token.h"
-
+#include "include/includes.h"
 
 const char *tkn_type_describe(tkn_type_t type)
 {
@@ -89,6 +88,8 @@ const char *tkn_type_describe(tkn_type_t type)
         return "float";
     case TknTypeLet:
         return "let";
+    case TknTypeComma:
+        return "comma";
     default:
         return "???";
     }

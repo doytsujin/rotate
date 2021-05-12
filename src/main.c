@@ -1,8 +1,8 @@
-#include "include/lexer.h"
+#include "include/includes.h"
 
 int main(int argc, char *argv[])
 {
-    file_t *file = file_read(argc > 1 ? argv[1] : "test.vr");
+    file_t *file = file_read(argc > 1 ? argv[1] : "./examples/func.vr");
     if (!file)
         return EXIT_FAILURE;
 

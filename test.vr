@@ -1,9 +1,0 @@
-import std.io;
-
-fn main() {
-    let x = 'c';
-    let y = "hello world";
-    print x;
-}
-
-
