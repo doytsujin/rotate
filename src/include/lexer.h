@@ -3,14 +3,13 @@
 
 #include "file.h"
 #include "token.h"
-#include "vec.h"
 #include "utils.h"
+#include "vec.h"
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 
 // Defines a vector type of tokens
 decl_vec(tkn_t);

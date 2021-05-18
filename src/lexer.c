@@ -1,4 +1,4 @@
-#include "include/includes.h"
+#include "include/lexer.h"
 
 #define current() (lexer->input->contents[lexer->index])
 #define peek() (lexer->input->contents[lexer->index + 1])

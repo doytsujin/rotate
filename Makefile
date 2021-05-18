@@ -1,13 +1,12 @@
 CC=gcc
 CFLAGS=-g -Wall -Wextra -Wpedantic
-CSTD=--std=c11
 ANALYZE=-fanalyzer
 STRICT=-Werror 
 BIN=a
 
 
 run: 
-	$(CC) ./src/*.c -o $(BIN) $(CFLAGS) $(CSTD)
+	$(CC) ./src/*.c -o $(BIN) $(CFLAGS)
 
 
 check:
