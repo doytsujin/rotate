@@ -7,16 +7,19 @@
 1. syntax close to C and Rust as possible (with some exceptions ( js, F#, D, Dart))
 
 ---
+## <a style="color:red;"> SYNTAX MAY BE CHANGED AT ANY MOMENT </a>
 
+---
 # OVERVIEW
 
 ## Hello World
 
 ```rust
-import std.io as io;
+import std.io;
 
 fn main() {
-    io.print("Hello World");
+    io.print("Hello, ");
+    io.println("World!");
 }
 ```
 
@@ -37,7 +40,7 @@ fn main() {
 ## Variables
 
 ```rust
-// immutable string because it is all caps
+// immutable string 
 let NAME: str = "a string";
 let mut name2: str = "mutable string";
 let char1: char = 'c';
@@ -52,7 +55,7 @@ let number3: double = 23.123;
 ## Arrays
 
 ```rust
-let array2: int = [1, 2, 3];
+let array2[]: int = [1, 2, 3];
 ```
 
 ---
@@ -60,17 +63,25 @@ let array2: int = [1, 2, 3];
 ## Functions
 
 ```rust
+import std.io;
 
 fn main() {
-    std.io.print("Hello World");
+    io.print("Hello World");
 }
 ```
 
 doesn't return unless specified
 
 ```rust
+import std.io;
+
 fn example() -> str {
     return "Hello World";
+}
+
+fn main() {
+    let i = example();
+    println($"{i}");
 }
 ```
 ```rust
@@ -95,7 +106,7 @@ import file;
 // for std libs
 import std.io;
 ```
-"std" lib name 
+"std" lib (folder) name \
 "io" file name which is "io.vr"
 
 ```java
@@ -160,5 +171,4 @@ foreach(i, 0..10) {
 
 ---
 ## Might consider later
-
 ### Structures

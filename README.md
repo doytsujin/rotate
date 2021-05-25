@@ -12,17 +12,5 @@
 
 
 ## current Status
+check `./docs/progress.md`
 
-- [ ] IO 
-- [ ] Comments
-- [ ] Variables
-- [ ] if statements
-- [ ] Functions
-- [ ] Arrays
-- [ ] Imports
-- [ ] logic and operators
-- [ ] strings
-- [ ] switch statements
-- [ ] Loops 
-<br>
-more later on

@@ -1,5 +1,6 @@
 import std.io;
 
 fn main() {
-    println("Hello World!");
+    io.print("Hello, ");
+    io.println("World!");
 }
