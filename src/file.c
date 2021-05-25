@@ -1,7 +1,6 @@
 #include "include/file.h"
 
-    file_t *
-    file_read(const char *name)
+file_t *file_read(const char *name)
 {
     FILE *file = fopen(name, "rb");
     if (!file)
@@ -38,4 +37,3 @@
     fclose(file);
     return buffer;
 }
-

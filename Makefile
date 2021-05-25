@@ -1,33 +1,29 @@
-CC=gcc
-CFLAGS=-g -Wall -Wextra -Wpedantic
-ANALYZE=-fanalyzer
-STRICT=-Werror 
-BIN=a
+# makefile
+
+CC = gcc
+CFLAGS = -Wall 
+CFLAGS += -Wextra 
+CFLAGS += -Wpedantic
+ANALYZE = -Xanalyzer
+STRICT  = -Werror 
+DEBUG  = -g
+BIN  = a
 
 
 run: 
-	$(CC) ./src/*.c -o $(BIN) $(CFLAGS)
-
-
-check:
-	$(CC) ./src/*.c -o $(BIN) $(CFLAGS) $(ANALYZE)
-
+	$(CC) ./src/*.c -o $(BIN) $(CFLAGS) $(DEBUG)
 
 strict:
-	$(CC) ./src/*.c -o $(BIN) $(CFLAGS) $(STRICT) 
+	$(CC) ./src/*.c -o $(BIN) $(CFLAGS) $(DEBUG) $(STRICT)
 
-
-strictcheck:
-	$(CC) ./src/*.c -o $(BIN) $(CFLAGS) $(ANALYZE) $(STRICT)
-
+debug:
+	clang ./src/*.c -o $(BIN) $(CFLAGS) $(ANALYZE) $(STRICT) $(DEBUG)
 
 clean:
 	-rm ./$(BIN)
 
-
 memcheck:
-	valgrind ./$(BIN) --leak-check=full --track-origins=yes -s
-
+	valgrind --leak-check=full --track-origins=yes -s ./$(BIN)
 
 lint:
-	cppcheck ./src/ --std=c11
+	cppcheck ./src/* --std=c11

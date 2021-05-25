@@ -14,42 +14,41 @@
 #define seq_len(seq) ((seq)->length)
 
 #define make_slice(T, start, length) ((slice(T)){start, length})
-#define vec_slice(vec, low, high)              \
-    {                                          \
-        (high) - (low), vec_start(vec) + (low) \
+#define vec_slice(vec, low, high)                                                                  \
+    {                                                                                              \
+        (high) - (low), vec_start(vec) + (low)                                                     \
     }
 
-#define for_each(seq, iter) \
+#define for_each(seq, iter)                                                                        \
     for (seq_elem_type(seq) *iter = seq_start(seq); iter < seq_end(seq); iter++)
 
 // Slice type
 
 #define slice(T) slice_##T
 
-#define decl_slice(T)  \
-    typedef struct     \
-    {                  \
-        size_t length; \
-        T *elements;   \
+#define decl_slice(T)                                                                              \
+    typedef struct                                                                                 \
+    {                                                                                              \
+        size_t length;                                                                             \
+        T *elements;                                                                               \
     } slice(T)
 
 // Vector type
 
 #define _VEC_GROWTH_RATE 2
 #define vec(T) vector_##T
-#define decl_vec(T)      \
-    typedef struct       \
-    {                    \
-        size_t length;   \
-        size_t capacity; \
-        T elements[];    \
-    } * vec(T);          \
+#define decl_vec(T)                                                                                \
+    typedef struct                                                                                 \
+    {                                                                                              \
+        size_t length;                                                                             \
+        size_t capacity;                                                                           \
+        T elements[];                                                                              \
+    } * vec(T);                                                                                    \
     decl_slice(T)
 
 // Vector implementation
 
-#define vec_total_size(vec) \
-    (sizeof(_vector_header) + (vec)->capacity * sizeof(seq_elem_type(vec)))
+#define vec_total_size(vec) (sizeof(_vector_header) + (vec)->capacity * sizeof(seq_elem_type(vec)))
 
 typedef struct
 {
@@ -67,15 +66,15 @@ static inline void *_new_vec(_vector_header *header)
 #define new_vec(T) _new_vec(malloc(sizeof(_vector_header) + 4 * sizeof(T)))
 #define free_vec(vec) free(vec)
 
-#define vec_push(vec, ...)                              \
-    do                                                  \
-    {                                                   \
-        if ((vec)->length + 1 < (vec)->capacity)        \
-        {                                               \
-            (vec)->capacity *= _VEC_GROWTH_RATE;        \
-            (vec) = realloc(vec, vec_total_size(vec));  \
-        }                                               \
-        (vec)->elements[(vec)->length++] = __VA_ARGS__; \
+#define vec_push(vec, ...)                                                                         \
+    do                                                                                             \
+    {                                                                                              \
+        if ((vec)->length + 1 < (vec)->capacity)                                                   \
+        {                                                                                          \
+            (vec)->capacity *= _VEC_GROWTH_RATE;                                                   \
+            (vec) = realloc(vec, vec_total_size(vec));                                             \
+        }                                                                                          \
+        (vec)->elements[(vec)->length++] = __VA_ARGS__;                                            \
     } while (0)
 
 #define vec_start(vec) seq_start(vec)
@@ -84,4 +83,3 @@ static inline void *_new_vec(_vector_header *header)
 #define vec_len(vec) seq_len(vec)
 
 #endif /* VECTOR_H */
-

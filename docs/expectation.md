@@ -4,7 +4,7 @@
 
 1. Low learning curve
 1. [.vr] file extension
-1. syntax close to C as possible (with some exceptions (rust, js, F#, D, Dart))
+1. syntax close to C and Rust as possible (with some exceptions ( js, F#, D, Dart))
 
 ---
 
@@ -13,8 +13,10 @@
 ## Hello World
 
 ```rust
+import std.io as io;
+
 fn main() {
-    print "Hello World";
+    io.print("Hello World");
 }
 ```
 
@@ -58,8 +60,9 @@ let array2: int = [1, 2, 3];
 ## Functions
 
 ```rust
+
 fn main() {
-    print "Hello World";
+    std.io.print("Hello World");
 }
 ```
 
@@ -159,4 +162,3 @@ foreach(i, 0..10) {
 ## Might consider later
 
 ### Structures
-### OOP 
