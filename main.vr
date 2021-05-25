@@ -1,6 +1,9 @@
 import std.io;
 
+fn add(a , b) { 
+    return a + b;
+}
+
 fn main() {
-    io.print("Hello, ");
-    io.println("World!");
+    io.println(add(1, 2));
 }

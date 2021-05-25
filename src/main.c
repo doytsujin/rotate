@@ -12,6 +12,8 @@ int main(int argc, char *argv[])
 
     if (lexer_lex(&lexer) != EXIT_SUCCESS)
     {
+        free(file);
+        free(lexer.output);
         return EXIT_SUCCESS;
     }
     for_each(lexer.output, tkn_ptr)

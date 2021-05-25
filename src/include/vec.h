@@ -69,7 +69,7 @@ static inline void *_new_vec(_vector_header *header)
 #define vec_push(vec, ...)                                                                         \
     do                                                                                             \
     {                                                                                              \
-        if ((vec)->length + 1 < (vec)->capacity)                                                   \
+        if ((vec)->length + 1 == (vec)->capacity)                                                   \
         {                                                                                          \
             (vec)->capacity *= _VEC_GROWTH_RATE;                                                   \
             (vec) = realloc(vec, vec_total_size(vec));                                             \
