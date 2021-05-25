@@ -91,8 +91,6 @@ fn IntegerReturn() -> int {
 }
 ```
 
-example of a function that returned a string
-
 ---
 
 ## Imports
@@ -126,7 +124,7 @@ let name2 = $"{name}, World";
 ---
 ## Operators and Logic
 
-> pretty much the same as C 
+> pretty much the same as C with little modifications
 
 
 
