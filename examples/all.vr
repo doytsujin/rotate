@@ -1,0 +1,56 @@
+import std.io;
+
+->
+for 
+foreach
+while
+if 
+else 
+:
+;
+// 
+/* 
+///
+let 
+mut
++
+-
+*
+/
+
+
+let array2[]: int = [1, 2, 3];
+
+fn strfunc() -> str { 
+    return "hello world";
+}
+
+
+fn main() {
+    let i = strfunc();
+    io.println($"{i}!");
+}
+
+if x == 2 {
+    // code 
+} else if x == 3 {
+    // code 
+} else {
+    // code 
+}
+
+
+let x: int = 1;
+
+match x  {
+    | 1: // do
+    | 2: // do
+    | 3: // do 
+    | _: // default
+}
+
+for (let x:int = 0; x < 10; x = x + 1) {
+    io.println($"{i + 1}");
+}
+
+

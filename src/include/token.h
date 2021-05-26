@@ -27,6 +27,11 @@ typedef enum
     TknTypeLet,
     TknTypeInteger,
     TknTypeFloat,
+    TknTypeIntKey,
+    TknTypeFloatKey,
+    TknTypeStringKey,
+    TknTypeCharKey,
+    TknTypeBoolKey,
     TknTypeNewline,
     TknTypeSemiColon,
     TknTypeColon,
@@ -64,7 +69,14 @@ typedef enum
     TknTypePrint,
     TknTypeDoubleQuotes,
     TknTypeQuote,
-    TknTypeComma
+    TknTypeComma,
+    TknTypeDollar,
+    TknTypeDefault, // '_'
+    TknTypePublic,  // 'pub'
+    TknTypeDivider,
+    TknTypeMutable,
+    TknTypeMatch,
+
 } tkn_type_t;
 
 // A struct describing a token

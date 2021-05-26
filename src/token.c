@@ -7,39 +7,39 @@ const char *tkn_type_describe(tkn_type_t type)
     case TknTypeIdentifier:
         return "id";
     case TknTypeAssign:
-        return "assign";
+        return "assign'='";
     case TknTypeInteger:
         return "integer";
     case TknTypeNewline:
-        return "newline";
+        return "newline'\\n'";
     case TknTypeSemiColon:
-        return "semicolon";
+        return "semicolon';'";
     case TknTypeColon:
-        return "colon";
+        return "colon':'";
     case TknTypeString:
         return "string";
     case TknTypeFunction:
-        return "function";
+        return "function'fn'";
     case TknTypePLUS:
-        return "plus";
+        return "plus'+'";
     case TknTypeMINUS:
-        return "minus";
+        return "minus'-'";
     case TknTypeMULTI:
-        return "multiply";
+        return "multiply'*'";
     case TknTypeDIV:
-        return "divide";
+        return "divide'/'";
     case TknTypeLeftParen:
-        return "left_parentheses";
+        return "leftparen')'";
     case TknTypeRightParen:
-        return "right_parentheses";
+        return "rightparen'('";
     case TknTypeLeftCurly:
-        return "left_curly_brackets";
+        return "leftcurlybrkt'{'";
     case TknTypeRightCurly:
-        return "right_curly_brackets";
+        return "rightcurlybrkt'}'";
     case TknTypeLeftSQRBrackets:
-        return "left_sqr_brackets";
+        return "leftsqrbrkt']'";
     case TknTypeRightSQRBrackets:
-        return "right_sqr_brackets";
+        return "rightsqrbrkt'['";
     case TknTypeReal:
         return "real";
     case TknTypeChar:
@@ -59,11 +59,11 @@ const char *tkn_type_describe(tkn_type_t type)
     case TknTypeForEach:
         return "foreach";
     case TknTypeArrow:
-        return "arrow";
+        return "arrow'->'";
     case TknTypeGreater:
-        return "greater than";
+        return "greater'>'";
     case TknTypeLess:
-        return "less than";
+        return "less'<'";
     case TknTypeTrue:
         return "bool:true";
     case TknTypeFalse:
@@ -71,9 +71,9 @@ const char *tkn_type_describe(tkn_type_t type)
     case TknTypeDot:
         return "dot";
     case TknTypeNot:
-        return "not";
+        return "not'!'";
     case TknTypeMod:
-        return "mod";
+        return "mod'%'";
     case TknTypeAnd:
         return "and";
     case TknTypeOr:
@@ -89,7 +89,29 @@ const char *tkn_type_describe(tkn_type_t type)
     case TknTypeLet:
         return "let";
     case TknTypeComma:
-        return "comma";
+        return "comma','";
+    case TknTypeDollar:
+        return "dollar'$'";
+    case TknTypeDefault:
+        return "default'_'";
+    case TknTypeDivider:
+        return "divider'|'";
+    case TknTypePublic:
+        return "public";
+    case TknTypeMutable:
+        return "mutable";
+    case TknTypeCharKey:
+        return "char_key";
+    case TknTypeFloatKey:
+        return "float_key";
+    case TknTypeIntKey:
+        return "int_key";
+    case TknTypeMatch:
+        return "match";
+    case TknTypeStringKey:
+        return "str_key";
+    case TknTypeBoolKey:
+        return "bool_key";
     default:
         return "???";
     }

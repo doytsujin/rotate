@@ -49,7 +49,7 @@ static void lexer_skip_white(lexer_t *lexer)
     }
 }
 
-// Scans ahead to see if we match this string, returning true if we do
+// Scans ahead to see if we match this string
 static void lexer_tkn(lexer_t *lexer, tkn_type_t type, size_t length)
 {
     const tkn_t token =
@@ -73,24 +73,24 @@ int lexer_multichar(lexer_t *lexer)
     lexer_advance(lexer);
     // Length of identifier/keyword
     size_t length = 1; // already matched 1 char
-    do
+    while (!is_eof() && (isalnum(current()) || current() == '_'))
     {
         lexer_advance(lexer);
         length++;
-    } while (!is_eof() && (isalnum(current()) || current() == '_'));
+    }
     lexer->index = save_index;
     lexer->line = save_line;
     lexer->col = save_col;
     tkn_type_t type = TknTypeIdentifier;
 
-    if (keyword_match("for"))
+    if (keyword_match("foreach"))
+        type = TknTypeForEach;
+    else if (keyword_match("for"))
         type = TknTypeFor;
     else if (keyword_match("while"))
         type = TknTypeWhile;
     else if (keyword_match("fn"))
         type = TknTypeFunction;
-    else if (keyword_match("foreach"))
-        type = TknTypeForEach;
     else if (keyword_match("return"))
         type = TknTypeReturn;
     else if (keyword_match("if"))
@@ -105,10 +105,29 @@ int lexer_multichar(lexer_t *lexer)
         type = TknTypeTrue;
     else if (keyword_match("false"))
         type = TknTypeFalse;
-    else if (keyword_match("print"))
-        type = TknTypePrint;
     else if (keyword_match("let"))
         type = TknTypeLet;
+    else if (keyword_match("pub"))
+        type = TknTypePublic;
+    else if (keyword_match("mut"))
+        type = TknTypeMutable;
+    else if (keyword_match("str"))
+        type = TknTypeStringKey;
+    else if (keyword_match("int"))
+        type = TknTypeIntKey;
+    else if (keyword_match("float"))
+        type = TknTypeFloatKey;
+    else if (keyword_match("char"))
+        type = TknTypeCharKey;
+    else if (keyword_match("bool"))
+        type = TknTypeBoolKey;
+    else if (keyword_match("match"))
+        type = TknTypeMatch;
+    else
+    {
+        // printf("Error at %c %zu:%zu\n", current(), lexer->line, lexer->col);
+        // exit(2);
+    }
     lexer_tkn(lexer, type, length);
     return EXIT_SUCCESS;
 }
@@ -119,6 +138,8 @@ static int lexer_single(lexer_t *lexer)
 
     lexer_skip_white(lexer);
     const char lex_char = current();
+
+    // digit lexer
     if (isdigit(lex_char))
     {
 
@@ -145,6 +166,8 @@ static int lexer_single(lexer_t *lexer)
         lexer_tkn(lexer, reached_dot ? TknTypeFloat : TknTypeInteger, i);
         return EXIT_SUCCESS;
     }
+
+    // string lexer
     else if (lex_char == '"')
     {
         // string lexer
@@ -168,6 +191,7 @@ static int lexer_single(lexer_t *lexer)
         lexer_tkn(lexer, TknTypeString, length);
         return EXIT_SUCCESS;
     }
+    // char lexer
     else if (lex_char == '\'')
     {
         // char lexer
@@ -191,8 +215,16 @@ static int lexer_single(lexer_t *lexer)
         lexer_tkn(lexer, TknTypeChar, length);
         return EXIT_SUCCESS;
     }
+
+    // lexer for single chars
     switch (lex_char)
     {
+    case '_':
+        lexer_tkn(lexer, TknTypeDefault, 1);
+        break;
+    case '|':
+        lexer_tkn(lexer, TknTypeDivider, 1);
+        break;
     case '=':
         lexer_tkn(lexer, TknTypeAssign, 1);
         break;
@@ -209,13 +241,27 @@ static int lexer_single(lexer_t *lexer)
         lexer_tkn(lexer, TknTypePLUS, 1);
         break;
     case '-':
-        lexer_tkn(lexer, TknTypeMINUS, 1);
+        if (peek() == '>')
+        {
+            lexer_tkn(lexer, TknTypeArrow, 2);
+            lexer_advance(lexer);
+        }
+        else
+            lexer_tkn(lexer, TknTypeMINUS, 1);
         break;
     case '*':
         lexer_tkn(lexer, TknTypeMULTI, 1);
         break;
     case '/':
-        lexer_tkn(lexer, TknTypeDIV, 1);
+        if (peek() == '/')
+        {
+            while (!is_eof() && current() != '\n' && current() != '\0')
+            {
+                lexer_advance(lexer);
+            }
+        }
+        else
+            lexer_tkn(lexer, TknTypeDIV, 1);
         break;
     case '(':
         lexer_tkn(lexer, TknTypeLeftParen, 1);
@@ -244,6 +290,9 @@ static int lexer_single(lexer_t *lexer)
     case '.':
         lexer_tkn(lexer, TknTypeDot, 1);
         break;
+    case '$':
+        lexer_tkn(lexer, TknTypeDollar, 1);
+        break;
     case '!':
         lexer_tkn(lexer, TknTypeNot, 1);
         break;
@@ -253,7 +302,6 @@ static int lexer_single(lexer_t *lexer)
     case ',':
         lexer_tkn(lexer, TknTypeComma, 1);
         break;
-
     default:
         if (lex_char == '_' || isalpha(lex_char))
         {
