@@ -4,8 +4,7 @@
 int main(int argc, char *argv[])
 {
     file_t *file = file_read(argc > 1 ? argv[1] : "main.vr");
-    if (!file)
-        return EXIT_FAILURE;
+    if (!file) return EXIT_FAILURE;
 
     lexer_t lexer;
     lexer_init(&lexer, file);

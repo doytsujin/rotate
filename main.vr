@@ -1,9 +1,5 @@
-import std.io;
-
-fn add(a , b) { 
-    return a + b;
-}
+import std.io; ^
 
 fn main() {
-    io.println(add(1, 2));
+    println("Hello World");
 }

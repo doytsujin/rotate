@@ -4,20 +4,26 @@ CC = gcc
 CFLAGS = -Wall 
 CFLAGS += -Wextra 
 CFLAGS += -Wpedantic
+SRC = $(wildcard src/*.c)
 ANALYZE = -Xanalyzer
 STRICT  = -Werror 
+CSTD = -std=gnu18
+#LIB = -Lsrc/include/lib/libprettyerr -lprettyerr
 DEBUG  = -g
 BIN  = a
 
 
 run: 
-	$(CC) ./src/*.c -o $(BIN) $(CFLAGS) $(DEBUG)
+	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(DEBUG) $(CSTD) $(LIB)
 
 strict:
-	$(CC) ./src/*.c -o $(BIN) $(CFLAGS) $(DEBUG) $(STRICT)
+	$(CC) ./src/*.c -o $(BIN) $(CFLAGS) $(DEBUG) $(STRICT) $(CSTD) $(LIB)
+
+afl:
+	afl-clang ./src/*.c -o $(BIN) $(CFLAGS) $(DEBUG) $(CSTD) $(LIB)  
 
 debug:
-	clang ./src/*.c -o $(BIN) $(CFLAGS) $(ANALYZE) $(STRICT) $(DEBUG)
+	clang ./src/*.c -o $(BIN) $(CFLAGS) $(ANALYZE) $(STRICT) $(DEBUG) $(CSTD) $(LIB)
 
 clean:
 	-rm ./$(BIN)
