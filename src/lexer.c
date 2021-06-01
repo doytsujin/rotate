@@ -4,6 +4,8 @@
 
 #define current() (lexer->input->contents[lexer->index])
 #define peek() (lexer->input->contents[lexer->index + 1])
+#define specific(i) (lexer->input->contents[lexer->index + i])
+#define past() (lexer->input->contents[lexer->index - 1])
 #define is_eof() (lexer->index >= lexer->input->length)
 #define next() lexer->index++
 #define rewind(n) lexer->index -= (n)
@@ -17,6 +19,7 @@ void lexer_init(lexer_t *lexer, file_t *input)
     lexer->index = 0;
     lexer->line = 1;
     lexer->col = 1;
+    lexer->length = 1;
 }
 
 // free from memory
@@ -53,6 +56,7 @@ static void lexer_skip_white(lexer_t *lexer)
 // Scans ahead to see if we match this string
 static void lexer_tkn(lexer_t *lexer, tkn_type_t type, size_t length)
 {
+    lexer->length = length;
     const tkn_t token =
         tkn_make(pos_make(lexer->line, lexer->col, lexer->input->name),
                  utils_strndup(lexer->input->contents + lexer->index, length), type);
@@ -68,6 +72,7 @@ int lexer_multichar(lexer_t *lexer)
     size_t save_index = lexer->index;
     size_t save_line = lexer->line;
     size_t save_col = lexer->col;
+    size_t save_length = lexer->length;
 
     // Only called when first char is start of identifier
     // So we can safely advance
@@ -79,9 +84,11 @@ int lexer_multichar(lexer_t *lexer)
         lexer_advance(lexer);
         length++;
     }
+    save_length = length;
     lexer->index = save_index;
     lexer->line = save_line;
     lexer->col = save_col;
+    lexer->length = save_length;
     tkn_type_t type = TknTypeIdentifier;
 
     if (keyword_match("foreach") && length == 7)
@@ -129,7 +136,7 @@ int lexer_multichar(lexer_t *lexer)
         // printf("Error at %c %zu:%zu\n", current(), lexer->line, lexer->col);
         // exit(2);
     }
-    lexer_tkn(lexer, type, length);
+    lexer_tkn(lexer, type, save_length);
     return EXIT_SUCCESS;
 }
 
@@ -163,6 +170,7 @@ static int lexer_single(lexer_t *lexer)
         lexer->index = save_index;
         lexer->line = save_line;
         lexer->col = save_col;
+        lexer->length = i;
         lexer_tkn(lexer, reached_dot ? TknTypeFloat : TknTypeInteger, i);
         return EXIT_SUCCESS;
     }
@@ -187,6 +195,7 @@ static int lexer_single(lexer_t *lexer)
         lexer->index = save_index;
         lexer->line = save_line;
         lexer->col = save_col;
+        lexer->length = length;
         lexer_tkn(lexer, TknTypeString, length);
         return EXIT_SUCCESS;
     }
@@ -204,6 +213,13 @@ static int lexer_single(lexer_t *lexer)
             // printf("%c\n", current());
             lexer_advance(lexer);
             length++;
+            if (length > 3) return EXIT_FAILURE;
+            if (length == 1 && current() == 10)
+            {
+                lexer_advance(lexer);
+                length++;
+                break;
+            }
         }
         if (is_eof()) return EXIT_FAILURE;
         length++;
@@ -340,9 +356,59 @@ int lexer_lex(lexer_t *lexer)
     return EXIT_SUCCESS;
 }
 // failure display
-int lexer_lex_failure(lexer_t *lexer) 
+int lexer_lex_failure(lexer_t *lexer)
 {
-    printf("%s%s%s:%zu:%zu: ", GREEN, BOLD, lexer->input->name, lexer->line, lexer->col);
-    printf("%s%sLexing failed at%s\n", RESET, LRED, RESET);
+    size_t len = lexer->length;
+    char word[len + 1];
+    char arrows[len + 1];
+    for (size_t i = 0; i < len; i++)
+    {
+        // #define specific() (lexer->input->contents[lexer->index + i])
+        word[i] = specific(i) != '\n' ? specific(i) : 0;
+        arrows[i] = '-';
+    }
+    if (len == 1)
+    {
+        word[1] = 0;
+        arrows[1] = 0;
+    }
+    else if (len > 1)
+    {
+        word[len - 1] = 0;
+        arrows[len - 1] = 0;
+    }
+    size_t index_line = (lexer->col) - 1;
+    size_t j = 0;
+    while (current() != '\n')
+    {
+        next();
+        j++;
+    }
+    size_t line_len = j + index_line + 1;
+    rewind(index_line + 1);
+    char sentence[line_len + 1];
+
+    for (size_t i = 0; i < line_len; i++)
+    {
+        if (specific(i) == '\n') break;
+        sentence[i] = specific(i);
+    }
+    if (line_len == 1)
+        sentence[1] = 0;
+    else if (line_len > 1)
+        sentence[line_len - 1] = 0;
+    const size_t k = lexer->col;
+    char spaces[k];
+    for (size_t i = 0; i < k; i++)
+    {
+        spaces[i] = ' ';
+    }
+    spaces[k - 1] = 0;
+
+    printf("%s%s%s:%zu:%zu: %serror:%s Unknown Token\n", GREEN, BOLD, lexer->input->name,
+           lexer->line, lexer->col, RED, RESET);
+    printf("%zu %s|%s %s\n", lexer->line, YELLOW, RESET, sentence);
+    printf("  %s| %s%s╰─%s%s `%s` is an unknown token %s\n", YELLOW, RED, spaces, arrows, LCYAN,
+           word, RESET);
     return EXIT_FAILURE;
 }

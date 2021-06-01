@@ -19,6 +19,7 @@ typedef struct
     file_t *input;
     vec(tkn_t) output;
     size_t index, line, col;
+    size_t length;
 } lexer_t;
 
 void lexer_init(lexer_t *lexer, file_t *input);
