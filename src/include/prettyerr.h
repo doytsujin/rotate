@@ -14,16 +14,19 @@
 #define BOLD "\x1b[1m"
 #define FAINT "\x1b[2m"
 
-#define	BLACK "\x1b[30m"
+#define BLACK "\x1b[30m"
 #define WHITE "\x1b[37m"
 #define DEFAULT "\x1b[39m"
 #define LGRAY "\x1b[90m"
 #define LRED "\x1b[91m"
-#define LGREEN "\x1b[92m" 
-#define LYELLOW "\x1b[93m" 
-#define LBLUE "\x1b[94m" 
+#define LGREEN "\x1b[92m"
+#define LYELLOW "\x1b[93m"
+#define LBLUE "\x1b[94m"
 #define LMAGENTA "\x1b[95m"
 #define LCYAN "\x1b[96m"
-#define LWHITE "\x1b[97m" 
+#define LWHITE "\x1b[97m"
+
+char *err_msgsfunc(lexer_t *lexer);
+bool is_location_needed(lexer_t *lexer);
 
 #endif // PRETTY_PRINT_ROTATE

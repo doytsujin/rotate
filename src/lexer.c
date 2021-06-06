@@ -2,15 +2,7 @@
 #include "include/prettyerr.h"
 #include "include/token.h"
 #include <stdlib.h>
-
-#define current() (lexer->input->contents[lexer->index])
-#define peek() (lexer->input->contents[lexer->index + 1])
-#define specific(i) (lexer->input->contents[lexer->index + i])
-#define past() (lexer->input->contents[lexer->index - 1])
-#define is_eof() (lexer->index >= lexer->input->length)
-#define next() lexer->index++
-#define rewind(n) lexer->index -= (n)
-#define keyword_match(str) (strncmp(lexer->input->contents + lexer->index, str, length) == 0)
+#include <string.h>
 
 // lexer initialization
 void lexer_init(lexer_t *lexer, file_t *input)
@@ -21,6 +13,7 @@ void lexer_init(lexer_t *lexer, file_t *input)
     lexer->line = 1;
     lexer->col = 1;
     lexer->length = 1;
+    lexer->error_type = 0;
 }
 
 // free from memory
@@ -33,6 +26,7 @@ void lexer_destroy(lexer_t *lexer)
 static inline void lexer_advance(lexer_t *lexer)
 {
     const char c = current();
+    if (!peek()) lexer->error_type = END_OF_FILE;
     next();
     if (c != '\n')
     {
@@ -55,13 +49,13 @@ static void lexer_skip_white(lexer_t *lexer)
 }
 
 // Scans ahead to see if we match this string
-static void lexer_tkn(lexer_t *lexer, tkn_type_t type, size_t length)
+static void lexer_tkn(lexer_t *lexer, tkn_type_t type)
 {
-    lexer->length = length;
+
     const tkn_t token =
         tkn_make(pos_make(lexer->line, lexer->col, lexer->input->name),
-                 utils_strndup(lexer->input->contents + lexer->index, length), type);
-    for (size_t i = 0; i < length; i++)
+                 utils_strndup(lexer->input->contents + lexer->index, length()), type);
+    for (size_t i = 0; i < length(); i++)
     {
         lexer_advance(lexer);
     }
@@ -79,13 +73,13 @@ int lexer_multichar(lexer_t *lexer)
     // So we can safely advance
     lexer_advance(lexer);
     // Length of identifier/Typeword
-    size_t length = 1; // already matched 1 char
-    while (!is_eof() && (isalnum(current()) || current() == '_'))
+    length() = 1; // already matched 1 char
+    size_t length = 1;
+    while (isalnum(current()) || current() == '_')
     {
         lexer_advance(lexer);
         length++;
     }
-    save_length = length;
     lexer->index = save_index;
     lexer->line = save_line;
     lexer->col = save_col;
@@ -141,14 +135,20 @@ int lexer_multichar(lexer_t *lexer)
         // printf("Error at %c %zu:%zu\n", current(), lexer->line, lexer->col);
         // exit(2);
     }
-    lexer_tkn(lexer, type, save_length);
+    length() = length;
+    lexer_tkn(lexer, type);
     return EXIT_SUCCESS;
 }
 
 // lexer for single characater
 static int lexer_single(lexer_t *lexer)
 {
-
+    
+    if (lexer->input->contents[0] == 0 || lexer->input->contents[0] == '\n')
+    {
+        lexer->error_type = END_OF_FILE;
+        return EXIT_FAILURE;
+    }
     lexer_skip_white(lexer);
     const char lex_char = current();
     lexer->length = 1;
@@ -162,7 +162,7 @@ static int lexer_single(lexer_t *lexer)
         size_t i = 1;
         lexer_advance(lexer);
         bool reached_dot = false;
-        while (isdigit(current()) || current() == '.')
+        while (isdigit((current()) || current() == '.') && current() != 0)
         {
             if (current() == '.')
             {
@@ -176,7 +176,7 @@ static int lexer_single(lexer_t *lexer)
         lexer->line = save_line;
         lexer->col = save_col;
         lexer->length = i;
-        lexer_tkn(lexer, reached_dot ? TknTypeFloat : TknTypeInteger, i);
+        lexer_tkn(lexer, reached_dot ? TknTypeFloat : TknTypeInteger);
         return EXIT_SUCCESS;
     }
 
@@ -187,21 +187,25 @@ static int lexer_single(lexer_t *lexer)
         size_t save_index = lexer->index;
         size_t save_line = lexer->line;
         size_t save_col = lexer->col;
-        size_t length = 1;
+        length() = 1;
         lexer_advance(lexer);
-        while (!is_eof() && current() != '\"')
+        while (current() != '\"' && current() != 0)
         {
             // printf("%c\n", current());
+            if (is_eof())
+            {
+                lexer->error_type = NOT_CLOSED_DOUBLE_QUOTE;
+                return EXIT_FAILURE;
+            }
             lexer_advance(lexer);
-            length++;
+            add_len();
         }
-        if (is_eof()) return EXIT_FAILURE;
-        length++;
+
+        add_len();
         lexer->index = save_index;
         lexer->line = save_line;
         lexer->col = save_col;
-        lexer->length = length;
-        lexer_tkn(lexer, TknTypeString, length);
+        lexer_tkn(lexer, TknTypeString);
         return EXIT_SUCCESS;
     }
     // char lexer
@@ -211,121 +215,123 @@ static int lexer_single(lexer_t *lexer)
         size_t save_index = lexer->index;
         size_t save_line = lexer->line;
         size_t save_col = lexer->col;
-        size_t length = 1;
+        length() = 1;
         lexer_advance(lexer);
-        while (!is_eof() && current() != '\'')
+        while (current() != 0 && current() != '\'')
         {
-            // printf("%c\n", current());
             lexer_advance(lexer);
-            length++;
-            if (length > 3) return EXIT_FAILURE;
-            if (length == 1 && current() == 10)
-            {
-                lexer_advance(lexer);
-                length++;
-                break;
-            }
+            add_len();
         }
-        if (is_eof()) return EXIT_FAILURE;
-        length++;
+        if (is_eof())
+        {
+            lexer->error_type = END_OF_FILE;
+            return EXIT_FAILURE;
+        }
+
+        add_len();
         lexer->index = save_index;
         lexer->line = save_line;
         lexer->col = save_col;
-        lexer_tkn(lexer, TknTypeChar, length);
+        lexer_tkn(lexer, TknTypeChar);
         return EXIT_SUCCESS;
     }
 
+    length() = 1;
     // lexer for single chars
     switch (lex_char)
     {
         case '_':
-            lexer_tkn(lexer, TknTypeDefault, 1);
+            lexer_tkn(lexer, TknTypeDefault);
             break;
         case '|':
-            lexer_tkn(lexer, TknTypeDivider, 1);
+            lexer_tkn(lexer, TknTypeDivider);
             break;
         case '=':
             if (peek() == '=')
             {
-                lexer_tkn(lexer, TknTypeEqualEqual, 2);
+                add_len();
+                lexer_tkn(lexer, TknTypeEqualEqual);
                 lexer_advance(lexer);
             }
             else
-                lexer_tkn(lexer, TknTypeEqual, 1);
+                lexer_tkn(lexer, TknTypeEqual);
             break;
         case ':':
-            lexer_tkn(lexer, TknTypeColon, 1);
+            lexer_tkn(lexer, TknTypeColon);
             break;
         case ';':
-            lexer_tkn(lexer, TknTypeSemiColon, 1);
+            lexer_tkn(lexer, TknTypeSemiColon);
             break;
         case '\n':
-            lexer_tkn(lexer, TknTypeNewline, 1);
+            lexer_tkn(lexer, TknTypeNewline);
             break;
         case '+':
-            lexer_tkn(lexer, TknTypePLUS, 1);
+            lexer_tkn(lexer, TknTypePLUS);
             break;
         case '-':
             if (peek() == '>')
             {
-                lexer_tkn(lexer, TknTypeArrow, 2);
+                add_len();
+                lexer_tkn(lexer, TknTypeArrow);
                 lexer_advance(lexer);
             }
             else
-                lexer_tkn(lexer, TknTypeMINUS, 1);
+                lexer_tkn(lexer, TknTypeMINUS);
             break;
         case '*':
-            lexer_tkn(lexer, TknTypeStar, 1);
+            add_len();
+            lexer_tkn(lexer, TknTypeStar);
             break;
         case '/':
             if (peek() == '/')
             {
-                while (!is_eof() && current() != '\n' && current() != '\0')
+                while (!is_eof() && current() != '\n' && current() != 0)
                 {
                     lexer_advance(lexer);
                 }
             }
             else
-                lexer_tkn(lexer, TknTypeDIV, 1);
+                add_len();
+            lexer_tkn(lexer, TknTypeDIV);
             break;
         case '(':
-            lexer_tkn(lexer, TknTypeLeftParen, 1);
+            lexer_tkn(lexer, TknTypeLeftParen);
             break;
         case ')':
-            lexer_tkn(lexer, TknTypeRightParen, 1);
+            lexer_tkn(lexer, TknTypeRightParen);
             break;
         case '{':
-            lexer_tkn(lexer, TknTypeLeftCurly, 1);
+            lexer_tkn(lexer, TknTypeLeftCurly);
             break;
         case '}':
-            lexer_tkn(lexer, TknTypeRightCurly, 1);
+            lexer_tkn(lexer, TknTypeRightCurly);
             break;
         case '[':
-            lexer_tkn(lexer, TknTypeLeftSQRBrackets, 1);
+            lexer_tkn(lexer, TknTypeLeftSQRBrackets);
             break;
         case ']':
-            lexer_tkn(lexer, TknTypeRightSQRBrackets, 1);
+            lexer_tkn(lexer, TknTypeRightSQRBrackets);
             break;
         case '>':
-            lexer_tkn(lexer, TknTypeGreater, 1);
+            lexer_tkn(lexer, TknTypeGreater);
             break;
         case '<':
-            lexer_tkn(lexer, TknTypeLess, 1);
+            lexer_tkn(lexer, TknTypeLess);
             break;
         case '.':
-            lexer_tkn(lexer, TknTypeDot, 1);
+            lexer_tkn(lexer, TknTypeDot);
             break;
         case '$':
-            lexer_tkn(lexer, TknTypeDollar, 1);
+            lexer_tkn(lexer, TknTypeDollar);
             break;
         case '!':
-            lexer_tkn(lexer, TknTypeNot, 1);
+            lexer_tkn(lexer, TknTypeNot);
             break;
         case '%':
-            lexer_tkn(lexer, TknTypeMod, 1);
+            lexer_tkn(lexer, TknTypeMod);
             break;
         case ',':
-            lexer_tkn(lexer, TknTypeComma, 1);
+            lexer_tkn(lexer, TknTypeComma);
             break;
         default:
             if (lex_char == '_' || isalpha(lex_char))
@@ -356,6 +362,7 @@ int lexer_lex(lexer_t *lexer)
     lexer->index = 0;
     lexer->line = 1;
     lexer->col = 1;
+    printf("length: %zu\n", strlen(lexer->input->contents));
     while (!is_eof())
     {
         if (lexer_single(lexer) != EXIT_SUCCESS)
@@ -365,47 +372,4 @@ int lexer_lex(lexer_t *lexer)
         lexer_skip_white(lexer);
     }
     return EXIT_SUCCESS;
-}
-// failure display
-int lexer_lex_failure(lexer_t *lexer)
-{
-    size_t len = lexer->length;
-    char word[len + 1];
-    char arrows[len + 1];
-    for (size_t i = 0; i < len; i++)
-    {
-        word[i] = specific(i) != '\n' ? specific(i) : '\0';
-        arrows[i] = '-';
-    }
-    word[len] = 0;
-    arrows[len] = 0;
-
-    size_t j = 0;
-    while (current() != '\n')
-    {
-        next();
-        j++;
-    }
-    size_t line_len = j + lexer->col - 1;
-    rewind(line_len);
-    char sentence[line_len + 1];
-    for (size_t i = 0; i < line_len; i++)
-    {
-        sentence[i] = specific(i);
-    }
-    sentence[line_len] = '\0';
-    const size_t k = lexer->col;
-    char spaces[k];
-    for (size_t i = 0; i < k; i++)
-    {
-        spaces[i] = ' ';
-    }
-    spaces[k - 1] = '\0';
-
-    printf("%s%s%s:%zu:%zu: %serror:%s Unknown Token\n", GREEN, BOLD, lexer->input->name,
-           lexer->line, lexer->col, RED, RESET);
-    printf("%zu %s|%s %s\n", lexer->line, YELLOW, RESET, sentence);
-    printf("  %s| %s%s╰─%s%s `%s` is an unknown token %s\n", YELLOW, RED, spaces, arrows, LCYAN,
-           word, RESET);
-    return EXIT_FAILURE;
 }

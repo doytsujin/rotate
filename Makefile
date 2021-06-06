@@ -15,13 +15,13 @@ run:
 	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(CSTD) $(LIB)
 
 strict:
-	$(CC) ./src/*.c -o $(BIN) $(CFLAGS) $(DEBUG) $(STRICT) $(CSTD) $(LIB)
+	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(DEBUG) $(STRICT) $(CSTD) $(LIB)
 
 afl:
-	afl-clang ./src/*.c -o $(BIN) $(CFLAGS) $(DEBUG) $(CSTD) $(LIB)  
+	afl-clang $(SRC) -o $(BIN) $(CFLAGS) $(DEBUG) $(CSTD) $(LIB)  
 
 debug:
-	clang ./src/*.c -o $(BIN) $(CFLAGS) $(ANALYZE) $(STRICT) $(DEBUG) $(CSTD) $(LIB)
+	clang $(SRC) -o $(BIN) $(CFLAGS) $(ANALYZE) $(STRICT) $(DEBUG) $(CSTD) $(LIB)
 
 clean:
 	-rm ./$(BIN)

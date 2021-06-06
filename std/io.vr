@@ -3,5 +3,6 @@ fn println(value: str) {
 }
 
 fn print(value: str) {
-    output(value);
+    let output_str = $"{value}\n";
+    output(output_str);
 }

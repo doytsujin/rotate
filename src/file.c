@@ -1,4 +1,5 @@
 #include "include/file.h"
+#include <stdio.h>
 
 file_t *file_read(const char *name)
 {
