@@ -362,7 +362,7 @@ int lexer_lex(lexer_t *lexer)
     lexer->index = 0;
     lexer->line = 1;
     lexer->col = 1;
-    printf("length: %zu\n", strlen(lexer->input->contents));
+    //printf("length: %zu\n", strlen(lexer->input->contents));
     while (!is_eof())
     {
         if (lexer_single(lexer) != EXIT_SUCCESS)
