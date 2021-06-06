@@ -1,0 +1,5 @@
+import std.io as bruh;
+
+fn main() {
+    bruh.println("Hello World!");
+}

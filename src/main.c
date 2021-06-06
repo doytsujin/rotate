@@ -1,5 +1,7 @@
 #include "include/file.h"
 #include "include/lexer.h"
+#include "include/vec.h"
+#include "include/ast.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,8 +19,9 @@ int main(int argc, char *argv[])
     }
     for_each(lexer.output, tkn_ptr)
     {
-        tkn_dump(tkn_ptr);
+        tkn_dump(tkn_ptr);  
     }
+    
 
     tokens_free(lexer.output);
     free(file);

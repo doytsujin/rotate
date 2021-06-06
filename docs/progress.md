@@ -2,7 +2,7 @@
 
 list uncomplete
 
-Updated on 25 May 2021
+Updated on June 2 2021
 
 ---
 
@@ -25,14 +25,14 @@ Updated on 25 May 2021
 
 - [ ] basic print hello World
 - [ ] IO 
-- [ ] Comments
+- [x] Comments
 - [ ] Variables
 - [ ] if statements
 - [ ] Functions
 - [ ] Arrays
-- [ ] Imports
+- [ ] Import Modules
 - [ ] logic and operators
 - [ ] strings
 - [ ] switch statements
 - [ ] Loops 
--  more later on
+- [ ] Structures

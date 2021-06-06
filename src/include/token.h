@@ -23,7 +23,7 @@ typedef struct
 typedef enum
 {
     TknTypeIdentifier,
-    TknTypeAssign,
+    TknTypeEqual,
     TknTypeLet,
     TknTypeInteger,
     TknTypeFloat,
@@ -39,7 +39,7 @@ typedef enum
     TknTypeFunction,
     TknTypePLUS,
     TknTypeMINUS,
-    TknTypeMULTI,
+    TknTypeStar,
     TknTypeDIV,
     TknTypeLeftParen,
     TknTypeRightParen,
@@ -76,6 +76,10 @@ typedef enum
     TknTypeDivider,
     TknTypeMutable,
     TknTypeMatch,
+    TknTypeAs,
+    TknTypeEqualEqual, // ==
+    TknTypeBreak,
+     
 
 } tkn_type_t;
 

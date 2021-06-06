@@ -1,0 +1,7 @@
+fn println(value: str) {
+    output(value);
+}
+
+fn print(value: str) {
+    output(value);
+}

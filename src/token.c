@@ -6,7 +6,7 @@ const char *tkn_type_describe(tkn_type_t type)
     {
         case TknTypeIdentifier:
             return "id";
-        case TknTypeAssign:
+        case TknTypeEqual:
             return "assign'='";
         case TknTypeInteger:
             return "integer";
@@ -24,8 +24,8 @@ const char *tkn_type_describe(tkn_type_t type)
             return "plus'+'";
         case TknTypeMINUS:
             return "minus'-'";
-        case TknTypeMULTI:
-            return "multiply'*'";
+        case TknTypeStar:
+            return "star'*'";
         case TknTypeDIV:
             return "divide'/'";
         case TknTypeLeftParen:
@@ -112,6 +112,12 @@ const char *tkn_type_describe(tkn_type_t type)
             return "str_type";
         case TknTypeBoolType:
             return "bool_type";
+        case TknTypeAs:
+            return "as";
+        case TknTypeEqualEqual:
+            return "equality";
+        case TknTypeBreak:
+            return "break";
         default:
             return "???";
     }

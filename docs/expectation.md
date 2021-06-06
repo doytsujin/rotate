@@ -18,8 +18,7 @@
 import std.io;
 
 fn main() {
-    io.print("Hello, ");
-    io.println("World!");
+    println("Hello World!");
 }
 ```
 
@@ -34,7 +33,13 @@ fn main() {
 
 /// Documentation comment
 ```
-
+multiline comments cannot be nested i.e. 
+```c
+/*
+    // allowed
+    / * NOT ALLOWED * /
+*/
+```
 ---
 
 ## Variables
@@ -42,20 +47,24 @@ fn main() {
 ```rust
 // immutable string 
 let NAME: str = "a string";
+// mutable string
 let mut name2: str = "mutable string";
+
+// immutable ascii char
 let char1: char = 'c';
+// immutable int
 let number1: int = 23;
+
 let number2: float = 23.0;
 let number3: double = 23.123;
 ```
-(for now dynamic types, aiming for static types later)
 
 ---
 
 ## Arrays
 
 ```rust
-let array2[]: int = [1, 2, 3];
+let array2[3]: int = [1, 2, 3];
 ```
 
 ---
@@ -66,14 +75,14 @@ let array2[]: int = [1, 2, 3];
 import std.io;
 
 fn main() {
-    io.print("Hello World");
+    io.println("Hello World");
 }
 ```
 
 doesn't return unless specified
 
 ```rust
-import std.io;
+import std.io as *;
 
 fn example() -> str {
     return "Hello World";
@@ -148,10 +157,10 @@ if x == 2 {
 
 ```fsharp
 match x {
-    | 1 : // do
-    | 2 : // do
-    | 3 : // do
-    | _ : // do default
+    | 1 : // do         ;
+    | 2 : // do         ;
+    | 3 : // do         ;
+    | _ : // do default ;
 }
 ```
 
@@ -160,13 +169,25 @@ match x {
 ## Loops
 
 for and while same as C with another foreach loop
-
+```cs 
+for (let i = 0; i < 10; i = i + 1) {
+    println($"{i}");
+}
+```
+```cs 
+let i = 0;
+while (i < 10) {
+    println($"{i}");
+    i = i + 1;
+}
+```
 ```cs
 foreach(i, 0..10) {
-    log($"{i}");
+    println($"{i}");
 }
 ```
 
 ---
 ## Might consider later
 ### Structures
+> structs are similar to c but with functions work same as modules 

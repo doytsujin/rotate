@@ -1,5 +1,6 @@
 #include "include/lexer.h"
 #include "include/prettyerr.h"
+#include "include/token.h"
 #include <stdlib.h>
 
 #define current() (lexer->input->contents[lexer->index])
@@ -93,6 +94,8 @@ int lexer_multichar(lexer_t *lexer)
 
     if (keyword_match("foreach") && length == 7)
         type = TknTypeForEach;
+    else if (keyword_match("as") && length == 2)
+        type = TknTypeAs;
     else if (keyword_match("for") && length == 3)
         type = TknTypeFor;
     else if (keyword_match("while") && length == 5)
@@ -131,6 +134,8 @@ int lexer_multichar(lexer_t *lexer)
         type = TknTypeBoolType;
     else if (keyword_match("match") && length == 5)
         type = TknTypeMatch;
+    else if (keyword_match("break") && length == 5)
+        type = TknTypeBreak;
     else
     {
         // printf("Error at %c %zu:%zu\n", current(), lexer->line, lexer->col);
@@ -146,7 +151,7 @@ static int lexer_single(lexer_t *lexer)
 
     lexer_skip_white(lexer);
     const char lex_char = current();
-
+    lexer->length = 1;
     // digit lexer
     if (isdigit(lex_char))
     {
@@ -240,7 +245,13 @@ static int lexer_single(lexer_t *lexer)
             lexer_tkn(lexer, TknTypeDivider, 1);
             break;
         case '=':
-            lexer_tkn(lexer, TknTypeAssign, 1);
+            if (peek() == '=')
+            {
+                lexer_tkn(lexer, TknTypeEqualEqual, 2);
+                lexer_advance(lexer);
+            }
+            else
+                lexer_tkn(lexer, TknTypeEqual, 1);
             break;
         case ':':
             lexer_tkn(lexer, TknTypeColon, 1);
@@ -264,7 +275,7 @@ static int lexer_single(lexer_t *lexer)
                 lexer_tkn(lexer, TknTypeMINUS, 1);
             break;
         case '*':
-            lexer_tkn(lexer, TknTypeMULTI, 1);
+            lexer_tkn(lexer, TknTypeStar, 1);
             break;
         case '/':
             if (peek() == '/')
@@ -363,47 +374,33 @@ int lexer_lex_failure(lexer_t *lexer)
     char arrows[len + 1];
     for (size_t i = 0; i < len; i++)
     {
-        // #define specific() (lexer->input->contents[lexer->index + i])
-        word[i] = specific(i) != '\n' ? specific(i) : 0;
+        word[i] = specific(i) != '\n' ? specific(i) : '\0';
         arrows[i] = '-';
     }
-    if (len == 1)
-    {
-        word[1] = 0;
-        arrows[1] = 0;
-    }
-    else if (len > 1)
-    {
-        word[len - 1] = 0;
-        arrows[len - 1] = 0;
-    }
-    size_t index_line = (lexer->col) - 1;
+    word[len] = 0;
+    arrows[len] = 0;
+
     size_t j = 0;
     while (current() != '\n')
     {
         next();
         j++;
     }
-    size_t line_len = j + index_line + 1;
-    rewind(index_line + 1);
+    size_t line_len = j + lexer->col - 1;
+    rewind(line_len);
     char sentence[line_len + 1];
-
     for (size_t i = 0; i < line_len; i++)
     {
-        if (specific(i) == '\n') break;
         sentence[i] = specific(i);
     }
-    if (line_len == 1)
-        sentence[1] = 0;
-    else if (line_len > 1)
-        sentence[line_len - 1] = 0;
+    sentence[line_len] = '\0';
     const size_t k = lexer->col;
     char spaces[k];
     for (size_t i = 0; i < k; i++)
     {
         spaces[i] = ' ';
     }
-    spaces[k - 1] = 0;
+    spaces[k - 1] = '\0';
 
     printf("%s%s%s:%zu:%zu: %serror:%s Unknown Token\n", GREEN, BOLD, lexer->input->name,
            lexer->line, lexer->col, RED, RESET);

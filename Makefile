@@ -1,4 +1,3 @@
-# makefile
 
 CC = gcc
 CFLAGS = -Wall 
@@ -8,13 +7,12 @@ SRC = $(wildcard src/*.c)
 ANALYZE = -Xanalyzer
 STRICT  = -Werror 
 CSTD = -std=gnu18
-#LIB = -Lsrc/include/lib/libprettyerr -lprettyerr
 DEBUG  = -g
 BIN  = a
 
 
 run: 
-	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(DEBUG) $(CSTD) $(LIB)
+	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(CSTD) $(LIB)
 
 strict:
 	$(CC) ./src/*.c -o $(BIN) $(CFLAGS) $(DEBUG) $(STRICT) $(CSTD) $(LIB)
@@ -33,3 +31,6 @@ memcheck:
 
 lint:
 	cppcheck ./src/* --std=c11
+
+edit:
+	vim ./src/
