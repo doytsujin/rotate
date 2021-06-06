@@ -1,5 +1,3 @@
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/Airbus5717/rotate)
-
 # Rotate Programming language
 
  Work in progress 
@@ -9,7 +7,15 @@
  to see current plan check (no promises) docs/expectation.md
 
 
-
+ Hello World example
+ ```rust
+ import std.io;
+ 
+ fn main() {
+     println("Hello World");
+ }
+ ```
+ Also check docs in `./docs/expectation` 
 
 ## current Status
 check `./docs/progress.md`
