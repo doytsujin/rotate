@@ -1,0 +1,27 @@
+import std.io;
+
+fn main() {
+    let x: char = 'a';
+    let y = 'b';
+    let a: int = 1;
+    let b = 2;
+    let c: float = 3.4;
+    let d = 3.14;
+    let e = true;
+    let f: bool = false;
+    let g: str = "bruh";
+    let h = "string";
+    let i: str = $"{g} why this {h} looks like this";
+
+    println($"x is a char with value 'a' : {x}");
+    println($"y is {y}");
+    println($"a is {a}");
+    println($"b is {b}");
+    println($"c is {c}");
+    println($"d is {d}");
+    println($"e is true: {e}");
+    println($"f is {f}");
+    println($"g is {g}");
+    println($"h is {h}");
+    println($"i is {i}");
+}

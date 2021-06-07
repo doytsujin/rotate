@@ -12,14 +12,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-enum
+typedef enum
 {
+    /// Unknown token/error (default)
     UNKNOWN,
-    CHAR_OVER_ONE,
-    NOT_CLOSED_SINGLE_QUOTE,
-    NOT_CLOSED_DOUBLE_QUOTE,
+    /// Single quote not closed
+    NOT_CLOSED_CHAR,
+    /// Double quote not closed
+    NOT_CLOSED_STRING,
+    /// File empty error
+    FILE_EMPTY,
+    /// End of file error
     END_OF_FILE,
-};
+} err_kind;
 
 #define current() (lexer->input->contents[lexer->index])
 #define peek() (lexer->input->contents[lexer->index + 1])
@@ -42,14 +47,23 @@ typedef struct
     vec(tkn_t) output;
     size_t index, line, col;
     size_t length;
-    size_t error_type;
+    err_kind error_type;
 } lexer_t;
 
+/// init a lexer from a file
 void lexer_init(lexer_t *lexer, file_t *input);
+
+// destroy lexer from memory
 void lexer_destroy(lexer_t *lexer);
+
 int lexer_multichar(lexer_t *lexer);
+
+// free tokens from memory
 void tokens_free(vec(tkn_t) tkns);
+
 int lexer_lex(lexer_t *lexer);
+
+// display error output
 int lexer_lex_failure(lexer_t *lexer);
 
 #endif /* LEXER_H */

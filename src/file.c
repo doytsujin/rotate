@@ -12,12 +12,13 @@ file_t *file_read(const char *name)
 
     // Calculate the file length
     fseek(file, 0, SEEK_END);
-    const size_t length = ftell(file);
     if (!ftell(file))
     {
         fclose(file);
         return NULL;
     }
+    const size_t length = ftell(file) ? ftell(file) : 0;
+
     rewind(file);
 
     // Read the file into a buffer

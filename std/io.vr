@@ -1,8 +1,0 @@
-fn println(value: str) {
-    output(value);
-}
-
-fn print(value: str) {
-    let output_str = $"{value}\n";
-    output(output_str);
-}

@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-    file_t *file = file_read(argc > 1 ? argv[1] : "main.vr");
+    file_t *file = file_read(argc > 1 ? argv[1] : "./examples/errors/notclosedchar.vr");
     if (!file) return EXIT_FAILURE;
 
     lexer_t lexer;

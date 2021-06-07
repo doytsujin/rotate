@@ -1,8 +1,7 @@
 #include "include/lexer.h"
 #include "include/prettyerr.h"
-#include "include/token.h"
+#include <ctype.h>
 #include <stdlib.h>
-#include <string.h>
 
 // lexer initialization
 void lexer_init(lexer_t *lexer, file_t *input)
@@ -13,7 +12,7 @@ void lexer_init(lexer_t *lexer, file_t *input)
     lexer->line = 1;
     lexer->col = 1;
     lexer->length = 1;
-    lexer->error_type = 0;
+    lexer->error_type = UNKNOWN;
 }
 
 // free from memory
@@ -27,6 +26,7 @@ static inline void lexer_advance(lexer_t *lexer)
 {
     const char c = current();
     if (!peek()) lexer->error_type = END_OF_FILE;
+
     next();
     if (c != '\n')
     {
@@ -143,15 +143,16 @@ int lexer_multichar(lexer_t *lexer)
 // lexer for single characater
 static int lexer_single(lexer_t *lexer)
 {
-    
-    if (lexer->input->contents[0] == 0 || lexer->input->contents[0] == '\n')
+
+    if (lexer->input->contents[0] == 0)
     {
         lexer->error_type = END_OF_FILE;
         return EXIT_FAILURE;
     }
     lexer_skip_white(lexer);
     const char lex_char = current();
-    lexer->length = 1;
+    length() = 1;
+
     // digit lexer
     if (isdigit(lex_char))
     {
@@ -162,7 +163,7 @@ static int lexer_single(lexer_t *lexer)
         size_t i = 1;
         lexer_advance(lexer);
         bool reached_dot = false;
-        while (isdigit((current()) || current() == '.') && current() != 0)
+        while (isdigit(current()) || current() == '.')
         {
             if (current() == '.')
             {
@@ -175,11 +176,10 @@ static int lexer_single(lexer_t *lexer)
         lexer->index = save_index;
         lexer->line = save_line;
         lexer->col = save_col;
-        lexer->length = i;
+        length() = i;
         lexer_tkn(lexer, reached_dot ? TknTypeFloat : TknTypeInteger);
         return EXIT_SUCCESS;
     }
-
     // string lexer
     else if (lex_char == '"')
     {
@@ -189,12 +189,12 @@ static int lexer_single(lexer_t *lexer)
         size_t save_col = lexer->col;
         length() = 1;
         lexer_advance(lexer);
-        while (current() != '\"' && current() != 0)
+        while (current() != '\"')
         {
             // printf("%c\n", current());
-            if (is_eof())
+            if (current() == 0)
             {
-                lexer->error_type = NOT_CLOSED_DOUBLE_QUOTE;
+                lexer->error_type = NOT_CLOSED_STRING;
                 return EXIT_FAILURE;
             }
             lexer_advance(lexer);
@@ -208,8 +208,9 @@ static int lexer_single(lexer_t *lexer)
         lexer_tkn(lexer, TknTypeString);
         return EXIT_SUCCESS;
     }
+
     // char lexer
-    else if (lex_char == '\'')
+    if (lex_char == '\'')
     {
         // char lexer
         size_t save_index = lexer->index;
@@ -217,15 +218,44 @@ static int lexer_single(lexer_t *lexer)
         size_t save_col = lexer->col;
         length() = 1;
         lexer_advance(lexer);
-        while (current() != 0 && current() != '\'')
+        while (current() != '\'')
         {
+            // printf("current(%c)\npast(%c)\npeek(%c)\nlength(%zu)\n", current(), past(), peek(),
+            // length());
+            if (current() == '\n')
+            {
+                lexer->error_type = NOT_CLOSED_CHAR;
+                return EXIT_FAILURE;
+            }
+            else if (isspace(current()) && peek() != '\'')
+            {
+                lexer->error_type = NOT_CLOSED_CHAR;
+            }
+            if (current() == 0)
+            {
+                lexer->error_type = END_OF_FILE;
+                return EXIT_FAILURE;
+            }
+            if (length() > 2)
+            {
+                lexer->error_type = NOT_CLOSED_CHAR;
+                return EXIT_FAILURE;
+            }
+            if (length() == 2 && past() == '\\' && current() != '\\')
+            {
+                lexer_advance(lexer);
+                add_len();
+                break;
+            }
+            if (length() > 1 && past() != '\\' && (peek() == '\'' || peek() == '\\'))
+            {
+                lexer->error_type = NOT_CLOSED_CHAR;
+                return EXIT_FAILURE;
+            }
             lexer_advance(lexer);
             add_len();
-        }
-        if (is_eof())
-        {
-            lexer->error_type = END_OF_FILE;
-            return EXIT_FAILURE;
+            // printf("current %c and length %zu, peek %c and past %c\n", current(), length(),
+            // peek(), past());
         }
 
         add_len();
@@ -236,7 +266,6 @@ static int lexer_single(lexer_t *lexer)
         return EXIT_SUCCESS;
     }
 
-    length() = 1;
     // lexer for single chars
     switch (lex_char)
     {
@@ -279,7 +308,6 @@ static int lexer_single(lexer_t *lexer)
                 lexer_tkn(lexer, TknTypeMINUS);
             break;
         case '*':
-            add_len();
             lexer_tkn(lexer, TknTypeStar);
             break;
         case '/':
@@ -291,8 +319,7 @@ static int lexer_single(lexer_t *lexer)
                 }
             }
             else
-                add_len();
-            lexer_tkn(lexer, TknTypeDIV);
+                lexer_tkn(lexer, TknTypeDIV);
             break;
         case '(':
             lexer_tkn(lexer, TknTypeLeftParen);
@@ -362,7 +389,7 @@ int lexer_lex(lexer_t *lexer)
     lexer->index = 0;
     lexer->line = 1;
     lexer->col = 1;
-    //printf("length: %zu\n", strlen(lexer->input->contents));
+    // printf("length: %zu\n", strlen(lexer->input->contents));
     while (!is_eof())
     {
         if (lexer_single(lexer) != EXIT_SUCCESS)

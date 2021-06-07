@@ -1,0 +1,12 @@
+pub fn scan(arg: str = "") {
+    output($"{arg}");
+    return scan;
+}
+
+pub fn println(arg: str) {
+    output($"{arg}\n");
+}
+
+pub fn print(arg: str) {
+    output($"{arg}");
+}

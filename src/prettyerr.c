@@ -1,32 +1,56 @@
 #include "include/prettyerr.h"
-#include "include/lexer.h"
-#include <stdio.h>
 
 char *err_msgsfunc(lexer_t *lexer)
 {
     switch (lexer->error_type)
     {
-        case 1:
-            return "The char must contain 1 char only";
-        case 2:
-            return "The quote is not closed";
-        case 3:
-            return "The double quote is not closed";
-        case 4:
-            return "The file is empty";
+        
+        case NOT_CLOSED_CHAR:
+            return "The char is not closed.";
+        case NOT_CLOSED_STRING:
+            return "The string is not closed.";
+        case END_OF_FILE:
+            return "reached end of file";
+        case FILE_EMPTY:
+            return "The file is empty.";
+        default:
+            break;
     }
-    return "char/token is unknown";
+    return "The char/token is unknown.";
 }
 
+char *advice(lexer_t *lexer)
+{
+
+    switch (lexer->error_type)
+    {
+        
+        case NOT_CLOSED_CHAR:
+            return "Close the char with a quote";
+        case NOT_CLOSED_STRING:
+            return "Close the string with a double quote";
+        case END_OF_FILE:
+            return "Reached end of file: Uknown Error syntax wise";
+        case FILE_EMPTY:
+            return "Do not compile empty files.";
+        default:
+            break;
+    }
+    return "Check this Unknown token.";
+}
+
+// to display error location
 bool is_location_needed(lexer_t *lexer)
 {
     size_t x = lexer->error_type;
     switch (x)
     {
-        case 4:
+        case END_OF_FILE:
+            return false;
+        case FILE_EMPTY:
             return false;
         default:
-            return true;
+            break;
     }
     return true;
 }
@@ -36,6 +60,7 @@ int lexer_lex_failure(lexer_t *lexer)
 {
 
     char *err_msg = err_msgsfunc(lexer);
+    char *err_advice = advice(lexer);
     bool print_location = is_location_needed(lexer);
     size_t len = lexer->length;
 
@@ -65,8 +90,17 @@ int lexer_lex_failure(lexer_t *lexer)
     }
     sentence[line_len] = 0;
 
+    // count number of digits in line number
+    size_t i = lexer->line; // variable declaration
+    size_t count = 0;       // variable declaration
+    while (i != 0)
+    {
+        i = i / 10;
+        count++;
+    }
+
     const size_t k = lexer->error_type == 1 ? lexer->col - 1 : lexer->col;
-    char spaces[k];
+    char spaces[k], space_line[count];
     for (size_t i = 0; i < k; i++)
     {
         if (k == 1)
@@ -76,15 +110,30 @@ int lexer_lex_failure(lexer_t *lexer)
         }
         spaces[i] = ' ';
     }
+    for (size_t i = 0; i < count; i++)
+    {
+        if (count == 1)
+        {
+            space_line[0] = 0;
+            space_line[1] = 0;
+        }
+        space_line[i] = ' ';
+    }
     spaces[k - 1] = k == 1 ? 0 : 0;
+    space_line[count - 1] = count == 1 ? 0 : 0;
 
+    // Printing phase
     printf("%s%s%s:%zu:%zu: %serror:%s %s\n", GREEN, BOLD, lexer->input->name, lexer->line,
            lexer->col, RED, RESET, err_msg);
 
     if (print_location)
     {
         printf("%zu %s┃%s %s\n", lexer->line, YELLOW, RESET, sentence);
-        printf("  %s┃ %s%s╰─%s%s %s %s\n", YELLOW, RED, spaces, arrows, LYELLOW, err_msg, RESET);
+        printf("%s  %s┃ %s%s╰─%s%s %s %s\n", space_line, YELLOW, RED, spaces, arrows, LYELLOW, err_advice, RESET);
+    }
+    else
+    {
+        printf("%s %s %s\n", LYELLOW, err_advice, RESET);
     }
     return EXIT_FAILURE;
 }

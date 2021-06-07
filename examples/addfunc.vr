@@ -1,0 +1,12 @@
+import std.io;
+
+fn add(a: int, b: int)
+{
+    return a + b;
+}
+
+fn main()
+{
+    let x = add(1, 2);
+    println($"x is {x}");
+}
