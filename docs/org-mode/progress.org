@@ -1,0 +1,36 @@
+#+TITLE: Rotate Programming Language Progress
+#+OPTIONS: num:nil
+
+* Progress 
+ list uncompleted
+
+-----
+** Done 
++ Tokenizer
++ Basic Lexer
+
+-----
+** Work in Progress
++ parser (AST part)
+
+-----
+** Planned 
++ Backend 
+
+
+-----
+*** Language Syntax Implementation
+
+- [ ] basic print hello World
+- [ ] IO 
+- [x] Comments
+- [ ] Variables
+- [ ] if statements
+- [ ] Functions
+- [ ] Arrays
+- [ ] Import Modules
+- [ ] logic and operators
+- [ ] strings
+- [ ] switch statements
+- [ ] Loops 
+- [ ] Structures

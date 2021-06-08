@@ -1,0 +1,137 @@
+#+TITLE: Rotate Programming Language Documentation
+#+OPTIONS: num:nil
+#+LaTeX_HEADER: \usepackage{minted}
+
+
+* About
+ - Low learning curve.
+ - [.vr] file extension.
+ - syntax close to C-like languages and Rust
+ - static typing and scripting language
+
+WARNING: SYNTAX MAY CHANGE AT ANY MOMENT
+
+* Overview
+
+** Display output
+#+NAME: Hello World
+#+ATTR_LATEX: :options frame=single
+#+BEGIN_SRC rust
+import std.io;
+
+fn main() {
+    println("Hello World!");
+}
+#+END_SRC
+
+
+** Comments
+#+NAME: Comments
+#+ATTR_LATEX: :options frame=single
+#+BEGIN_SRC C
+// single line comment
+/* multiline
+   comment */
+/// documentation comment
+#+END_SRC
+#+NAME: Multiline comments cannot be nested
+#+ATTR_LATEX: :options frame=single
+#+BEGIN_SRC C
+/*
+    // allowed
+    /* not allowed * /
+*/
+#+END_SRC
+** Variables
+#+NAME: VARIABLES
+#+ATTR_LATEX: :options frame=single
+#+BEGIN_SRC rust
+// immutable string
+let NAME: str = "a string";
+// mutable string
+let mut name: str = "mutable string";
+
+// immutable ascii char
+let char1: char = 'a';
+// immutable int
+let x: int = 1;
+
+let num: float = 12.0;
+#+END_SRC
+
+** Arrays
+#+NAME:Arrays
+#+BEGIN_SRC rust
+let array[3]: int = [1, 2, 3];
+#+END_SRC
+
+** Functions
+use arrow for return type.
+don't use arrow for void functions.
+#+NAME: functions
+#+ATTR_LATEX: :options frame=single
+#+BEGIN_SRC rust
+fn example() -> str {
+    return "example string";
+}
+#+END_SRC
+
+** Imports
+import folder.file;
+#+NAME: imports
+#+ATTR_LATEX: :options frame=single
+#+BEGIN_SRC C
+import std.io;
+#+END_SRC
+
+** Strings
+#+NAME: strings
+#+ATTR_LATEX: :options frame=single
+#+BEGIN_SRC rust
+let name = "Hello";
+let name2 = #"{name}, World!"#;
+#+END_SRC
+
+** Operators and Logic
+same as C and Rust with little modifications
+
+** If statements
+#+NAME: If
+#+ATTR_LATEX: :options frame=single
+#+BEGIN_SRC rust
+if x == 1 {
+    // code
+} else if x == 2 {
+    // code
+} else {
+    // code
+}
+#+END_SRC
+
+** Match statements
+#+NAME: match
+#+ATTR_LATEX: :options frame=single
+#+BEGIN_SRC rust
+match x {
+    | 1 : // do ;
+    | 2 : // do ;
+    | 3 : // do ;
+    | _ : // default;
+}
+#+END_SRC
+
+** Loops
+for and while loops as well as a foreach loop
+#+NAME: foreach
+#+ATTR_LATEX: :options frame=single
+#+BEGIN_SRC rust
+foreach (i, 0..2) {
+    println(#"{i}"#);
+}
+#+END_SRC
+
+* Considering Later
+** Structures
+similar to C but without typedef and with functions
+
+-----
