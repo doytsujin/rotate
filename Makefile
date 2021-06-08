@@ -1,5 +1,6 @@
 
-CC = gcc
+CC ?= gcc
+DMD ?= dmd
 CFLAGS = -Wall 
 CFLAGS += -Wextra 
 CFLAGS += -Wpedantic
@@ -17,7 +18,8 @@ run:
 	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(CSTD) $(LIB)
 
 test:
-	rdmd test.d
+	$(DMD) -run test.d 
+	
 
 strict:
 	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(DEBUG) $(STRICT) $(CSTD) $(LIB)
@@ -29,7 +31,7 @@ debug:
 	gcc-10 $(SRC) -o $(BIN) $(CFLAGS) $(ANALYZE) $(DEBUG) $(CSTD) $(LIB)
 
 clean:
-	-rm ./$(BIN)
+	-rm ./$(BIN) $(wildcard *.o)  
 
 memcheck:
 	valgrind --leak-check=full --track-origins=yes -s ./$(BIN)

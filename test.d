@@ -16,10 +16,11 @@ void iterRunAndCollect(string dir)
 		immutable string filen = e.name;
 		auto run = execute(["./a", filen]);
 		if (run.status != 0)
-			writeln(RED, "Compilation failed \n", RESET, run.output,' ' , filen);
+			writeln(RED, "Compilation failed \n", RESET, run.output, ' ', filen);
 		else
-			writeln(GREEN, "Success ", RESET , filen);
+			writeln(GREEN, "Success ", RESET, filen);
 	}
+	writeln("--------------");
 }
 
 void main()
@@ -33,16 +34,9 @@ void main()
 	writeln("2. Errors");
 	write("choose [1:2]: ");
 	string x = readln().strip;
+	writeln("--------------");
 
-	assert(x == "1" || x == "2");
-	if (x != "1" && x != "2")
-	{
-		writeln("input is : ", x);
-		writeln("Error, no such choice");
-		return;
-	}
-
-	else if (x == "1")
+	if (x == "1")
 	{
 		"./examples/".iterRunAndCollect;
 	}
@@ -50,7 +44,11 @@ void main()
 	{
 		"./examples/errors/".iterRunAndCollect;
 	}
+	else
+	{
+		writeln("input is : ", x);
+		writeln("Error, no such choice");
+		return;
+	}
 
 }
-
-

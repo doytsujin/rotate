@@ -102,7 +102,7 @@ typedef struct
 const char *tkn_type_describe(tkn_type_t type);
 
 // dump token
-void tkn_dump(tkn_t *tkn);
+void tkn_dump(tkn_t *tkn, FILE *file_log);
 
 // end of header
 #endif /* TOKEN_H */

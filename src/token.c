@@ -123,11 +123,15 @@ const char *tkn_type_describe(tkn_type_t type)
     }
 }
 
-void tkn_dump(tkn_t *tkn)
+void tkn_dump(tkn_t *tkn, FILE *file_log)
 {
-    fprintf(stderr,
+
+    /*fprintf(file_log,
             "Token '\x1b[1m\x1b[93m%s\x1b[0m' at \x1b[94m%s:%zu:%zu\x1b[0m with text "
             "\"\x1b[1m\x1b[92m %s "
             "\x1b[0m\"\n",
+            tkn_type_describe(tkn->type), tkn->pos.file, tkn->pos.line, tkn->pos.col, tkn->value);
+    */
+    fprintf(file_log, "Token ```%.20s``` at %.30s:%zu:%zu  with text ```%.20s```\n",
             tkn_type_describe(tkn->type), tkn->pos.file, tkn->pos.line, tkn->pos.col, tkn->value);
 }

@@ -62,17 +62,17 @@ int lexer_lex_failure(lexer_t *lexer)
     char *err_msg = err_msgsfunc(lexer);
     char *err_advice = advice(lexer);
     bool print_location = is_location_needed(lexer);
-    size_t len = lexer->length;
+    //size_t len = lexer->length;
 
     // char word[len + 1];
-    char arrows[len + 1];
-    for (size_t i = 0; i < len; i++)
+    char arrows[] = {'-', '-', '-', 0};
+    /*for (size_t i = 0; i < len; i++)
     {
         // word[i] = specific(i) != '\n'? specific(i) : 0;
         arrows[i] = '-';
     }
     // word[len] = 0;
-    arrows[len] = 0;
+    arrows[len] = 0;*/
 
     size_t j = 0;
     while (current() != '\n' && current() != 0)
@@ -123,13 +123,13 @@ int lexer_lex_failure(lexer_t *lexer)
     space_line[count - 1] = count == 1 ? 0 : 0;
 
     // Printing phase
-    printf("%s%s%s:%zu:%zu: %s\nerror:%s %s\n", GREEN, BOLD, lexer->input->name, lexer->line,
-           lexer->col, RED, RESET, err_msg);
+    printf("%s%s%s:%zu:%zu: %s\nerror:%s %s%s\n", GREEN, BOLD, lexer->input->name, lexer->line,
+           lexer->col, RED, LCYAN, err_msg, RESET);
 
     if (print_location)
     {
         printf("%zu %s┃%s %s\n", lexer->line, YELLOW, RESET, sentence);
-        printf("%s  %s┃%s%s╰─%s%s %s %s\n", space_line, YELLOW, RED, spaces, arrows, LYELLOW, err_advice, RESET);
+        printf("%s  %s┃%s%s╰%s%s %s %s\n", space_line, YELLOW, RED, spaces, arrows, LYELLOW, err_advice, RESET);
     }
     else
     {

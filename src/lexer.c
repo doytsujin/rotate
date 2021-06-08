@@ -222,12 +222,8 @@ static int lexer_single(lexer_t *lexer)
         {
             // printf("current(%c)\npast(%c)\npeek(%c)\nlength(%zu)\n", current(), past(), peek(),
             // length());
-            if (current() == '\n')
-            {
-                lexer->error_type = NOT_CLOSED_CHAR;
-                return EXIT_FAILURE;
-            }
-            else if (isspace(current()) && peek() != '\'')
+            
+            if (isspace(current()) && peek() != '\'')
             {
                 lexer->error_type = NOT_CLOSED_CHAR;
                 return EXIT_FAILURE;
@@ -245,6 +241,7 @@ static int lexer_single(lexer_t *lexer)
             if (length() == 2 && past() == '\\' && current() != '\\')
             {
                 lexer_advance(lexer);
+                add_len();
                 break;
             }
             if (length() > 1 && past() != '\\' && (peek() == '\'' || peek() == '\\'))
