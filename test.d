@@ -1,0 +1,56 @@
+import std.stdio;
+import std.process;
+import std.file;
+import std.string;
+import std.array;
+import std.algorithm;
+
+/// iters thru files and runs them and collects exit status
+void iterRunAndCollect(string dir)
+{
+	foreach (DirEntry e; dirEntries(dir, SpanMode.shallow).filter!(f => f.name.endsWith(".vr")))
+	{
+		immutable string RED = "\x1b[31m";
+		immutable string GREEN = "\x1b[32m";
+		immutable string RESET = "\x1b[0m";
+		string filen = e.name;
+		auto run = execute(["./a", filen]);
+		if (run.status != 0)
+			writeln(RED, "Compilation failed \n", RESET, run.output,' ' , filen);
+		else
+			writeln(GREEN, "Success ", RESET , filen);
+	}
+}
+
+void main()
+{
+	if (!exists("a"))
+	{
+		writeln("please compile the program by running `make`");
+		return;
+	}
+	writeln("1. Syntax");
+	writeln("2. Errors");
+	write("choose [1:2]: ");
+	string x = readln().strip;
+
+	assert(x == "1" || x == "2");
+	if (x != "1" && x != "2")
+	{
+		writeln("input is : ", x);
+		writeln("Error, no such choice");
+		return;
+	}
+
+	else if (x == "1")
+	{
+		"./examples/".iterRunAndCollect;
+	}
+	else if (x == "2")
+	{
+		"./examples/errors/".iterRunAndCollect;
+	}
+
+}
+
+

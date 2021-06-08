@@ -1,5 +1,5 @@
 
-CC = gcc-10
+CC = gcc
 CFLAGS = -Wall 
 CFLAGS += -Wextra 
 CFLAGS += -Wpedantic
@@ -17,7 +17,7 @@ run:
 	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(CSTD) $(LIB)
 
 test:
-	python3 tester.py
+	rdmd test.d
 
 strict:
 	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(DEBUG) $(STRICT) $(CSTD) $(LIB)
@@ -26,7 +26,7 @@ afl:
 	afl-clang $(SRC) -o $(BIN) $(CFLAGS) $(DEBUG) $(CSTD) $(LIB)  
 
 debug:
-	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(ANALYZE) $(DEBUG) $(CSTD) $(LIB)
+	gcc-10 $(SRC) -o $(BIN) $(CFLAGS) $(ANALYZE) $(DEBUG) $(CSTD) $(LIB)
 
 clean:
 	-rm ./$(BIN)

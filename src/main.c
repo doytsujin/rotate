@@ -12,16 +12,16 @@ int main(int argc, char *argv[])
     lexer_t lexer;
     lexer_init(&lexer, file);
 
-    if (lexer_lex(&lexer) != EXIT_SUCCESS)
+    if (lexer_lex(&lexer) == EXIT_FAILURE)
     {
         free(file);
         free(lexer.output);
-        return EXIT_SUCCESS;
+        return EXIT_FAILURE;
     }
-    for_each(lexer.output, tkn_ptr)
+    /*for_each(lexer.output, tkn_ptr)
     {
         tkn_dump(tkn_ptr);
-    }
+    }*/
 
     tokens_free(lexer.output);
     free(file);

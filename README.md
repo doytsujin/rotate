@@ -2,25 +2,25 @@
 
  Work in progress 
  
- ## UNUSABLE -  NOT WORKING AT THE MOMENT
+## UNUSABLE -  NOT WORKING AT THE MOMENT
  
  to see current plan check (no promises) docs/expectation.md
 
 
-<<<<<<< HEAD
 # Developer requirements 
 
 - Unix enviroment with Build essential pkg
 - C Gcc compiler v.10
-- Python3 
 ---
 extras (optional):
+- DMD (RDMD too ) d lang compiler and interpreter
 - google afl
 - valgrind
 - cppcheck
 
-=======
- Hello World example
+
+---
+## Hello World example
  ```rust
  import std.io;
  
@@ -29,8 +29,27 @@ extras (optional):
  }
  ```
  Also check docs in `./docs/expectation` 
->>>>>>> 43180425e3986d9c48ea6aac7d89bb7225acd8d2
 
+
+---
 ## current Status
 check `./docs/progress.md`
 
+---
+
+## stats
+
+```
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+C                                6             48             39            669
+C/C++ Header                     7             59             24            245
+Markdown                         4             79              0            230
+D                                1              7              1             48
+JSON                             2              0              0             33
+make                             1             11              0             30
+-------------------------------------------------------------------------------
+SUM:                            21            204             64           1255
+-------------------------------------------------------------------------------
+```

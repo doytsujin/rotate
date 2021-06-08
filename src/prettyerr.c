@@ -30,7 +30,7 @@ char *advice(lexer_t *lexer)
         case NOT_CLOSED_STRING:
             return "Close the string with a double quote";
         case END_OF_FILE:
-            return "Reached end of file: Uknown Error syntax wise";
+            return "Reached end of file";
         case FILE_EMPTY:
             return "Do not compile empty files.";
         default:
