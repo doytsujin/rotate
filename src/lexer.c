@@ -230,6 +230,7 @@ static int lexer_single(lexer_t *lexer)
             else if (isspace(current()) && peek() != '\'')
             {
                 lexer->error_type = NOT_CLOSED_CHAR;
+                return EXIT_FAILURE;
             }
             if (current() == 0)
             {
@@ -244,7 +245,6 @@ static int lexer_single(lexer_t *lexer)
             if (length() == 2 && past() == '\\' && current() != '\\')
             {
                 lexer_advance(lexer);
-                add_len();
                 break;
             }
             if (length() > 1 && past() != '\\' && (peek() == '\'' || peek() == '\\'))

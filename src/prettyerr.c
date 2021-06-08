@@ -99,7 +99,7 @@ int lexer_lex_failure(lexer_t *lexer)
         count++;
     }
 
-    const size_t k = lexer->error_type == 1 ? lexer->col - 1 : lexer->col;
+    const size_t k = lexer->col + 1;
     char spaces[k], space_line[count];
     for (size_t i = 0; i < k; i++)
     {
@@ -123,13 +123,13 @@ int lexer_lex_failure(lexer_t *lexer)
     space_line[count - 1] = count == 1 ? 0 : 0;
 
     // Printing phase
-    printf("%s%s%s:%zu:%zu: %serror:%s %s\n", GREEN, BOLD, lexer->input->name, lexer->line,
+    printf("%s%s%s:%zu:%zu: %s\nerror:%s %s\n", GREEN, BOLD, lexer->input->name, lexer->line,
            lexer->col, RED, RESET, err_msg);
 
     if (print_location)
     {
         printf("%zu %s┃%s %s\n", lexer->line, YELLOW, RESET, sentence);
-        printf("%s  %s┃ %s%s╰─%s%s %s %s\n", space_line, YELLOW, RED, spaces, arrows, LYELLOW, err_advice, RESET);
+        printf("%s  %s┃%s%s╰─%s%s %s %s\n", space_line, YELLOW, RED, spaces, arrows, LYELLOW, err_advice, RESET);
     }
     else
     {
