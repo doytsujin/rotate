@@ -60,7 +60,8 @@ let num: float = 12.0;
 #+END_SRC
 
 ** Arrays
-#+NAME:Arrays
+#+NAME: Arrays
+#+ATTR_LATEX: :options frame=single
 #+BEGIN_SRC rust
 let array[3]: int = [1, 2, 3];
 #+END_SRC

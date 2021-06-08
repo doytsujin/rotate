@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-06-08 Tue 21:53 -->
+<!-- 2021-06-08 Tue 22:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Rotate Programming Language Documentation</title>
@@ -223,25 +223,25 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf6e2380">About</a></li>
-<li><a href="#org2d901c1">Overview</a>
+<li><a href="#org4b7d929">About</a></li>
+<li><a href="#org303dbb9">Overview</a>
 <ul>
-<li><a href="#org1cf5ee7">Display output</a></li>
-<li><a href="#org5078824">Comments</a></li>
-<li><a href="#org22aae5a">Variables</a></li>
-<li><a href="#org9a8eae4">Arrays</a></li>
-<li><a href="#orgec82c6e">Functions</a></li>
-<li><a href="#org62ba44f">Imports</a></li>
-<li><a href="#org98c6b23">Strings</a></li>
-<li><a href="#orgc87846c">Operators and Logic</a></li>
-<li><a href="#org35f1645">If statements</a></li>
-<li><a href="#org120b47e">Match statements</a></li>
-<li><a href="#orgd55f371">Loops</a></li>
+<li><a href="#org4f2e014">Display output</a></li>
+<li><a href="#orge4a2cde">Comments</a></li>
+<li><a href="#orgc1b8e16">Variables</a></li>
+<li><a href="#orgf16189f">Arrays</a></li>
+<li><a href="#orgcf4bf5e">Functions</a></li>
+<li><a href="#org46e281d">Imports</a></li>
+<li><a href="#org804b6da">Strings</a></li>
+<li><a href="#orgfec4633">Operators and Logic</a></li>
+<li><a href="#org68f5f72">If statements</a></li>
+<li><a href="#orgcb35aa3">Match statements</a></li>
+<li><a href="#orgb32ee70">Loops</a></li>
 </ul>
 </li>
-<li><a href="#org6bf52af">Considering Later</a>
+<li><a href="#org237bfd3">Considering Later</a>
 <ul>
-<li><a href="#org322ee03">Structures</a></li>
+<li><a href="#org343d5d5">Structures</a></li>
 </ul>
 </li>
 </ul>
@@ -249,9 +249,9 @@
 </div>
 
 
-<div id="outline-container-orgf6e2380" class="outline-2">
-<h2 id="orgf6e2380">About</h2>
-<div class="outline-text-2" id="text-orgf6e2380">
+<div id="outline-container-org4b7d929" class="outline-2">
+<h2 id="org4b7d929">About</h2>
+<div class="outline-text-2" id="text-org4b7d929">
 <ul class="org-ul">
 <li>Low learning curve.</li>
 <li>[.vr] file extension.</li>
@@ -265,18 +265,18 @@ WARNING: SYNTAX MAY CHANGE AT ANY MOMENT
 </div>
 </div>
 
-<div id="outline-container-org2d901c1" class="outline-2">
-<h2 id="org2d901c1">Overview</h2>
-<div class="outline-text-2" id="text-org2d901c1">
+<div id="outline-container-org303dbb9" class="outline-2">
+<h2 id="org303dbb9">Overview</h2>
+<div class="outline-text-2" id="text-org303dbb9">
 </div>
-<div id="outline-container-org1cf5ee7" class="outline-3">
-<h3 id="org1cf5ee7">Display output</h3>
-<div class="outline-text-3" id="text-org1cf5ee7">
+<div id="outline-container-org4f2e014" class="outline-3">
+<h3 id="org4f2e014">Display output</h3>
+<div class="outline-text-3" id="text-org4f2e014">
 <div class="org-src-container">
-<pre class="src src-rust" id="org6d7e237">import std.io;
+<pre class="src src-rust" id="org365c57e">import std.io;
 
 <span style="color: #51afef;">fn</span> <span style="color: #c678dd;">main</span>() {
-    println(<span style="color: #98be65;">"Hello World!"</span>);
+    println(<span style="color: #99bb66;">"Hello World!"</span>);
 }
 </pre>
 </div>
@@ -284,144 +284,144 @@ WARNING: SYNTAX MAY CHANGE AT ANY MOMENT
 </div>
 
 
-<div id="outline-container-org5078824" class="outline-3">
-<h3 id="org5078824">Comments</h3>
-<div class="outline-text-3" id="text-org5078824">
+<div id="outline-container-orge4a2cde" class="outline-3">
+<h3 id="orge4a2cde">Comments</h3>
+<div class="outline-text-3" id="text-orge4a2cde">
 <div class="org-src-container">
-<pre class="src src-C" id="org9143182"><span style="color: #5B6268;">// </span><span style="color: #5B6268;">single line comment</span>
-<span style="color: #5B6268;">/* </span><span style="color: #5B6268;">multiline</span>
-<span style="color: #5B6268;">   comment </span><span style="color: #5B6268;">*/</span>
-<span style="color: #5B6268;">/// </span><span style="color: #5B6268;">documentation comment</span>
+<pre class="src src-C" id="org9ed8ce2"><span style="color: #525252;">// </span><span style="color: #525252;">single line comment</span>
+<span style="color: #525252;">/* </span><span style="color: #525252;">multiline</span>
+<span style="color: #525252;">   comment </span><span style="color: #525252;">*/</span>
+<span style="color: #525252;">/// </span><span style="color: #525252;">documentation comment</span>
 </pre>
 </div>
 <div class="org-src-container">
-<pre class="src src-C" id="org5299c32"><span style="color: #5B6268;">/*</span>
-<span style="color: #5B6268;">    // allowed</span>
-<span style="color: #5B6268;">    /* not allowed * /</span>
-<span style="color: #5B6268;">*/</span>
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-org22aae5a" class="outline-3">
-<h3 id="org22aae5a">Variables</h3>
-<div class="outline-text-3" id="text-org22aae5a">
-<div class="org-src-container">
-<pre class="src src-rust" id="orgc71199a"><span style="color: #5B6268;">// </span><span style="color: #5B6268;">immutable string</span>
-<span style="color: #51afef;">let</span> <span style="color: #dcaeea;">NAME</span>: <span style="color: #ECBE7B;">str</span> = <span style="color: #98be65;">"a string"</span>;
-<span style="color: #5B6268;">// </span><span style="color: #5B6268;">mutable string</span>
-<span style="color: #51afef;">let</span> <span style="color: #51afef;">mut</span> <span style="color: #dcaeea;">name</span>: <span style="color: #ECBE7B;">str</span> = <span style="color: #98be65;">"mutable string"</span>;
-
-<span style="color: #5B6268;">// </span><span style="color: #5B6268;">immutable ascii char</span>
-<span style="color: #51afef;">let</span> <span style="color: #dcaeea;">char1</span>: <span style="color: #ECBE7B;">char</span> = <span style="color: #98be65;">'a'</span>;
-<span style="color: #5B6268;">// </span><span style="color: #5B6268;">immutable int</span>
-<span style="color: #51afef;">let</span> <span style="color: #dcaeea;">x</span>: int = <span style="color: #da8548; font-weight: bold;">1</span>;
-
-<span style="color: #51afef;">let</span> <span style="color: #dcaeea;">num</span>: float = <span style="color: #da8548; font-weight: bold;">12.0</span>;
+<pre class="src src-C" id="orgb120d67"><span style="color: #525252;">/*</span>
+<span style="color: #525252;">    // allowed</span>
+<span style="color: #525252;">    /* not allowed * /</span>
+<span style="color: #525252;">*/</span>
 </pre>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org9a8eae4" class="outline-3">
-<h3 id="org9a8eae4">Arrays</h3>
-<div class="outline-text-3" id="text-org9a8eae4">
+<div id="outline-container-orgc1b8e16" class="outline-3">
+<h3 id="orgc1b8e16">Variables</h3>
+<div class="outline-text-3" id="text-orgc1b8e16">
 <div class="org-src-container">
-<pre class="src src-rust" id="org532534d"><span style="color: #51afef;">let</span> <span style="color: #dcaeea;">array</span>[<span style="color: #da8548; font-weight: bold;">3</span>]: int = [<span style="color: #da8548; font-weight: bold;">1</span>, <span style="color: #da8548; font-weight: bold;">2</span>, <span style="color: #da8548; font-weight: bold;">3</span>];
+<pre class="src src-rust" id="orgb3a38ba"><span style="color: #525252;">// </span><span style="color: #525252;">immutable string</span>
+<span style="color: #51afef;">let</span> <span style="color: #dcaeea;">NAME</span>: <span style="color: #ECBE7B;">str</span> = <span style="color: #99bb66;">"a string"</span>;
+<span style="color: #525252;">// </span><span style="color: #525252;">mutable string</span>
+<span style="color: #51afef;">let</span> <span style="color: #51afef;">mut</span> <span style="color: #dcaeea;">name</span>: <span style="color: #ECBE7B;">str</span> = <span style="color: #99bb66;">"mutable string"</span>;
+
+<span style="color: #525252;">// </span><span style="color: #525252;">immutable ascii char</span>
+<span style="color: #51afef;">let</span> <span style="color: #dcaeea;">char1</span>: <span style="color: #ECBE7B;">char</span> = <span style="color: #99bb66;">'a'</span>;
+<span style="color: #525252;">// </span><span style="color: #525252;">immutable int</span>
+<span style="color: #51afef;">let</span> <span style="color: #dcaeea;">x</span>: int = <span style="color: #dd8844; font-weight: bold;">1</span>;
+
+<span style="color: #51afef;">let</span> <span style="color: #dcaeea;">num</span>: float = <span style="color: #dd8844; font-weight: bold;">12.0</span>;
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgec82c6e" class="outline-3">
-<h3 id="orgec82c6e">Functions</h3>
-<div class="outline-text-3" id="text-orgec82c6e">
+<div id="outline-container-orgf16189f" class="outline-3">
+<h3 id="orgf16189f">Arrays</h3>
+<div class="outline-text-3" id="text-orgf16189f">
+<div class="org-src-container">
+<pre class="src src-rust" id="org318cbb5"><span style="color: #51afef;">let</span> <span style="color: #dcaeea;">array</span>[<span style="color: #dd8844; font-weight: bold;">3</span>]: int = [<span style="color: #dd8844; font-weight: bold;">1</span>, <span style="color: #dd8844; font-weight: bold;">2</span>, <span style="color: #dd8844; font-weight: bold;">3</span>];
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcf4bf5e" class="outline-3">
+<h3 id="orgcf4bf5e">Functions</h3>
+<div class="outline-text-3" id="text-orgcf4bf5e">
 <p>
 use arrow for return type.
 don&rsquo;t use arrow for void functions.
 </p>
 <div class="org-src-container">
-<pre class="src src-rust" id="org616f4d9"><span style="color: #51afef;">fn</span> <span style="color: #c678dd;">example</span>() -&gt; <span style="color: #ECBE7B;">str</span> {
-    <span style="color: #51afef;">return</span> <span style="color: #98be65;">"example string"</span>;
+<pre class="src src-rust" id="org39d29c6"><span style="color: #51afef;">fn</span> <span style="color: #c678dd;">example</span>() -&gt; <span style="color: #ECBE7B;">str</span> {
+    <span style="color: #51afef;">return</span> <span style="color: #99bb66;">"example string"</span>;
 }
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org62ba44f" class="outline-3">
-<h3 id="org62ba44f">Imports</h3>
-<div class="outline-text-3" id="text-org62ba44f">
+<div id="outline-container-org46e281d" class="outline-3">
+<h3 id="org46e281d">Imports</h3>
+<div class="outline-text-3" id="text-org46e281d">
 <p>
 import folder.file;
 </p>
 <div class="org-src-container">
-<pre class="src src-C" id="org0ca8043"><span style="color: #ECBE7B;">import</span> <span style="color: #dcaeea;">std</span>.io;
+<pre class="src src-C" id="org1f878f8"><span style="color: #ECBE7B;">import</span> <span style="color: #dcaeea;">std</span>.io;
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org98c6b23" class="outline-3">
-<h3 id="org98c6b23">Strings</h3>
-<div class="outline-text-3" id="text-org98c6b23">
+<div id="outline-container-org804b6da" class="outline-3">
+<h3 id="org804b6da">Strings</h3>
+<div class="outline-text-3" id="text-org804b6da">
 <div class="org-src-container">
-<pre class="src src-rust" id="org6500a66"><span style="color: #51afef;">let</span> <span style="color: #dcaeea;">name</span> = <span style="color: #98be65;">"Hello"</span>;
-<span style="color: #51afef;">let</span> <span style="color: #dcaeea;">name2</span> = #<span style="color: #98be65;">"{name}, World!"</span>#;
+<pre class="src src-rust" id="orgd47eafd"><span style="color: #51afef;">let</span> <span style="color: #dcaeea;">name</span> = <span style="color: #99bb66;">"Hello"</span>;
+<span style="color: #51afef;">let</span> <span style="color: #dcaeea;">name2</span> = #<span style="color: #99bb66;">"{name}, World!"</span>#;
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgc87846c" class="outline-3">
-<h3 id="orgc87846c">Operators and Logic</h3>
-<div class="outline-text-3" id="text-orgc87846c">
+<div id="outline-container-orgfec4633" class="outline-3">
+<h3 id="orgfec4633">Operators and Logic</h3>
+<div class="outline-text-3" id="text-orgfec4633">
 <p>
 same as C and Rust with little modifications
 </p>
 </div>
 </div>
 
-<div id="outline-container-org35f1645" class="outline-3">
-<h3 id="org35f1645">If statements</h3>
-<div class="outline-text-3" id="text-org35f1645">
+<div id="outline-container-org68f5f72" class="outline-3">
+<h3 id="org68f5f72">If statements</h3>
+<div class="outline-text-3" id="text-org68f5f72">
 <div class="org-src-container">
-<pre class="src src-rust" id="org1cc3b2a"><span style="color: #51afef;">if</span> x == <span style="color: #da8548; font-weight: bold;">1</span> {
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">code</span>
-} <span style="color: #51afef;">else</span> <span style="color: #51afef;">if</span> x == <span style="color: #da8548; font-weight: bold;">2</span> {
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">code</span>
+<pre class="src src-rust" id="org6199acc"><span style="color: #51afef;">if</span> x == <span style="color: #dd8844; font-weight: bold;">1</span> {
+    <span style="color: #525252;">// </span><span style="color: #525252;">code</span>
+} <span style="color: #51afef;">else</span> <span style="color: #51afef;">if</span> x == <span style="color: #dd8844; font-weight: bold;">2</span> {
+    <span style="color: #525252;">// </span><span style="color: #525252;">code</span>
 } <span style="color: #51afef;">else</span> {
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">code</span>
+    <span style="color: #525252;">// </span><span style="color: #525252;">code</span>
 }
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org120b47e" class="outline-3">
-<h3 id="org120b47e">Match statements</h3>
-<div class="outline-text-3" id="text-org120b47e">
+<div id="outline-container-orgcb35aa3" class="outline-3">
+<h3 id="orgcb35aa3">Match statements</h3>
+<div class="outline-text-3" id="text-orgcb35aa3">
 <div class="org-src-container">
-<pre class="src src-rust" id="org6d78184"><span style="color: #51afef;">match</span> x {
-    | <span style="color: #da8548; font-weight: bold;">1</span> : <span style="color: #5B6268;">// </span><span style="color: #5B6268;">do ;</span>
-    | <span style="color: #da8548; font-weight: bold;">2</span> : <span style="color: #5B6268;">// </span><span style="color: #5B6268;">do ;</span>
-    | <span style="color: #da8548; font-weight: bold;">3</span> : <span style="color: #5B6268;">// </span><span style="color: #5B6268;">do ;</span>
-    | _ : <span style="color: #5B6268;">// </span><span style="color: #5B6268;">default;</span>
+<pre class="src src-rust" id="org39bbd74"><span style="color: #51afef;">match</span> x {
+    | <span style="color: #dd8844; font-weight: bold;">1</span> : <span style="color: #525252;">// </span><span style="color: #525252;">do ;</span>
+    | <span style="color: #dd8844; font-weight: bold;">2</span> : <span style="color: #525252;">// </span><span style="color: #525252;">do ;</span>
+    | <span style="color: #dd8844; font-weight: bold;">3</span> : <span style="color: #525252;">// </span><span style="color: #525252;">do ;</span>
+    | _ : <span style="color: #525252;">// </span><span style="color: #525252;">default;</span>
 }
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgd55f371" class="outline-3">
-<h3 id="orgd55f371">Loops</h3>
-<div class="outline-text-3" id="text-orgd55f371">
+<div id="outline-container-orgb32ee70" class="outline-3">
+<h3 id="orgb32ee70">Loops</h3>
+<div class="outline-text-3" id="text-orgb32ee70">
 <p>
 for and while loops as well as a foreach loop
 </p>
 <div class="org-src-container">
-<pre class="src src-rust" id="orge05a2c2">foreach (i, <span style="color: #da8548; font-weight: bold;">0</span>..<span style="color: #da8548; font-weight: bold;">2</span>) {
-    println(#<span style="color: #98be65;">"{i}"</span>#);
+<pre class="src src-rust" id="org44382d1">foreach (i, <span style="color: #dd8844; font-weight: bold;">0</span>..<span style="color: #dd8844; font-weight: bold;">2</span>) {
+    println(#<span style="color: #99bb66;">"{i}"</span>#);
 }
 </pre>
 </div>
@@ -429,13 +429,13 @@ for and while loops as well as a foreach loop
 </div>
 </div>
 
-<div id="outline-container-org6bf52af" class="outline-2">
-<h2 id="org6bf52af">Considering Later</h2>
-<div class="outline-text-2" id="text-org6bf52af">
+<div id="outline-container-org237bfd3" class="outline-2">
+<h2 id="org237bfd3">Considering Later</h2>
+<div class="outline-text-2" id="text-org237bfd3">
 </div>
-<div id="outline-container-org322ee03" class="outline-3">
-<h3 id="org322ee03">Structures</h3>
-<div class="outline-text-3" id="text-org322ee03">
+<div id="outline-container-org343d5d5" class="outline-3">
+<h3 id="org343d5d5">Structures</h3>
+<div class="outline-text-3" id="text-org343d5d5">
 <p>
 similar to C but without typedef and with functions
 </p>
@@ -447,7 +447,7 @@ similar to C but without typedef and with functions
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Airbus5717</p>
-<p class="date">Created: 2021-06-08 Tue 21:53</p>
+<p class="date">Created: 2021-06-08 Tue 22:36</p>
 </div>
 </body>
 </html>
