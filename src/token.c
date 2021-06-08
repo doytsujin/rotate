@@ -132,6 +132,6 @@ void tkn_dump(tkn_t *tkn, FILE *file_log)
             "\x1b[0m\"\n",
             tkn_type_describe(tkn->type), tkn->pos.file, tkn->pos.line, tkn->pos.col, tkn->value);
     */
-    fprintf(file_log, "Token ```%.20s``` at %.30s:%zu:%zu  with text ```%.20s```\n",
+    fprintf(file_log, "Token '%s' at %s:%zu:%zu  with text \"%s\"\n",
             tkn_type_describe(tkn->type), tkn->pos.file, tkn->pos.line, tkn->pos.col, tkn->value);
 }

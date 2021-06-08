@@ -17,18 +17,20 @@ int main(int argc, char *argv[])
 
 
     // log 
-    FILE *file_log = fopen("./log/output.c", "wb");
-    fprintf(file_log, "EXIT_STATUS 1 \n");
-    fprintf(file_log, "file name: %s\n", lexer.input->name);
-    fprintf(file_log, "file length: %zu\n", lexer.input->length);
+    FILE *file_log = fopen("./log/output.md", "wb");
+    fprintf(file_log, "# EXIT_STATUS 1 \n");
+    fprintf(file_log, "## file name: %s\n", lexer.input->name);
+    fprintf(file_log, "## file length: %zu\n", lexer.input->length);
     fprintf(file_log, "%s", "----------------- file ---------------\n");
-    fprintf(file_log, "\n%s\n", lexer.input->contents);
+    fprintf(file_log, "```rust\n%s\n```\n", lexer.input->contents);
     fprintf(file_log, "%s", "--------------- end file --------------\n");
+    fprintf(file_log, "```rust\n");
     for_each(lexer.output, tkn_ptr)
     {
         tkn_dump(tkn_ptr, file_log);
     } // end log
-    
+    fprintf(file_log, "```\n");
+
     tokens_free(lexer.output);
     free(file);
     return EXIT_SUCCESS;
