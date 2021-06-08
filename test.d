@@ -8,9 +8,11 @@ import std.algorithm;
 /// iters thru files and runs them and collects exit status
 void iterRunAndCollect(string dir)
 {
-	if(exists("output.md"))
-		{auto f = File("output.md", "w");
-		f.close();}
+	if (exists("output.md"))
+	{
+		auto f = File("output.md", "w");
+		f.close();
+	}
 
 	foreach (DirEntry e; dirEntries(dir, SpanMode.shallow).filter!(f => f.name.endsWith(".vr")))
 	{
