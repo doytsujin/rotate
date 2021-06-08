@@ -10,7 +10,7 @@
 # Developer requirements 
 
 - Unix enviroment with Build essential pkg
-- C Gcc compiler v.10
+- C Gcc compiler
 ---
 extras (optional):
 - DMD (RDMD too ) d lang compiler and interpreter
