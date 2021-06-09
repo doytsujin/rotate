@@ -20,7 +20,9 @@ void iterRunAndCollect(string dir)
 		immutable string GREEN = "\x1b[32m";
 		immutable string RESET = "\x1b[0m";
 		immutable string filen = e.name;
+
 		auto run = execute(["./a", filen]);
+
 		if (run.status != 0)
 			writeln(RED, "Compilation failed \n", RESET, run.output, ' ', filen);
 		else

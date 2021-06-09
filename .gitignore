@@ -2,4 +2,5 @@
 *.out
 *.o
 output.*
+main.vr
 a
