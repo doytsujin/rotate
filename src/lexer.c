@@ -222,7 +222,7 @@ static int lexer_single(lexer_t *lexer)
         {
             // printf("current(%c)\npast(%c)\npeek(%c)\nlength(%zu)\n", current(), past(), peek(),
             // length());
-            
+
             if (isspace(current()) && peek() != '\'')
             {
                 lexer->error_type = NOT_CLOSED_CHAR;

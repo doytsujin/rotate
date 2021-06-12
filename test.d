@@ -40,9 +40,16 @@ void main()
 	}
 	writeln("1. Syntax");
 	writeln("2. Errors");
-	write("choose [1:2]: ");
+    writeln("3. Custom file");
+	write("choose [1:3]: ");
 	string x = readln().strip;
 	writeln("--------------");
+	if (exists("output.md"))
+	{
+		auto f = File("output.md", "w");
+		f.close();
+	}
+
 
 	if (x == "1")
 	{
@@ -52,6 +59,20 @@ void main()
 	{
 		"./examples/errors/".iterRunAndCollect;
 	}
+    else if(x == "3")
+    {
+        write("file name: ");
+        string a = readln().strip;
+        if (!exists("a"))
+        {
+            writeln("file does not exist");
+            return;
+        }
+        else 
+        {
+		    auto run = execute(["./a", a]);
+        }
+    }
 	else
 	{
 		writeln("input is : ", x);

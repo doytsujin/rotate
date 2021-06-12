@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-    char *default_file = "./examples/hello.vr";
+    char *default_file = "main.vr";
     file_t *file = file_read(argc > 1 ? argv[1] : default_file);
     if (!file) return EXIT_FAILURE;
 
@@ -18,11 +18,10 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-
     // log
-    FILE *file_log = fopen("./output.md", "a");
+    FILE *file_log = fopen("output.md", "a");
     fprintf(file_log, "\n# FILE NAME: %s\n", lexer.input->name);
-    fprintf(file_log, "## EXIT_STATUS 1 \n");
+    fprintf(file_log, "## EXIT STATUS: 1 \n");
     fprintf(file_log, "### FILE LENGTH: %zu\n", lexer.input->length);
     fprintf(file_log, "---\n");
     fprintf(file_log, "%s", "----------------- file ---------------\n");
@@ -32,7 +31,7 @@ int main(int argc, char *argv[])
     for_each(lexer.output, tkn_ptr)
     {
         tkn_dump(tkn_ptr, file_log);
-    } 
+    }
     fprintf(file_log, "```\n");
     fprintf(file_log, "%s", "--------------- end --------------\n---\n");
     fclose(file_log);

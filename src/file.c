@@ -23,7 +23,7 @@ file_t *file_read(const char *name)
 
     // Read the file into a buffer
     file_t *buffer = malloc(sizeof(file_t) + length + 1);
-    buffer->length = length ? length : 0;
+    buffer->length = length;
     buffer->name = name;
     if (fread(buffer->contents, sizeof(char), length, file) != length)
     {

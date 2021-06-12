@@ -4,7 +4,6 @@ char *err_msgsfunc(lexer_t *lexer)
 {
     switch (lexer->error_type)
     {
-        
         case NOT_CLOSED_CHAR:
             return "The char is not closed.";
         case NOT_CLOSED_STRING:
@@ -24,7 +23,7 @@ char *advice(lexer_t *lexer)
 
     switch (lexer->error_type)
     {
-        
+
         case NOT_CLOSED_CHAR:
             return "Close the char with a quote";
         case NOT_CLOSED_STRING:
@@ -62,7 +61,7 @@ int lexer_lex_failure(lexer_t *lexer)
     char *err_msg = err_msgsfunc(lexer);
     char *err_advice = advice(lexer);
     bool print_location = is_location_needed(lexer);
-    //size_t len = lexer->length;
+    // size_t len = lexer->length;
 
     // char word[len + 1];
     char arrows[] = {'-', '-', '-', 0};
@@ -129,7 +128,8 @@ int lexer_lex_failure(lexer_t *lexer)
     if (print_location)
     {
         printf("%zu %s┃%s %s\n", lexer->line, YELLOW, RESET, sentence);
-        printf("%s  %s┃%s%s╰%s%s %s %s\n", space_line, YELLOW, RED, spaces, arrows, LYELLOW, err_advice, RESET);
+        printf("%s  %s┃%s%s╰%s%s %s %s\n", space_line, YELLOW, RED, spaces, arrows, LYELLOW,
+               err_advice, RESET);
     }
     else
     {
