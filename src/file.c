@@ -1,8 +1,9 @@
 #include "include/file.h"
-#include <stdio.h>
+
 
 file_t *file_read(const char *name)
 {
+    // open file
     FILE *file = fopen(name, "rb");
     if (!file)
     {
@@ -19,6 +20,8 @@ file_t *file_read(const char *name)
     }
     const size_t length = ftell(file) ? ftell(file) : 0;
 
+    // c: Rewind to the beginning of STREAM. This function is a possible cancellation point and
+    // therefore not marked with __THROW.
     rewind(file);
 
     // Read the file into a buffer

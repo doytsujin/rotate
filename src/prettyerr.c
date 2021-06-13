@@ -92,13 +92,14 @@ int lexer_lex_failure(lexer_t *lexer)
     // count number of digits in line number
     size_t i = lexer->line; // variable declaration
     size_t count = 0;       // variable declaration
-    while (i != 0)
+    while (i > 0)
     {
         i = i / 10;
         count++;
     }
 
-    const size_t k = lexer->col + 1;
+    size_t k = 1;
+    k = (lexer->col + 1);
     char spaces[k], space_line[count];
     for (size_t i = 0; i < k; i++)
     {
@@ -118,7 +119,7 @@ int lexer_lex_failure(lexer_t *lexer)
         }
         space_line[i] = ' ';
     }
-    spaces[k - 1] = k == 1 ? 0 : 0;
+    spaces[k - 1] = k < 2 ? 0 : 0;
     space_line[count - 1] = count == 1 ? 0 : 0;
 
     // Printing phase

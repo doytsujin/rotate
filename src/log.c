@@ -2,6 +2,9 @@
 
 void log_md(lexer_t lexer, const char *filename, const char *filemode)
 {
+    // create output.md file
+    // export tokens and source code
+    // to the output.md
     FILE *file_log = fopen(filename, filemode);
     fprintf(file_log, "\n# FILE NAME: %s\n", lexer.input->name);
     fprintf(file_log, "## EXIT STATUS: 1 \n");

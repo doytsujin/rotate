@@ -2,7 +2,6 @@
 #define C5717LIB_H
 
 #include <ctype.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 

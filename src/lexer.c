@@ -6,6 +6,7 @@
 // lexer initialization
 void lexer_init(lexer_t *lexer, file_t *input)
 {
+    // init default values
     lexer->output = new_vec(tkn_t);
     lexer->input = input;
     lexer->index = 0;
@@ -21,7 +22,7 @@ void lexer_destroy(lexer_t *lexer)
     free_vec(lexer->output);
 }
 
-// go to next
+// go to next 
 static inline void lexer_advance(lexer_t *lexer)
 {
     const char c = current();
@@ -51,7 +52,6 @@ static void lexer_skip_white(lexer_t *lexer)
 // Scans ahead to see if we match this string
 static void lexer_tkn(lexer_t *lexer, tkn_type_t type)
 {
-
     const tkn_t token =
         tkn_make(pos_make(lexer->line, lexer->col, lexer->input->name),
                  utils_strndup(lexer->input->contents + lexer->index, length()), type);
@@ -62,6 +62,7 @@ static void lexer_tkn(lexer_t *lexer, tkn_type_t type)
     vec_push(lexer->output, token);
 }
 
+// lex multicharaters
 int lexer_multichar(lexer_t *lexer)
 {
     size_t save_index = lexer->index;
@@ -86,6 +87,7 @@ int lexer_multichar(lexer_t *lexer)
     lexer->length = save_length;
     tkn_type_t type = TknTypeIdentifier;
 
+    // check for matched words
     if (keyword_match("foreach") && length == 7)
         type = TknTypeForEach;
     else if (keyword_match("as") && length == 2)

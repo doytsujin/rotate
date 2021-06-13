@@ -10,6 +10,8 @@
         "file.h": "c",
         "stdbool.h": "c",
         "vec.h": "c",
-        "utils.h": "c"
+        "utils.h": "c",
+        "string_view": "c",
+        "algorithm": "c"
     }
 }

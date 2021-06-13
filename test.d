@@ -40,7 +40,7 @@ void main()
 	}
 	writeln("1. Syntax");
 	writeln("2. Errors");
-    writeln("3. Custom file");
+	writeln("3. Custom file");
 	write("choose [1:3]: ");
 	string x = readln().strip;
 	writeln("--------------");
@@ -50,7 +50,6 @@ void main()
 		f.close();
 	}
 
-
 	if (x == "1")
 	{
 		"./examples/".iterRunAndCollect;
@@ -59,20 +58,20 @@ void main()
 	{
 		"./examples/errors/".iterRunAndCollect;
 	}
-    else if(x == "3")
-    {
-        write("file name: ");
-        string a = readln().strip;
-        if (!exists(a))
-        {
-            writeln("file does not exist");
-            return;
-        }
-        else 
-        {
-		    const auto run = execute(["./a", a]);
-        }
-    } 
+	else if (x == "3")
+	{
+		write("file name: ");
+		string a = readln().strip;
+		if (!exists(a))
+		{
+			writeln("file does not exist");
+			return;
+		}
+		else
+		{
+			const auto run = execute(["./a", a]);
+		}
+	}
 	else
 	{
 		writeln("input is : ", x);
