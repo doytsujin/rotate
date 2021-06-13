@@ -3,6 +3,7 @@
         "tkns"
     ],
     "files.associations": {
-        "lib5717.h": "c"
+        "lib5717.h": "c",
+        "typeinfo": "c"
     }
 }

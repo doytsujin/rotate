@@ -26,3 +26,8 @@ char *concat_str(const char *str1, const char *str2)
     res[len1 + len2] = 0;
     return res;
 }
+
+size_t str_length(const char *str)
+{
+    return strlen(str) + 1;
+}
