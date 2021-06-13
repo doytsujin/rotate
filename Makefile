@@ -1,5 +1,5 @@
 
-CC ?= gcc
+CC ?= clang
 DMD ?= dmd
 CFLAGS = -Wall 
 CFLAGS += -Wextra 
@@ -19,7 +19,11 @@ run:
 
 test:
 	$(DMD) -run test.d 
-	
+
+scan:
+	-rm -rf output
+	scan-build -o ./output make
+	scan-view ./output/*   
 
 strict:
 	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(DEBUG) $(STRICT) $(CSTD) $(LIB)

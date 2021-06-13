@@ -11,12 +11,14 @@
 
 - Unix enviroment with Build essential pkg
 - C Gcc compiler
+- Clang-tools
 ---
 extras (optional):
 - DMD (RDMD too ) d lang compiler and interpreter
 - google afl
 - valgrind
 - cppcheck
+- scan-build
 
 
 ---

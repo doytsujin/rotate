@@ -36,7 +36,13 @@ int main(int argc, char *argv[])
     fprintf(file_log, "%s", "--------------- end --------------\n---\n");
     fclose(file_log);
     // end log
+    /*const char *bruh1 = "bruh1";
+    const char *bruh2 = "bruh2";
+    char *bruh3 = concat_str(bruh1, bruh2);
+    
 
+    puts(bruh3);
+    free(bruh3);*/
     // Free memory
     tokens_free(lexer.output);
     free(file);

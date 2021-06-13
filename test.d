@@ -63,16 +63,16 @@ void main()
     {
         write("file name: ");
         string a = readln().strip;
-        if (!exists("a"))
+        if (!exists(a))
         {
             writeln("file does not exist");
             return;
         }
         else 
         {
-		    auto run = execute(["./a", a]);
+		    const auto run = execute(["./a", a]);
         }
-    }
+    } 
 	else
 	{
 		writeln("input is : ", x);

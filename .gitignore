@@ -1,6 +1,7 @@
 *.exe
 *.out
 *.o
+output/
 output.*
 main.vr
 a

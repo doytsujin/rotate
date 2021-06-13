@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "tkns"
-    ]
+    ],
+    "files.associations": {
+        "lib5717.h": "c"
+    }
 }
