@@ -1,5 +1,6 @@
 #include "include/lexer.h"
 #include "include/lib5717.h"
+#include "include/log.h"
 
 
 int main(int argc, char *argv[])

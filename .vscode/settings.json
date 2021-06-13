@@ -4,6 +4,12 @@
     ],
     "files.associations": {
         "lib5717.h": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "log.h": "c",
+        "lexer.h": "c",
+        "file.h": "c",
+        "stdbool.h": "c",
+        "vec.h": "c",
+        "utils.h": "c"
     }
 }
