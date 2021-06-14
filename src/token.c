@@ -126,14 +126,13 @@ const char *tkn_type_describe(tkn_type_t type)
 void tkn_dump(tkn_t *tkn, FILE *file_log)
 {
     // dump to terminal (currently commented)
-    fprintf(stderr,
+    /*fprintf(file_log,
             "Token '\x1b[1m\x1b[93m%s\x1b[0m' at \x1b[94m%s:%zu:%zu\x1b[0m with text "
             "\"\x1b[1m\x1b[92m %s "
             "\x1b[0m\"\n",
             tkn_type_describe(tkn->type), tkn->pos.file, tkn->pos.line, tkn->pos.col, tkn->value);
-    
-    // dump token data to file.
-    /*fprintf(file_log, "Token '%s' at %s:%zu:%zu  with text \"%s\"\n",
-            tkn_type_describe(tkn->type), tkn->pos.file, tkn->pos.line, tkn->pos.col, tkn->value);
     */
+    // dump token data to file.
+    fprintf(file_log, "Token '%s' at %s:%zu:%zu  with text \"%s\"\n",
+            tkn_type_describe(tkn->type), tkn->pos.file, tkn->pos.line, tkn->pos.col, tkn->value);
 }
