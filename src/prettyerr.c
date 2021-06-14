@@ -100,7 +100,8 @@ int lexer_lex_failure(lexer_t *lexer)
 
     size_t k = 1;
     k = (lexer->col + 1);
-    char spaces[k], space_line[count];
+    char spaces[k > 0 ? k: 1];
+    char space_line[count > 0 ? count: 1];
     for (size_t i = 0; i < k; i++)
     {
         if (k == 1)
@@ -120,7 +121,7 @@ int lexer_lex_failure(lexer_t *lexer)
         space_line[i] = ' ';
     }
     spaces[k - 1] = k < 2 ? 0 : 0;
-    space_line[count - 1] = count == 1 ? 0 : 0;
+    space_line[count - 1] = count < 2 ? 0 : 0;
 
     // Printing phase
     printf("%s%s%s:%zu:%zu: %s\nerror:%s %s%s\n", GREEN, BOLD, lexer->input->name, lexer->line,

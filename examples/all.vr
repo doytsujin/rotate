@@ -1,5 +1,11 @@
 import std.io;
 
+// comment
+
+/*
+    multi line comment
+ */
+
 ->
 for 
 foreach
@@ -49,7 +55,7 @@ match x  {
     | _: // default
 }
 
-for (let x:int = 0; x < 10; x = x + 1) {
+for (let x = 0; x < 10; x = x + 1) {
     io.println($"{i + 1}");
 }
 

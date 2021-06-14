@@ -316,6 +316,15 @@ static int lexer_single(lexer_t *lexer)
                 {
                     lexer_advance(lexer);
                 }
+            } else if (peek() == '*')
+            {
+                bool end_comment = false;
+                while(!is_eof() && current() != 0 && !end_comment)
+                {
+                    if ((past() == '*' && current() == '/')) end_comment = true;
+                    lexer_advance(lexer);
+                    
+                }
             }
             else
                 lexer_tkn(lexer, TknTypeDIV);
