@@ -36,6 +36,7 @@ debug:
 
 clean:
 	-rm ./$(BIN) $(wildcard *.o)  
+	-rm -rf output*
 
 memcheck:
 	valgrind --leak-check=full --track-origins=yes -s ./$(BIN)

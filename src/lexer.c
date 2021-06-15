@@ -1,7 +1,5 @@
 #include "include/lexer.h"
 #include "include/prettyerr.h"
-#include <ctype.h>
-#include <stdlib.h>
 
 // lexer initialization
 void lexer_init(lexer_t *lexer, file_t *input)
@@ -22,7 +20,7 @@ void lexer_destroy(lexer_t *lexer)
     free_vec(lexer->output);
 }
 
-// go to next 
+// go to next
 static inline void lexer_advance(lexer_t *lexer)
 {
     const char c = current();
@@ -282,7 +280,9 @@ static int lexer_single(lexer_t *lexer)
                 lexer_advance(lexer);
             }
             else
+            {
                 lexer_tkn(lexer, TknTypeEqual);
+            }
             break;
         case ':':
             lexer_tkn(lexer, TknTypeColon);
@@ -304,7 +304,9 @@ static int lexer_single(lexer_t *lexer)
                 lexer_advance(lexer);
             }
             else
+            {
                 lexer_tkn(lexer, TknTypeMINUS);
+            }
             break;
         case '*':
             lexer_tkn(lexer, TknTypeStar);
@@ -316,18 +318,20 @@ static int lexer_single(lexer_t *lexer)
                 {
                     lexer_advance(lexer);
                 }
-            } else if (peek() == '*')
+            }
+            else if (peek() == '*')
             {
                 bool end_comment = false;
-                while(!is_eof() && current() != 0 && !end_comment)
+                while (!is_eof() && current() != 0 && !end_comment)
                 {
                     if ((past() == '*' && current() == '/')) end_comment = true;
                     lexer_advance(lexer);
-                    
                 }
             }
             else
+            {
                 lexer_tkn(lexer, TknTypeDIV);
+            }
             break;
         case '(':
             lexer_tkn(lexer, TknTypeLeftParen);

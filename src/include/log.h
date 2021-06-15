@@ -5,4 +5,4 @@
 
 void log_md(lexer_t lexer, const char *filename, const char *filemode);
 
-#endif 
+#endif

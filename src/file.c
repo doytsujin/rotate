@@ -1,5 +1,4 @@
-#include "include/file.h"
-
+#include "include/prettyerr.h"
 
 file_t *file_read(const char *name)
 {
@@ -15,11 +14,12 @@ file_t *file_read(const char *name)
     fseek(file, 0, SEEK_END);
     if (!ftell(file))
     {
+        printf("%s%s%s: %serror:%s %s%s\n", GREEN, BOLD, name, RED, LCYAN, "File empty", RESET);
+        // printf("\x1b[31merror: file empty \x1b[0m\n");
         fclose(file);
         return NULL;
     }
     const size_t length = ftell(file) ? ftell(file) : 0;
-
     // c: Rewind to the beginning of STREAM. This function is a possible cancellation point and
     // therefore not marked with __THROW.
     rewind(file);

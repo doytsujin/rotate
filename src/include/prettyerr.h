@@ -1,5 +1,5 @@
-#ifndef PRETTY_PRINT_ROTATE
-#define PRETTY_PRINT_ROTATE
+#ifndef PRETTY_PRINT_H
+#define PRETTY_PRINT_H
 
 #include "lexer.h"
 

@@ -2,16 +2,15 @@
 #include "include/lib5717.h"
 #include "include/log.h"
 
-
 int main(int argc, char *argv[])
 {
     // default file name if argument [1] wasn't given
     char *default_file = "main.vr";
-    
-    // create file for interpreting 
+
+    // create file for interpreting
     file_t *file = file_read(argc > 1 ? argv[1] : default_file);
-    
-    // exit if file doesn't exist 
+
+    // exit if file doesn't exist
     if (!file) return EXIT_FAILURE;
 
     // create lexer
@@ -34,6 +33,6 @@ int main(int argc, char *argv[])
     // Free memory
     tokens_free(lexer.output);
     free(file);
-    
+
     return EXIT_SUCCESS;
 }

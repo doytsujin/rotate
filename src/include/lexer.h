@@ -8,10 +8,6 @@
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 
 // types of possible errors
 typedef enum
@@ -36,7 +32,7 @@ typedef enum
 #define specific(i) (lexer->input->contents[lexer->index + i])
 // get last char
 #define past() (lexer->input->contents[lexer->index - 1])
-// check if is end of file 
+// check if is end of file
 #define is_eof() (lexer->index >= lexer->input->length)
 // increment length
 #define add_len() (lexer->length++)
@@ -48,7 +44,7 @@ typedef enum
 #define next() lexer->index++
 // rewind index by number
 #define rewind_macro(n) lexer->index -= (n)
-// if keyword matches   
+// if keyword matches
 #define keyword_match(str) (strncmp(lexer->input->contents + lexer->index, str, length) == 0)
 
 // Defines a vector type of tokens
@@ -69,7 +65,7 @@ void lexer_init(lexer_t *lexer, file_t *input);
 // destroy lexer from memory
 void lexer_destroy(lexer_t *lexer);
 
-// lexes multicharacters 
+// lexes multicharacters
 int lexer_multichar(lexer_t *lexer);
 
 // free tokens from memory

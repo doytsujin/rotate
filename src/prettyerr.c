@@ -100,8 +100,8 @@ int lexer_lex_failure(lexer_t *lexer)
 
     size_t k = 1;
     k = (lexer->col + 1);
-    char spaces[k > 0 ? k: 1];
-    char space_line[count > 0 ? count: 1];
+    char spaces[k > 0 ? k : 1];
+    char space_line[count > 0 ? count : 1];
     for (size_t i = 0; i < k; i++)
     {
         if (k == 1)

@@ -22,7 +22,7 @@ typedef struct
 // An enum describing all the different types of tokens
 typedef enum
 {
-    TknTypeIdentifier, 
+    TknTypeIdentifier,
     TknTypeEqual,
     TknTypeLet,
     TknTypeInteger,
