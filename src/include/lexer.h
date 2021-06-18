@@ -66,15 +66,13 @@ void lexer_init(lexer_t *lexer, file_t *input);
 void lexer_destroy(lexer_t *lexer);
 
 // lexes multicharacters
-int lexer_multichar(lexer_t *lexer);
+size_t lexer_multichar(lexer_t *lexer);
 
 // free tokens from memory
 void tokens_free(vec(tkn_t) tkns);
 
 // to lex the lexer
-int lexer_lex(lexer_t *lexer);
+size_t lexer_lex(lexer_t *lexer);
 
-// display error output
-int lexer_lex_failure(lexer_t *lexer);
 
 #endif /* LEXER_H */

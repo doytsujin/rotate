@@ -1,11 +1,13 @@
-#ifndef C5717LIB_H
-#define C5717LIB_H
+#ifndef CLIB_5717_H
+#define CLIB_5717_H
 
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 
-// string functions
+/*****************\
+  string functions
+\*****************/
 
 // convert to upper case
 void to_upper_case(char *str);
@@ -16,4 +18,11 @@ char *concat_str(const char *str1, const char *str2);
 // get length of string with null terminator
 size_t str_length(const char *str);
 
-#endif // C5717LIB_H
+/*****************\
+   math functions
+\*****************/
+
+// get number of digits in number
+size_t get_number_of_digits(int number);
+
+#endif // CLIB_5717_H

@@ -9,7 +9,7 @@ char *err_msgsfunc(lexer_t *lexer)
         case NOT_CLOSED_STRING:
             return "The string is not closed.";
         case END_OF_FILE:
-            return "reached end of file";
+            return "reached end of file.";
         case FILE_EMPTY:
             return "The file is empty.";
         default:
@@ -55,7 +55,7 @@ bool is_location_needed(lexer_t *lexer)
 }
 
 // failure display
-int lexer_lex_failure(lexer_t *lexer)
+size_t lexer_lex_failure(lexer_t *lexer)
 {
 
     char *err_msg = err_msgsfunc(lexer);

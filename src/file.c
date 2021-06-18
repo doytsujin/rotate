@@ -1,4 +1,5 @@
 #include "include/prettyerr.h"
+#include <stdio.h>
 
 file_t *file_read(const char *name)
 {
@@ -19,7 +20,7 @@ file_t *file_read(const char *name)
         fclose(file);
         return NULL;
     }
-    const size_t length = ftell(file) ? ftell(file) : 0;
+    const size_t length = ftell(file);
     // c: Rewind to the beginning of STREAM. This function is a possible cancellation point and
     // therefore not marked with __THROW.
     rewind(file);

@@ -52,11 +52,11 @@ void main()
 
 	if (x == "1")
 	{
-		"./examples/".iterRunAndCollect;
+		"examples/".iterRunAndCollect;
 	}
 	else if (x == "2")
 	{
-		"./examples/errors/".iterRunAndCollect;
+		"examples/errors/".iterRunAndCollect;
 	}
 	else if (x == "3")
 	{

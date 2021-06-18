@@ -35,7 +35,7 @@ debug:
 	gcc-10 $(SRC) -o $(BIN) $(CFLAGS) $(ANALYZE) $(DEBUG) $(CSTD) $(LIB)
 
 clean:
-	-rm ./$(BIN) $(wildcard *.o)  
+	-rm $(BIN) $(wildcard *.o)  
 	-rm -rf output*
 
 memcheck:

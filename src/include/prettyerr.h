@@ -27,7 +27,13 @@
 #define LCYAN "\x1b[96m"
 #define LWHITE "\x1b[97m"
 
+// error msg output
 char *err_msgsfunc(lexer_t *lexer);
+
+// if location of error is needed or not
 bool is_location_needed(lexer_t *lexer);
+
+// display error output
+size_t lexer_lex_failure(lexer_t *lexer);
 
 #endif // PRETTY_PRINT_ROTATE

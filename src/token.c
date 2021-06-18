@@ -118,6 +118,8 @@ const char *tkn_type_describe(tkn_type_t type)
             return "equality";
         case TknTypeBreak:
             return "break";
+        case TknTypeAccess:
+            return "access'::'";
         default:
             return "???";
     }

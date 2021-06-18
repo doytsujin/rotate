@@ -61,7 +61,7 @@ static void lexer_tkn(lexer_t *lexer, tkn_type_t type)
 }
 
 // lex multicharaters
-int lexer_multichar(lexer_t *lexer)
+size_t lexer_multichar(lexer_t *lexer)
 {
     size_t save_index = lexer->index;
     size_t save_line = lexer->line;
@@ -141,7 +141,7 @@ int lexer_multichar(lexer_t *lexer)
 }
 
 // lexer for single characater
-static int lexer_single(lexer_t *lexer)
+static size_t lexer_single(lexer_t *lexer)
 {
 
     if (lexer->input->contents[0] == 0)
@@ -285,7 +285,16 @@ static int lexer_single(lexer_t *lexer)
             }
             break;
         case ':':
-            lexer_tkn(lexer, TknTypeColon);
+            if (peek() == ':')
+            {
+                add_len();
+                lexer_tkn(lexer, TknTypeAccess);
+                lexer_advance(lexer);
+            }
+            else
+            {
+                lexer_tkn(lexer, TknTypeColon);
+            }
             break;
         case ';':
             lexer_tkn(lexer, TknTypeSemiColon);
@@ -396,7 +405,7 @@ void tokens_free(vec(tkn_t) tkns)
 }
 
 // lex the lexer
-int lexer_lex(lexer_t *lexer)
+size_t lexer_lex(lexer_t *lexer)
 {
     lexer->index = 0;
     lexer->line = 1;
