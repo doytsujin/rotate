@@ -5,3 +5,6 @@ output/
 output.*
 main.vr
 a
+docs/org-mode/_minted-docs
+docs/org-mode/.auctex-auto
+docs/org-mode/docs.tex

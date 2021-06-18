@@ -1,5 +1,5 @@
 #+TITLE: Rotate Programming Language Documentation
-#+OPTIONS: num:nil
+#+OPTIONS: num:nil toc:nil
 #+LaTeX_HEADER: \usepackage{minted}
 
 
@@ -9,10 +9,9 @@
  - syntax close to C-like languages and Rust
  - static typing and scripting language
 
-WARNING: SYNTAX MAY CHANGE AT ANY MOMENT
+=WARNING: SYNTAX MAY CHANGE AT ANY MOMENT=
 
 * Overview
-
 ** Display output
 #+NAME: Hello World
 #+ATTR_LATEX: :options frame=single
@@ -24,23 +23,29 @@ fn main() {
 }
 #+END_SRC
 
-
 ** Comments
 #+NAME: Comments
 #+ATTR_LATEX: :options frame=single
-#+BEGIN_SRC C
+#+BEGIN_SRC D
 // single line comment
 /* multiline
    comment */
+/+ multiline 
+   comment 
+   +/
 /// documentation comment
 #+END_SRC
 #+NAME: Multiline comments cannot be nested
 #+ATTR_LATEX: :options frame=single
-#+BEGIN_SRC C
+#+BEGIN_SRC D
 /*
-    // allowed
-    /* not allowed * /
+    // nested multiline comments are not allowed
 */
+/+ 
+    /* 
+        Allowed
+    */
++/
 #+END_SRC
 ** Variables
 #+NAME: VARIABLES

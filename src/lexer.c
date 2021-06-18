@@ -285,16 +285,7 @@ static size_t lexer_single(lexer_t *lexer)
             }
             break;
         case ':':
-            if (peek() == ':')
-            {
-                add_len();
-                lexer_tkn(lexer, TknTypeAccess);
-                lexer_advance(lexer);
-            }
-            else
-            {
-                lexer_tkn(lexer, TknTypeColon);
-            }
+            lexer_tkn(lexer, TknTypeColon);
             break;
         case ';':
             lexer_tkn(lexer, TknTypeSemiColon);
@@ -337,6 +328,15 @@ static size_t lexer_single(lexer_t *lexer)
                     lexer_advance(lexer);
                 }
             }
+            else if (peek() == '+')
+            {
+                bool end_comment = false;
+                while (!is_eof() && current() != 0 && !end_comment)
+                {
+                    if ((past() == '+' && current() == '/')) end_comment = true;
+                    lexer_advance(lexer);
+                }
+            }
             else
             {
                 lexer_tkn(lexer, TknTypeDIV);
@@ -367,7 +367,14 @@ static size_t lexer_single(lexer_t *lexer)
             lexer_tkn(lexer, TknTypeLess);
             break;
         case '.':
-            lexer_tkn(lexer, TknTypeDot);
+            if (peek() == '.')
+            {
+                add_len();
+                lexer_tkn(lexer, TknTypeTo);
+                lexer_advance(lexer);
+            }
+            else
+                lexer_tkn(lexer, TknTypeDot);
             break;
         case '$':
             lexer_tkn(lexer, TknTypeDollar);

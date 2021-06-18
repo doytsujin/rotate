@@ -79,7 +79,7 @@ typedef enum
     TknTypeAs,
     TknTypeEqualEqual, // ==
     TknTypeBreak,
-    TknTypeAccess, // ::
+    TknTypeTo, // ..
 } tkn_type_t;
 
 // A struct describing a token

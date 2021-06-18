@@ -1,0 +1,7 @@
+import std.io;
+
+fn main() {
+    foreach (i, 0..10) {
+        println($"{i}");
+    }
+}

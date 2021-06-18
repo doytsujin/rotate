@@ -35,7 +35,7 @@ char *advice(lexer_t *lexer)
         default:
             break;
     }
-    return "Check this Unknown token.";
+    return "Remove this Unknown token.";
 }
 
 // to display error location
@@ -120,8 +120,8 @@ size_t lexer_lex_failure(lexer_t *lexer)
         }
         space_line[i] = ' ';
     }
-    spaces[k - 1] = k < 2 ? 0 : 0;
-    space_line[count - 1] = count < 2 ? 0 : 0;
+    spaces[k - 1] = 0;
+    space_line[count - 1] = 0;
 
     // Printing phase
     printf("%s%s%s:%zu:%zu: %s\nerror:%s %s%s\n", GREEN, BOLD, lexer->input->name, lexer->line,

@@ -33,10 +33,12 @@ void iterRunAndCollect(string dir)
 
 void main()
 {
+	writeln("running make");
+	execute("make");
 	if (!exists("a"))
 	{
-		writeln("please compile the program by running `make`");
-		return;
+		writeln("running make");
+		execute("make");
 	}
 	writeln("1. Syntax");
 	writeln("2. Errors");
@@ -70,6 +72,7 @@ void main()
 		else
 		{
 			const auto run = execute(["./a", a]);
+			const auto cat = execute(["cat", "output.md"]);
 		}
 	}
 	else
