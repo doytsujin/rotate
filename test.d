@@ -5,6 +5,13 @@ import std.string;
 import std.array;
 import std.algorithm;
 
+/// display output in red
+immutable string RED = "\x1b[31m";
+/// display output in green
+immutable string GREEN = "\x1b[32m";
+/// reset display output color
+immutable string RESET = "\x1b[0m";
+
 /// iters thru files and runs them and collects exit status
 void iterRunAndCollect(string dir)
 {
@@ -16,15 +23,13 @@ void iterRunAndCollect(string dir)
 
 	foreach (DirEntry e; dirEntries(dir, SpanMode.shallow).filter!(f => f.name.endsWith(".vr")))
 	{
-		immutable string RED = "\x1b[31m";
-		immutable string GREEN = "\x1b[32m";
-		immutable string RESET = "\x1b[0m";
+
 		immutable string filen = e.name;
 
-		auto run = execute(["./a", filen]);
+		const auto run = execute(["./rotate", filen]);
 
 		if (run.status != 0)
-			writeln(RED, "Compilation failed \n", RESET, run.output, ' ', filen);
+			writeln(RED, "Compilation failed \n", RESET, run.output);
 		else
 			writeln(GREEN, "Success ", RESET, filen);
 	}
@@ -35,16 +40,16 @@ void main()
 {
 	writeln("running make");
 	execute("make");
-	if (!exists("a"))
+	if (!exists("./rotate"))
 	{
-		writeln("running make");
-		execute("make");
+		writeln("file does not exist");
+		return;
 	}
 	writeln("1. Syntax");
 	writeln("2. Errors");
 	writeln("3. Custom file");
 	write("choose [1:3]: ");
-	string x = readln().strip;
+	const string x = readln().strip;
 	writeln("--------------");
 	if (exists("output.md"))
 	{
@@ -71,8 +76,16 @@ void main()
 		}
 		else
 		{
-			const auto run = execute(["./a", a]);
-			const auto cat = execute(["cat", "output.md"]);
+			const auto run = execute(["./rotate", a]);
+			if (run.status != 0)
+			{
+				writeln(RED, "Failure");
+			}
+			else
+			{
+				writeln(GREEN, "Success");
+			}
+			write(RESET);
 		}
 	}
 	else

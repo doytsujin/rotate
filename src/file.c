@@ -1,13 +1,15 @@
 #include "include/prettyerr.h"
-#include <stdio.h>
 
-file_t *file_read(const char *name)
+file_t *file_read(char *name)
 {
     // open file
     FILE *file = fopen(name, "rb");
     if (!file)
     {
-        perror("file open error");
+        // perror("file open error");
+        // display error message if file does not exist
+        printf("%s%s%s: %serror:%s %s%s\n", GREEN, BOLD, name, RED, LCYAN,
+               "No such file or directory", RESET);
         return NULL;
     }
 

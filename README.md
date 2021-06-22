@@ -1,24 +1,25 @@
 # Rotate Programming language
+    Work in progress 
+simple static typing scripting language that gets inspired by C-like and Rust's syntax 
 
- Work in progress 
- 
+
 ## UNUSABLE -  NOT WORKING AT THE MOMENT
  
- to see current plan check (no promises) docs/expectation.md
+ to see current plan check (no promises) docs/org-mode/progress.org
 
 
-# Developer requirements 
+## Developer requirements 
 
-- Unix enviroment with Build essential pkg
+- Unix environment with Build essential pkg
 - C Gcc compiler
 - Clang-tools
 ---
 extras (optional):
-- DMD (RDMD too ) d lang compiler and interpreter
+- DMD: D Language compiler
+- Zig compiler
 - google afl
 - valgrind
 - cppcheck
-- scan-build
 
 
 ---
@@ -30,29 +31,25 @@ extras (optional):
      println("Hello World");
  }
  ```
- Also check docs in `./docs/expectation` 
+ Also check docs in `./docs/pdfs/docs.pdf` 
 
 
 ---
 ## current Status
-check `./docs/progress.md`
+check `./docs/pdfs/progress.pdf`
 
 ---
 
 ## stats
 
 ```
-----------------------------------------------------------------
-Language      files          blank        comment           code
-----------------------------------------------------------------
-C                 8             58             72            703
-HTML              2             27            400            335
-C/C++ Header      9             66             44            260
-D                 1              7              1             74
-Markdown          2             19              0             61
-JSON              2              0              0             45
-make              1             12              0             35
-----------------------------------------------------------------
-SUM:             25            189            517           1513
-----------------------------------------------------------------
+-----------------------------------------------------------------
+Language       files          blank        comment           code
+-----------------------------------------------------------------
+C                 10             55             77            801
+C/C++ Header      10             78             61            283
+YAML               1              0              0              6
+-----------------------------------------------------------------
+SUM:              21            133            139           1090
+-----------------------------------------------------------------
 ```

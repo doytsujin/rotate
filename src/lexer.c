@@ -270,7 +270,16 @@ static size_t lexer_single(lexer_t *lexer)
             lexer_tkn(lexer, TknTypeDefault);
             break;
         case '|':
-            lexer_tkn(lexer, TknTypeDivider);
+            if (peek() == '|')
+            {
+                add_len();
+                lexer_tkn(lexer, TknTypeOr);
+                lexer_advance(lexer);
+            }
+            else
+            {
+                lexer_tkn(lexer, TknTypeDivider);
+            }
             break;
         case '=':
             if (peek() == '=')
@@ -388,6 +397,18 @@ static size_t lexer_single(lexer_t *lexer)
         case ',':
             lexer_tkn(lexer, TknTypeComma);
             break;
+        case '&':
+            if (peek() == '&')
+            {
+                add_len();
+                lexer_tkn(lexer, TknTypeAnd);
+                lexer_advance(lexer);
+                break;
+            }
+            else
+            {
+                return EXIT_FAILURE;
+            }
         default:
             if (lex_char == '_' || isalpha(lex_char))
             {

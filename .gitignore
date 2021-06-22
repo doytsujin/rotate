@@ -4,7 +4,7 @@
 output/
 output.*
 main.vr
-a
+rotate
 docs/org-mode/_minted-docs
 docs/org-mode/.auctex-auto
 docs/org-mode/docs.tex

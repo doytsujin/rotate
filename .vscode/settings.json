@@ -8,5 +8,9 @@
         "stdbool.h": "c",
         "vec.h": "c",
         "utils.h": "c",
-    }
+    },
+    "cSpell.words": [
+        "SVERSION",
+        "ssversion"
+    ]
 }

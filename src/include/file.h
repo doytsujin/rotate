@@ -12,6 +12,6 @@ typedef struct
 } file_t;
 
 // Reads a file with the given name and returns an object to later be freed
-file_t *file_read(const char *name);
+file_t *file_read(char *name);
 
 #endif /* FILE_H */

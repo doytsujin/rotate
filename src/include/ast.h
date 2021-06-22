@@ -3,6 +3,8 @@
 
 #include "token.h"
 
+//! NOT IMPLEMENTED YET
+
 typedef struct ast_t ast_t;
 typedef struct scope_ast_t scope_ast_t;
 

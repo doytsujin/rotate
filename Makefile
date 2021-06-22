@@ -11,11 +11,15 @@ STRICT  = -Werror
 CSTD = -std=gnu18
 CSTD_LINT = --std=c11
 DEBUG  = -g
-BIN  = a
+BIN  = rotate
 
 
 run: 
 	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(CSTD) $(LIB)
+
+zig:
+	zig cc $(SRC) -o $(BIN) $(CFLAGS) $(CSTD) $(LIB)
+
 
 test:
 	$(DMD) -run test.d 
@@ -39,7 +43,7 @@ clean:
 	-rm -rf output*
 
 memcheck:
-	valgrind --leak-check=full --track-origins=yes -s $(BIN)
+	valgrind --leak-check=full --track-origins=yes -s ./$(BIN)
 
 lint:
 	cppcheck  $(SRC_C_H) $(CSTD_LINT)

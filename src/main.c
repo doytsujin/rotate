@@ -1,38 +1,18 @@
-#include "include/lexer.h"
-#include "include/lib5717.h"
-#include "include/log.h"
+#include "include/args.h"
 
 int main(int argc, char *argv[])
 {
-    // default file name if argument [1] wasn't given
-    char *default_file = "main.vr";
-
-    // create file for interpreting
-    file_t *file = file_read(argc > 1 ? argv[1] : default_file);
-
-    // exit if file doesn't exist
-    if (!file) return EXIT_FAILURE;
-
-    // create lexer
-    lexer_t lexer;
-    // initialize a lexer with current file contents
-    lexer_init(&lexer, file);
-
-    /// if lexing is failed, free memory then exit (status failure(1))
-    if (lexer_lex(&lexer) == EXIT_FAILURE)
+    int exit_status = EXIT_SUCCESS;
+    // deal with the arguments
+    if (argc == 1)
     {
-        free(file);
-        free(lexer.output);
-        return EXIT_FAILURE;
+        printf("ROTATE Compiler\n");
+        printf("Usage: rotate {filename}\n");
+        printf("Version: %d.%d.%d\n", VERSION, SVERSION, SSVERSION);
     }
-
-    // log into output.md
-    log_md(lexer, "output.md", "a");
-    // end log
-
-    // Free memory
-    tokens_free(lexer.output);
-    free(file);
-
-    return EXIT_SUCCESS;
+    else
+    {
+        exit_status = deal_the_args(argc, argv);
+    }
+    return exit_status;
 }
