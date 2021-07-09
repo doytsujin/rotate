@@ -35,7 +35,7 @@ char *advice(lexer_t *lexer)
         default:
             break;
     }
-    return "Remove this Unknown token.";
+    return "Remove this weird token.";
 }
 
 // to display error location
@@ -64,7 +64,7 @@ size_t lexer_lex_failure(lexer_t *lexer)
     // size_t len = lexer->length;
 
     // char word[len + 1];
-    char arrows[] = {'-', '-', '-', 0};
+    char arrows[] = {'-', '-', '-', '\0'};
     /*for (size_t i = 0; i < len; i++)
     {
         // word[i] = specific(i) != '\n'? specific(i) : 0;
@@ -74,7 +74,7 @@ size_t lexer_lex_failure(lexer_t *lexer)
     arrows[len] = 0;*/
 
     size_t j = 0;
-    while (current() != '\n' && current() != 0)
+    while (current() != '\n' && current() != '\0')
     {
         next();
         j++;
@@ -87,7 +87,7 @@ size_t lexer_lex_failure(lexer_t *lexer)
     {
         sentence[i] = specific(i);
     }
-    sentence[line_len] = 0;
+    sentence[line_len] = '\0';
 
     // count number of digits in line number
     size_t i = lexer->line; // variable declaration
@@ -106,8 +106,8 @@ size_t lexer_lex_failure(lexer_t *lexer)
     {
         if (k == 1)
         {
-            spaces[0] = 0;
-            spaces[1] = 0;
+            spaces[0] = '\0';
+            spaces[1] = '\0';
         }
         spaces[i] = ' ';
     }
@@ -115,13 +115,13 @@ size_t lexer_lex_failure(lexer_t *lexer)
     {
         if (count == 1)
         {
-            space_line[0] = 0;
-            space_line[1] = 0;
+            space_line[0] = '\0';
+            space_line[1] = '\0';
         }
         space_line[i] = ' ';
     }
-    spaces[k - 1] = 0;
-    space_line[count - 1] = 0;
+    spaces[k - 1] = '\0';
+    space_line[count - 1] = '\0';
 
     // Printing phase
     printf("%s%s%s:%zu:%zu: %s\nerror:%s %s%s\n", GREEN, BOLD, lexer->input->name, lexer->line,

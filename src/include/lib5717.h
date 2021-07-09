@@ -10,9 +10,9 @@
 \*****************/
 
 // convert to upper case
-void to_upper_case(char *str);
+char *to_upper_case(char *str);
 // convert to lower case
-void to_lower_case(char *str);
+char *to_lower_case(char *str);
 // add 2 strings into one string
 char *concat_str(const char *str1, const char *str2);
 // get length of string with null terminator

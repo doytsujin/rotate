@@ -1,6 +1,6 @@
-pub fn scan(arg: str = "") {
+pub fn scan(arg: str = "") -> str {
     output($"{arg}");
-    return scan;
+    return read();
 }
 
 pub fn println(arg: str) {

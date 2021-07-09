@@ -43,7 +43,8 @@ clean:
 	-rm -rf output*
 
 memcheck:
-	valgrind --leak-check=full --track-origins=yes -s ./$(BIN)
+	-make debug
+	valgrind --leak-check=full --track-origins=yes -s ./$(BIN) ./main.vr
 
 lint:
 	cppcheck  $(SRC_C_H) $(CSTD_LINT)

@@ -38,10 +38,10 @@ void iterRunAndCollect(string dir)
 
 void main()
 {
-	writeln("running make");
-	execute("make");
-	if (!exists("./rotate"))
+		if (!exists("./rotate"))
 	{
+    writeln("running make");
+	  execute("make");
 		writeln("file does not exist");
 		return;
 	}

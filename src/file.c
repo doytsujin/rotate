@@ -39,7 +39,7 @@ file_t *file_read(char *name)
         return NULL;
     }
 
-    buffer->contents[length] = 0;
+    buffer->contents[length] = '\0';
 
     // Close the file
     fclose(file);

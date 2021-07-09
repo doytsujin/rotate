@@ -1,18 +1,25 @@
 #include "include/args.h"
+#include "include/lexer.h"
+#include <stdlib.h>
 
 // TODO
 int deal_the_args(int argc, char *argv[])
 {
     if (argc > 2)
-        printf("lol i am going to ignore that 3rd arg: `%s`\n", argv[2]);
+    {
+        printf("doesn't support additional arguments rn\n");
+        return EXIT_FAILURE;
+    }
     // create file for interpreting
     file_t *file = file_read(argv[1]);
     // exit if file doesn't exist
     if (!file) return EXIT_FAILURE;
     // create lexer
     lexer_t lexer;
-    if (lex(&lexer, file) == EXIT_FAILURE) return EXIT_FAILURE;
-
+    if (lex(&lexer, file) == EXIT_FAILURE)
+    {
+        return EXIT_FAILURE;
+    }
     return EXIT_SUCCESS;
 }
 
@@ -30,7 +37,7 @@ int lex(lexer_t *lexer, file_t *file)
     }
 
     // log into output.md
-    // TODO: s
+    // TODO: 
     log_md(lexer, "output.md", "a");
     // end log
 

@@ -144,7 +144,7 @@ size_t lexer_multichar(lexer_t *lexer)
 static size_t lexer_single(lexer_t *lexer)
 {
 
-    if (lexer->input->contents[0] == 0)
+    if (lexer->input->contents[0] == '\0')
     {
         lexer->error_type = END_OF_FILE;
         return EXIT_FAILURE;
@@ -189,10 +189,10 @@ static size_t lexer_single(lexer_t *lexer)
         size_t save_col = lexer->col;
         length() = 1;
         lexer_advance(lexer);
-        while (current() != '\"')
+        while (current() != '"')
         {
             // printf("%c\n", current());
-            if (current() == 0)
+            if (current() == '\0')
             {
                 lexer->error_type = NOT_CLOSED_STRING;
                 return EXIT_FAILURE;
@@ -210,7 +210,7 @@ static size_t lexer_single(lexer_t *lexer)
     }
 
     // char lexer
-    if (lex_char == '\'')
+    else if (lex_char == '\'')
     {
         // char lexer
         size_t save_index = lexer->index;
@@ -228,7 +228,7 @@ static size_t lexer_single(lexer_t *lexer)
                 lexer->error_type = NOT_CLOSED_CHAR;
                 return EXIT_FAILURE;
             }
-            if (current() == 0)
+            if (current() == '\0')
             {
                 lexer->error_type = END_OF_FILE;
                 return EXIT_FAILURE;
@@ -323,7 +323,7 @@ static size_t lexer_single(lexer_t *lexer)
         case '/':
             if (peek() == '/')
             {
-                while (!is_eof() && current() != '\n' && current() != 0)
+                while (!is_eof() && current() != '\n' && current() != '\0')
                 {
                     lexer_advance(lexer);
                 }
@@ -331,7 +331,7 @@ static size_t lexer_single(lexer_t *lexer)
             else if (peek() == '*')
             {
                 bool end_comment = false;
-                while (!is_eof() && current() != 0 && !end_comment)
+                while (!is_eof() && current() != '\0' && !end_comment)
                 {
                     if ((past() == '*' && current() == '/')) end_comment = true;
                     lexer_advance(lexer);
@@ -340,7 +340,7 @@ static size_t lexer_single(lexer_t *lexer)
             else if (peek() == '+')
             {
                 bool end_comment = false;
-                while (!is_eof() && current() != 0 && !end_comment)
+                while (!is_eof() && current() != '\0' && !end_comment)
                 {
                     if ((past() == '+' && current() == '/')) end_comment = true;
                     lexer_advance(lexer);
@@ -425,9 +425,9 @@ static size_t lexer_single(lexer_t *lexer)
 // free tokens
 void tokens_free(vec(tkn_t) tkns)
 {
-    for_each(tkns, tkn_ptr)
+    for_each(tkns, tkn_t)
     {
-        free(tkn_ptr->value);
+        free(tkn_t->value);
     }
     free_vec(tkns);
 }
