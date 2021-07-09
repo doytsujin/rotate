@@ -1,8 +1,7 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "common.h"
 
 // show position of tokens
 #define pos_make(line, col, file)                                                                  \
@@ -79,7 +78,12 @@ typedef enum
     TknTypeAs,
     TknTypeEqualEqual, // ==
     TknTypeBreak,
-    TknTypeTo, // ..
+    TknTypeTo,        // ..
+    TknTypeAddEqual,  // +=
+    TknTypeSubEqual,  // -=
+    TknTypeMultEqual, // *=
+    TknTypeDivEqual,  // /=
+
 } tkn_type_t;
 
 // A struct describing a token
@@ -98,10 +102,10 @@ typedef struct
     }
 
 // describe the token type
-const char *tkn_type_describe(tkn_type_t type);
+const char *tkn_type_describe(const tkn_type_t type);
 
 // dump token
-void tkn_dump(tkn_t *tkn, FILE *file_log);
+void tkn_dump(const tkn_t *tkn, FILE *file_log);
 
 // end of header
 #endif /* TOKEN_H */

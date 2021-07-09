@@ -5,7 +5,7 @@ char *to_upper_case(char *str)
 {
     for (size_t i = 0; str[i] != '\0'; i++)
     {
-        if (isalpha(str[i])) str[i] = toupper(str[i]);
+        str[i] = toupper(str[i]);
     }
     return str;
 }
@@ -15,7 +15,7 @@ char *to_lower_case(char *str)
 {
     for (size_t i = 0; str[i] != '\0'; i++)
     {
-        if (isalpha(str[i])) str[i] = tolower(str[i]);
+        str[i] = tolower(str[i]);
     }
     return str;
 }

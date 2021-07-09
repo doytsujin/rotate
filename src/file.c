@@ -1,6 +1,6 @@
 #include "include/prettyerr.h"
 
-file_t *file_read(char *name)
+file_t *file_read(const char *name)
 {
     // open file
     FILE *file = fopen(name, "rb");

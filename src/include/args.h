@@ -5,9 +5,6 @@
 #include "lib5717.h"
 #include "log.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-
 // VERSION.SVERSION.SSVERSION
 // if version is 1 and sversion and ssversion are 0
 // becomes 1.0.0
@@ -16,7 +13,7 @@
 #define SSVERSION 1
 
 // deal with arguments passed into main
-int deal_the_args(int argc, char *argv[]);
+int deal_the_args(const int argc, const char *argv[]);
 // initialize the lexer and lex the input file
 int lex(lexer_t *lexer, file_t *file);
 

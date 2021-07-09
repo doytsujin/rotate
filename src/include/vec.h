@@ -1,8 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#include <stddef.h>
-#include <stdlib.h>
+#include "common.h"
 
 // General sequence macros
 #define seq_elem_type(seq) typeof(*(seq)->elements)

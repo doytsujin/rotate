@@ -1,13 +1,11 @@
 #ifndef LEXER_H
 #define LEXER_H
 
+#include "common.h"
 #include "file.h"
 #include "token.h"
 #include "utils.h"
 #include "vec.h"
-#include <ctype.h>
-#include <stdbool.h>
-#include <stdint.h>
 
 // types of possible errors
 typedef enum
@@ -73,6 +71,5 @@ void tokens_free(vec(tkn_t) tkns);
 
 // to lex the lexer
 size_t lexer_lex(lexer_t *lexer);
-
 
 #endif /* LEXER_H */

@@ -1,22 +1,23 @@
 #ifndef AST_H
 #define AST_H
 
+#include "lexer.h"
 #include "token.h"
 
 //! NOT IMPLEMENTED YET
 
-typedef struct ast_t ast_t;
-typedef struct scope_ast_t scope_ast_t;
+void ast(lexer_t *lexer);
 
-typedef struct scope_ast_t
+typedef struct
 {
-    scope_ast_t *previous;
-} scope_ast_t;
+    tkn_t left;
+    tkn_t right;
+    tkn_t op;
+} binary_node_t;
 
-typedef struct {
-    tkn_t kind;
-    scope_ast_t *scope;
-} variables_ast_t;
-
+typedef struct
+{
+    int bruh;
+} bruh_t;
 
 #endif /* AST_H */

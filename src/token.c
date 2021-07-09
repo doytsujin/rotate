@@ -1,6 +1,6 @@
 #include "include/token.h"
 
-const char *tkn_type_describe(tkn_type_t type)
+const char *tkn_type_describe(const tkn_type_t type)
 {
     switch (type)
     {
@@ -119,13 +119,13 @@ const char *tkn_type_describe(tkn_type_t type)
         case TknTypeBreak:
             return "break";
         case TknTypeTo:
-            return "To";    
+            return "To";
         default:
             return "???";
     }
 }
 
-void tkn_dump(tkn_t *tkn, FILE *file_log)
+void tkn_dump(const tkn_t *tkn, FILE *file_log)
 {
     // dump to terminal (currently commented)
     /*fprintf(file_log,
@@ -135,6 +135,6 @@ void tkn_dump(tkn_t *tkn, FILE *file_log)
             tkn_type_describe(tkn->type), tkn->pos.file, tkn->pos.line, tkn->pos.col, tkn->value);
     */
     // dump token data to file.
-    fprintf(file_log, "Token '%s' at %s:%zu:%zu  with text \"%s\"\n",
-            tkn_type_describe(tkn->type), tkn->pos.file, tkn->pos.line, tkn->pos.col, tkn->value);
+    fprintf(file_log, "Token '%s' at %s:%zu:%zu  with text \"%s\"\n", tkn_type_describe(tkn->type),
+            tkn->pos.file, tkn->pos.line, tkn->pos.col, tkn->value);
 }

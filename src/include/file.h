@@ -1,8 +1,7 @@
 #ifndef FILE_H
 #define FILE_H
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "common.h"
 
 typedef struct
 {
@@ -12,6 +11,6 @@ typedef struct
 } file_t;
 
 // Reads a file with the given name and returns an object to later be freed
-file_t *file_read(char *name);
+file_t *file_read(const char *name);
 
 #endif /* FILE_H */

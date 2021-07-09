@@ -1,6 +1,6 @@
 #include "include/prettyerr.h"
 
-char *err_msgsfunc(lexer_t *lexer)
+const char *err_msgsfunc(lexer_t *lexer)
 {
     switch (lexer->error_type)
     {
@@ -18,9 +18,8 @@ char *err_msgsfunc(lexer_t *lexer)
     return "The char/token is unknown.";
 }
 
-char *advice(lexer_t *lexer)
+const char *advice(lexer_t *lexer)
 {
-
     switch (lexer->error_type)
     {
 
@@ -58,9 +57,9 @@ bool is_location_needed(lexer_t *lexer)
 size_t lexer_lex_failure(lexer_t *lexer)
 {
 
-    char *err_msg = err_msgsfunc(lexer);
-    char *err_advice = advice(lexer);
-    bool print_location = is_location_needed(lexer);
+    const char *err_msg = err_msgsfunc(lexer);
+    const char *err_advice = advice(lexer);
+    const bool print_location = is_location_needed(lexer);
     // size_t len = lexer->length;
 
     // char word[len + 1];
@@ -107,7 +106,6 @@ size_t lexer_lex_failure(lexer_t *lexer)
         if (k == 1)
         {
             spaces[0] = '\0';
-            spaces[1] = '\0';
         }
         spaces[i] = ' ';
     }
@@ -116,7 +114,6 @@ size_t lexer_lex_failure(lexer_t *lexer)
         if (count == 1)
         {
             space_line[0] = '\0';
-            space_line[1] = '\0';
         }
         space_line[i] = ' ';
     }

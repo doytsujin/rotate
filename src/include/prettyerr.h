@@ -5,10 +5,10 @@
 #include "lib5717.h"
 
 // error msg output
-char *err_msgsfunc(lexer_t *lexer);
+const char *err_msgsfunc(lexer_t *lexer);
 
 // advice for error msgs output
-char *advice(lexer_t *lexer);
+const char *advice(lexer_t *lexer);
 
 // if location of error is needed or not
 bool is_location_needed(lexer_t *lexer);

@@ -1,9 +1,7 @@
 #ifndef CLIB_5717_H
 #define CLIB_5717_H
 
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
+#include "common.h"
 
 /*****************\
  string  functions
@@ -23,7 +21,7 @@ size_t str_length(const char *str);
 \*****************/
 
 // get number of digits in number
-size_t get_number_of_digits(int number);
+size_t get_number_of_digits(const int number);
 
 /*****************\
   color constants

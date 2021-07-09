@@ -303,13 +303,29 @@ static size_t lexer_single(lexer_t *lexer)
             lexer_tkn(lexer, TknTypeNewline);
             break;
         case '+':
-            lexer_tkn(lexer, TknTypePLUS);
+            if (peek() == '=')
+            {
+                add_len();
+                lexer_tkn(lexer, TknTypeAddEqual);
+                lexer_advance(lexer);
+            }
+            else
+            {
+                lexer_tkn(lexer, TknTypePLUS);
+            }
             break;
+
         case '-':
             if (peek() == '>')
             {
                 add_len();
                 lexer_tkn(lexer, TknTypeArrow);
+                lexer_advance(lexer);
+            }
+            else if (peek() == '=')
+            {
+                add_len();
+                lexer_tkn(lexer, TknTypeSubEqual);
                 lexer_advance(lexer);
             }
             else
@@ -318,10 +334,25 @@ static size_t lexer_single(lexer_t *lexer)
             }
             break;
         case '*':
-            lexer_tkn(lexer, TknTypeStar);
+            if (peek() == '=')
+            {
+                add_len();
+                lexer_tkn(lexer, TknTypeMultEqual);
+                lexer_advance(lexer);
+            }
+            else
+            {
+                lexer_tkn(lexer, TknTypeStar);
+            }
             break;
         case '/':
-            if (peek() == '/')
+            if (peek() == '=')
+            {
+                add_len();
+                lexer_tkn(lexer, TknTypeDivEqual);
+                lexer_advance(lexer);
+            }
+            else if (peek() == '/')
             {
                 while (!is_eof() && current() != '\n' && current() != '\0')
                 {

@@ -1,6 +1,6 @@
 #include "include/args.h"
 
-int main(int argc, char *argv[])
+int main(const int argc, const char *argv[])
 {
     // deal with the arguments
     if (argc == 1)
