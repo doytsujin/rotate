@@ -32,12 +32,13 @@ int lex(lexer_t *lexer, file_t *file)
     if (lexer_lex(lexer) == EXIT_FAILURE)
     {
         free(file);
-        free(lexer->output);
+        tokens_free(lexer->output);
+        //free(lexer->output);
         return EXIT_FAILURE;
     }
 
     // log into output.md
-    // TODO: 
+    // TODO:
     log_md(lexer, "output.md", "a");
     // end log
 
