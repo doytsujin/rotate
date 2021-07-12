@@ -10,17 +10,19 @@ simple static typing scripting language that gets inspired by C-like and Rust's 
 
 ## Developer requirements 
 
-- Unix environment with Build essential pkg
-- C Gcc compiler
-- Clang-tools
+- Unix environment with Build essential pkg (make)
+- C compiler
+
 ---
 extras (optional):
-- DMD: D Language compiler
-- Zig compiler
+- DMD: D Language compiler (run tester)
+- Zig compiler (cross-compiler)
 - google afl
 - valgrind
 - cppcheck
-
+- render50 (for generating pdfs)
+- clang-tools (requires clang)
+- emacs with org-mode (for docs)
 
 ---
 ## Hello World example

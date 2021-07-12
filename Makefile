@@ -51,3 +51,6 @@ lint:
 
 edit:
 	vim ./src/
+
+pdf:
+	render50 src/*.c src/include/*.h -o code.pdf

@@ -1,7 +1,7 @@
 #+TITLE: Rotate Programming Language Documentation
 #+OPTIONS: num:nil toc:nil
 #+LaTeX_HEADER: \usepackage{minted}
-
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="extra.css"/>
 
 * About
  - Low learning curve.

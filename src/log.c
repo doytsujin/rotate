@@ -1,4 +1,5 @@
 #include "include/log.h"
+#include <stdio.h>
 
 void rotate_log(lexer_t *lexer, const char *filename, const char *filemode)
 {
@@ -46,7 +47,8 @@ void rotate_log(lexer_t *lexer, const char *filename, const char *filemode)
         fprintf(file_log, "\t\"file\":\"%s\",\n", lexer->input->name);
         fprintf(file_log, "\t\"length\":\"%zu\",\n", lexer->input->length);
         fprintf(file_log, "\t\"EXIT_STATUS\" : 0,");
-        fprintf(file_log, "\n\t// PROGRAM START\n");
+        fprintf(file_log, "\n\t\"// PROGRAM START\":\"src code\",\n");
+        fprintf(file_log, "%s", lexer->input->contents);
         for_each(lexer->output, tkn_t)
         {
             fprintf(file_log, "\n\t\"%s\": \"%s\",", tkn_type_describe(tkn_t->type), tkn_t->value);

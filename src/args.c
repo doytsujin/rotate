@@ -1,6 +1,5 @@
 #include "include/args.h"
 #include "include/ast.h"
-#include "include/lexer.h"
 
 // TODO
 int deal_the_args(const int argc, const char *argv[])
